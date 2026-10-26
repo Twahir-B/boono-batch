@@ -10,8 +10,9 @@ Built by **Boono Innovz Team** · Amounts are in **UGX**.
 
 | You have | Use this |
 |---|---|
-| **Android phone** | Download `B-records.apk` from the [**Releases**](../../releases) page and open it. |
+| **Android phone** | [**Download B-records.apk**](https://github.com/Twahir-B/boono-batch/releases/latest/download/B-records.apk) and open it. |
 | **iPhone, tablet or computer** | Open the web app: **https://twahir-b.github.io/boono-batch/b-records/** |
+| **Any device, as a file** | [**Download B-records.html**](https://github.com/Twahir-B/boono-batch/releases/latest/download/B-records.html) and open it in your browser. |
 
 ### Install on Android
 1. Open the [Releases](../../releases) page and download `B-records.apk`.
