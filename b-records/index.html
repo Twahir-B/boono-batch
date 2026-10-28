@@ -922,6 +922,8 @@ input.bad{outline:2px solid #c62828;background:#fdecea}
 .role-worker .owner-only,.role-worker .money-sec,.role-worker #todayShareBtn.owner-only{display:none!important}
 .worker-entry{margin:18px 0 6px;text-align:center}
 .app-dialog-area{width:100%;min-height:110px;font:inherit;resize:vertical}
+.warn-note{background:#FFF4D6;border:1px solid #E0B341;color:#5A4300;padding:10px 12px;border-radius:10px;margin:8px 0;font-size:.95rem}
+html[data-theme="dark"] .warn-note{background:#3A3115;border-color:#8A6D1F;color:#F3E2B0}
 
 </style>
 </head>
@@ -2456,6 +2458,7 @@ function recompute(state) {
     dailyComputed.push({
       dayNo, date, feedType, water, dailyGain,
       liveEnd, liveAfterMort, cumSoldToDate, cumMortality, mortPct, feedPrice, dailyFeedCost,
+      feedUnpriced: feedConsumed !== null && feedConsumed > 0 && feedPrice === null,
       cumFeed, cumFCR,
       hasEntry: feedConsumed !== null || mortality !== null || avgWeightG !== null,
     });
@@ -2503,6 +2506,8 @@ function recompute(state) {
   const targetFCR = num(s.targetFCR);
 
   const feedCostTotal = dailyComputed.reduce((a, d) => a + (d.dailyFeedCost || 0), 0);
+  const unpricedFeedDays = dailyComputed.filter((d) => d.feedUnpriced).length;
+  const unpricedFeedKg = dailyComputed.reduce((a, d, i) => a + (d.feedUnpriced ? (num(daily[i] && daily[i].feedConsumed) || 0) : 0), 0);
   const opCostTotal = state.costs.reduce((a, c) => {
     let v = num(c.amount);
     // If amount was left blank but description is a pure number (common mis-entry), use it
@@ -2589,7 +2594,7 @@ function recompute(state) {
       birdsAvailable,
       numberSold,
       salesRevenue,
-      feedCostTotal,
+      feedCostTotal, unpricedFeedDays, unpricedFeedKg,
       opCostTotal,
       totalCost: totalCostReal,
       netProfit,
@@ -2969,6 +2974,7 @@ function recompute(state, todayIso) {
       mort, culls, cumMort, cumCull, cumMortPct: placed ? cumMort / placed : null,
       liveEnd, eggs, broken, sellable, trays: sellable === null ? null : sellable / ept,
       hd, hh: null, feedPerBirdG, feedPerEggG, feedCost, cumFeed, cumFeedCost,
+      feedUnpriced: feedKg !== null && feedKg > 0 && feedPrice === null,
       inLay: weekOfLife >= onsetWk, pastDepl: weekOfLife > depletionWk,
       weight, temp, soldToDate: cumSold,
       hasEntry: ["feedKg", "mort", "culls", "eggs", "broken", "weight", "temp"].some((k) => num(row[k]) !== null),
@@ -3030,6 +3036,8 @@ function recompute(state, todayIso) {
   const sumCulls = sum("culls");
   const totalFeed = sum("feedKg");
   const feedCostTotal = sum("feedCost");
+  const unpricedFeedDays = daily.filter((d) => d.feedUnpriced).length;
+  const unpricedFeedKg = daily.reduce((a, d) => a + (d.feedUnpriced ? (d.feedKg || 0) : 0), 0);
   const totalWater = sum("water");
   const totalEggs = sum("eggs");
   const totalBroken = daily.reduce((a, d) => a + (d.eggs !== null ? d.broken || 0 : 0), 0);
@@ -3142,7 +3150,7 @@ function recompute(state, todayIso) {
     setup: {
       totalPulletCost, birdsAtLay, birdsAtLayEst, birdsAlive, sumMortality, sumCulls,
       mortalityPct, lossPct, totalEggs, totalBroken, brokenPct: totalEggs ? totalBroken / totalEggs : null,
-      sellableEggs, trays, totalFeed, feedCostTotal, opCostTotal, totalCost,
+      sellableEggs, trays, totalFeed, feedCostTotal, unpricedFeedDays, unpricedFeedKg, opCostTotal, totalCost,
       eggRevenue, eggRevenueSource, henRevenue, otherSalesRevenue, otherRevenue, totalRevenue, netProfit,
       costPerEgg, costPerTray, breakEvenTray, breakEvenTrays, nonEggRevenue, effTrayPrice,
       avgHD, avgHH, peakHD, peakWeek, currentWeek, weeksOfLay,
@@ -5587,6 +5595,19 @@ return { recompute, DAY_ROWS, WEEK_ROWS, VAX_ROWS, MED_ROWS, COST_ROWS, SALE_ROW
     return out;
   }
 
+  /** Warn (owner only) when feed was recorded on days that have no feed price. */
+  function renderFeedWarn(c) {
+    const banner = document.getElementById("repProfitBanner");
+    if (!banner) return;
+    let w = document.getElementById("repFeedWarn");
+    if (!w) { w = document.createElement("p"); w.id = "repFeedWarn"; w.className = "warn-note"; banner.parentNode.insertBefore(w, banner); }
+    const n = c && c.unpricedFeedDays;
+    if (!isWorker() && n > 0) {
+      w.style.display = "";
+      w.innerHTML = "<strong>Feed cost is too low.</strong> Feed was recorded on " + n + " day" + (n === 1 ? "" : "s") + " (" + fmtDec(c.unpricedFeedKg, 1) + " kg) that have no feed price, so that feed is not counted and the profit looks better than it is. Open the feed tab, turn on the feed that covers those days and type its price.";
+    } else { w.style.display = "none"; }
+  }
+
   // ---------------- Start screen: choose a kind of batch, read the guide ----------------
   const START_HERE_KEY = "bRecords.seenStartHere";
   let guideType = null;
@@ -6279,6 +6300,7 @@ function makeBroiler() {
     setText("repRevenue", fmtMoney(c.salesRevenue));
     setText("repProfit", fmtMoney(c.netProfit));
     setProfitColor("repProfit", c.netProfit);
+    renderFeedWarn(c);
     setText("repBEPrice", fmtMoney(c.breakEvenPrice));
     setText("repBEBirds", fmtInt(c.breakEvenBirds));
 
@@ -6586,6 +6608,7 @@ function makeBroiler() {
       if (t !== null && t >= 30) msgs.push("<strong>Heat:</strong> " + t + "°C — the hot-weather water ratio is used for this day.");
       const m = num(r.mortality), live = d && d.liveEnd;
       if (m && live && m / (live + m) >= 0.01) msgs.push("<strong>Mortality:</strong> " + m + " birds died (1% of the flock or more). Check the cause.");
+      if (!isWorker() && computed.daily[idx] && computed.daily[idx].feedUnpriced) msgs.push("<strong>No feed price:</strong> this day's feed has no price, so its cost is not counted. Check the Feed Program tab.");
       return msgs;
     },
     liveNote(idx) {
@@ -7703,6 +7726,7 @@ function makeLayer() {
     setText("repTotalRev", fmtMoney(c.totalRevenue));
     setText("repProfit", fmtMoney(c.netProfit));
     setProfitColor("repProfit", c.netProfit);
+    renderFeedWarn(c);
     setText("repCostEgg", fmtDec(c.costPerEgg, 1));
     setText("repCostTray", fmtMoney(c.costPerTray));
     setText("repBETray", fmtMoney(c.breakEvenTray));
@@ -8069,6 +8093,7 @@ function makeLayer() {
       if (c.temp !== null && c.temp >= 30) msgs.push("<strong>Heat:</strong> " + c.temp + "°C — the hot-weather water ratio is used for this day.");
       if (highMortAt(idx)) msgs.push("<strong>Losses:</strong> high deaths / culls today. Check the cause.");
       if (eggDropAt(idx)) msgs.push("<strong>Egg drop:</strong> hen-day is 10 points or more below last week. Check feed, water, heat, light and disease.");
+      if (!isWorker() && c.feedUnpriced) msgs.push("<strong>No feed price:</strong> this day's feed has no price, so its cost is not counted. Check the Phases &amp; Feed tab.");
       return msgs;
     },
     liveNote(idx) {
