@@ -1134,7 +1134,7 @@ html[data-theme="dark"] .warn-note{background:#3A3115;border-color:#8A6D1F;color
         <li>
           <div>
             <strong>Enter eggs as numbers — the app makes the trays</strong>
-            <span>Type the eggs collected and the broken or rejected eggs for the day. <strong>Sellable eggs = collected − broken.</strong> Trays = sellable eggs ÷ 30 (you can change the eggs-per-tray number in Batch Setup). Reports and sales show trays first, because that is how you sell. Leave a day blank if you did not record it; type <strong>0</strong> if the hens really laid no eggs, so the hen-day % counts that day.</span>
+            <span>Type the eggs collected and the broken or rejected eggs for the day. <strong>Sellable eggs = collected − broken.</strong> Trays = sellable eggs ÷ the eggs-per-tray number in Batch Setup (30 unless you change it). Reports and sales show trays first, because that is how you sell. Leave a day blank if you did not record it; type <strong>0</strong> if the hens really laid no eggs, so the hen-day % counts that day.</span>
           </div>
         </li>
         <li>
@@ -1258,7 +1258,7 @@ html[data-theme="dark"] .warn-note{background:#3A3115;border-color:#8A6D1F;color
           <tr><td class="day">Net profit / loss</td><td>Total revenue − total cost. Green is profit, red is loss.</td></tr>
           <tr><td class="day">Cost per egg / tray</td><td>Total cost ÷ sellable eggs, and total cost ÷ trays.</td></tr>
           <tr><td class="day">Break-even price per tray</td><td>(Total cost − income that is not from eggs) ÷ trays produced. The lowest tray price that avoids a loss for the trays produced so far.</td></tr>
-          <tr><td class="day">Break-even trays to sell</td><td>(Total cost − income that is not from eggs) ÷ your tray price, rounded up. How many trays you must sell at your price to cover the costs so far.</td></tr>
+          <tr><td class="day">Break-even trays to sell</td><td>Total cost ÷ your tray price, rounded up. How many trays you must sell at your price to cover all your costs so far. Other income is not counted.</td></tr>
         </tbody>
       </table>
     </div>
@@ -1823,7 +1823,7 @@ html[data-theme="dark"] .warn-note{background:#3A3115;border-color:#8A6D1F;color
 
       <div class="card">
         <h2>Break-Even</h2>
-        <p class="hint small">Break-Even Price per Tray: the lowest tray price that avoids a loss, after counting spent-hen and other income. Break-Even Trays: the minimum trays to sell at your set price to cover the total cost.</p>
+        <p class="hint small">Break-Even Price per Tray: the lowest tray price that covers all your costs if you sell the trays you have produced. Break-Even Trays: the minimum trays to sell at your set price to cover all your costs. Spent-hen and other income is shown separately in the Batch Report.</p>
         <div class="field readonly"><label>Cost per Egg (UGX)</label><output id="costPerEgg">—</output></div>
         <div class="field readonly"><label>Cost per Tray (UGX)</label><output id="costPerTray">—</output></div>
         <div class="field readonly"><label>Break-Even Price per Tray (UGX)</label><output id="breakEvenTray">—</output></div>
@@ -2062,7 +2062,7 @@ html[data-theme="dark"] .warn-note{background:#3A3115;border-color:#8A6D1F;color
           <div><label>Mortality %</label><span id="repMortalityPct">—</span></div>
           <div><label>Total Eggs Laid</label><span id="repEggs">—</span></div>
           <div><label>Sellable Eggs</label><span id="repSellable">—</span></div>
-          <div><label>Trays Produced (30 eggs)</label><span id="repTrays">—</span></div>
+          <div><label>Trays Produced</label><span id="repTrays">—</span></div>
         </div>
         <div>
           <div><label>Average Hen-Day %</label><span id="repAvgHD">—</span></div>
@@ -2655,7 +2655,7 @@ const BREEDS = [
 
 /* Sales rows: "Item" decides how a row is treated. */
 const SALE_ITEMS = [
-  "Egg trays (30 eggs)",
+  "Egg trays",
   "Loose eggs",
   "Spent hens",
   "Culled birds",
@@ -3085,9 +3085,11 @@ function recompute(state, todayIso) {
 
   const costPerEgg = totalCost !== null && sellableEggs > 0 ? totalCost / sellableEggs : null;
   const costPerTray = totalCost !== null && trays > 0 ? totalCost / trays : null;
-  const breakEvenTray = totalCost !== null && trays > 0 ? Math.max(0, totalCost - nonEggRevenue) / trays : null;
+  const breakEvenTray = totalCost !== null && trays > 0 ? totalCost / trays : null;
+  const breakEvenTrayNet = totalCost !== null && trays > 0 ? Math.max(0, totalCost - nonEggRevenue) / trays : null;
   const effTrayPrice = trayP !== null && trayP > 0 ? trayP : (eggP !== null && eggP > 0 ? eggP * ept : null);
-  const breakEvenTrays = totalCost !== null && effTrayPrice ? Math.ceil(Math.max(0, totalCost - nonEggRevenue) / effTrayPrice) : null;
+  const breakEvenTrays = totalCost !== null && effTrayPrice ? Math.ceil(totalCost / effTrayPrice) : null;
+  const breakEvenTraysNet = totalCost !== null && effTrayPrice ? Math.ceil(Math.max(0, totalCost - nonEggRevenue) / effTrayPrice) : null;
 
   const birdsAlive = placed === null ? null : Math.max(0, placed - sumMortality - sumCulls - birdsSoldTotal);
   const mortalityPct = placed ? sumMortality / placed : null;
@@ -3152,7 +3154,7 @@ function recompute(state, todayIso) {
       mortalityPct, lossPct, totalEggs, totalBroken, brokenPct: totalEggs ? totalBroken / totalEggs : null,
       sellableEggs, trays, totalFeed, feedCostTotal, unpricedFeedDays, unpricedFeedKg, opCostTotal, totalCost,
       eggRevenue, eggRevenueSource, henRevenue, otherSalesRevenue, otherRevenue, totalRevenue, netProfit,
-      costPerEgg, costPerTray, breakEvenTray, breakEvenTrays, nonEggRevenue, effTrayPrice,
+      costPerEgg, costPerTray, breakEvenTray, breakEvenTrays, breakEvenTrayNet, breakEvenTraysNet, nonEggRevenue, effTrayPrice,
       avgHD, avgHH, peakHD, peakWeek, currentWeek, weeksOfLay,
       feedPerBirdLayG, feedPerEggG, totalWater, lastWeight,
       profitMargin: totalRevenue ? (netProfit === null ? null : netProfit / totalRevenue) : null,
@@ -6901,15 +6903,15 @@ function makeLayer() {
   }
 
   function beSentenceText(c) {
-    const s = state.setup;
     if (c.totalCost === null) return "Fill in what you paid for the birds, your feed prices and your tray price, and this line will tell you how many trays you must sell to cover your costs.";
-    const needed = Math.max(0, c.totalCost - (c.nonEggRevenue || 0));
     const price = c.effTrayPrice;
     const have = fmtDec(c.trays, 1);
-    if (needed <= 0) return "Your spent-hen and other income already covers all your costs so far. You have produced " + have + " trays.";
-    if (!price) return "You have produced " + have + " trays and your costs so far are UGX " + fmtMoney(needed) + " (after other income). Type your tray price in the Flock & Pricing box to see how many trays you must sell.";
-    return "You have produced " + have + " trays and need to sell " + fmtInt(c.breakEvenTrays) + " trays at UGX " + fmtMoney(price) + " each to cover your costs of UGX " + fmtMoney(needed) + " (after other income)." +
-      (c.breakEvenTray !== null ? " Or sell the trays you have at UGX " + fmtMoney(c.breakEvenTray) + " or more." : "");
+    const costs = "Your costs so far are UGX " + fmtMoney(c.totalCost) + ". You have produced " + have + " trays.";
+    if (!price) return costs + " Type your tray price in the Flock & Pricing box to see how many trays you must sell.";
+    let t = costs + " To cover all your costs from eggs, sell " + fmtInt(c.breakEvenTrays) + " trays at UGX " + fmtMoney(price) + " each" +
+      (c.breakEvenTray !== null ? ", or sell the trays you have at UGX " + fmtMoney(c.breakEvenTray) + " or more." : ".");
+    t += " More feed will add to your costs.";
+    return t;
   }
 
   function fillSetupInputs() {
@@ -7546,7 +7548,7 @@ function makeLayer() {
     body.innerHTML = "";
     (state.sales || []).forEach((row, idx) => {
       const tr = document.createElement("tr");
-      const opts = SALE_ITEMS.map((it) => `<option value="${escapeHtml(it)}"${it === row.item ? " selected" : ""}>${escapeHtml(it)}</option>`).join("");
+      const opts = SALE_ITEMS.map((it) => `<option value="${escapeHtml(it)}"${(it === row.item || (it === "Egg trays" && row.item === "Egg trays (30 eggs)")) ? " selected" : ""}>${escapeHtml(it)}</option>`).join("");
       tr.innerHTML = `
         <td><input type="date" data-idx="${idx}" data-field="date" value="${row.date || ""}"></td>
         <td><select data-idx="${idx}" data-field="item">${opts}</select></td>
