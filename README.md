@@ -14,8 +14,10 @@ Built by **Boono Innovz Team** · Amounts are in **UGX**.
 | **iPhone, tablet or computer** | Open the web app: **https://twahir-b.github.io/boono-batch/b-records/** |
 | **Any device, as a file** | [**Download B-records.html**](https://github.com/Twahir-B/boono-batch/releases/latest/download/B-records.html) and open it in your browser. |
 
+All downloads are also on the [**Releases**](../../releases) page.
+
 ### Install on Android
-1. Open the [Releases](../../releases) page and download `B-records.apk`.
+1. [Download `B-records.apk`](https://github.com/Twahir-B/boono-batch/releases/latest/download/B-records.apk).
 2. Open the downloaded file.
 3. If Android asks, allow **Install unknown apps** for your browser or file manager.
 4. Open **B-records** and read the short start screen.
@@ -60,10 +62,10 @@ After the first visit with internet, the web app also opens without internet.
 
 A manager can let a worker enter the daily numbers **without seeing any prices or profit**.
 
-1. **Manager:** menu ☰ → **Invite a worker (starter)**. Send the message by WhatsApp or save it as a file.
-2. **Worker:** open B-records → **I'm a worker** → paste the message (or open the file) and type their name.
-3. **Worker:** each day, enter feed, deaths, eggs or weights in **Today**. Then menu ☰ → **Send my records**.
-4. **Manager:** menu ☰ → **Merge worker records** → paste or open the worker's message.
+1. **Manager:** menu ☰ → **Invite a worker (starter)**. Send it by WhatsApp as a message, or as a `.json` file (the share sheet opens, so there is no saving first).
+2. **Worker:** on Android, tap the file you received and choose **B-records** (or open B-records → **I'm a worker** → paste the message or choose the file), then type their name.
+3. **Worker:** each day, enter feed, deaths, eggs or weights in **Today**. Then menu ☰ → **Send my records** (as a message or a file).
+4. **Manager:** tap the worker's file and choose **B-records**, or menu ☰ → **Merge worker records** → paste or choose the worker's message.
 
 When the manager merges, new figures are filled in, matching figures are ignored, and any difference is shown so the manager chooses which number to keep. Merging the same message twice changes nothing. Merged days are marked "entered by" the worker's name.
 
@@ -76,6 +78,8 @@ A worker cannot leave worker mode until their latest records have been sent.
 - Your records are stored **on your device**, not on a server. Nobody else can see them.
 - **Download a backup regularly.** Clearing the app's data, clearing the browser's data or uninstalling can delete your batches.
 - The library password protects the saved batches in your library. It does not lock the batch on your screen.
+- When you set a library password, the app shows a **recovery code** once. Write it on paper and keep it safe. If you forget the password, type the code instead. Nobody can recover the library without the password or the code, so keep a backup file too.
+- **Share a backup:** after you choose what to include, you can save the file on the phone or share it to WhatsApp or any app. On Android, tap a received `.json` file and choose B-records to restore it.
 - **Moving from the old Boono Batch or Boono Layer app?** B-records installs next to it and does not replace it. In the old app, use **Download backup**. In B-records, use menu ☰ → **Restore backup** and choose that file. Backups from the old apps are accepted.
 
 ---
@@ -83,7 +87,7 @@ A worker cannot leave worker mode until their latest records have been sent.
 ## Good to know
 
 - B-records does not replace advice from your veterinarian. Vaccine schedules and feed guides are common starting points, not instructions for your flock.
-- The web version keeps records inside one browser on one device. Open it from the same link each time, and keep backups.
+- The web version, and the downloaded HTML file, keep records inside one browser on one device. Open it from the same link each time, and keep backups.
 - Found a bug or have an idea? Open an [issue](../../issues), or contact us below.
 
 ## Contact

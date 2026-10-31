@@ -978,7 +978,7 @@ html[data-theme="dark"] .warn-note{background:#3A3115;border-color:#8A6D1F;color
         <li>
           <div>
             <strong>Library password is optional</strong>
-            <span>When you first save a batch to the library, you may set a password or leave it blank. A password encrypts saved batches and is required to unlock or delete them. Leaving it blank still saves batches on this phone, without a lock. If you Cancel the password step, your current work on screen is <em>not</em> cleared. If you set a password and later forget it, contact Boono support for recovery help.</span>
+            <span>When you first save a batch to the library, you may set a password or leave it blank. A password encrypts saved batches and is required to unlock or delete them. Leaving it blank still saves batches on this phone, without a lock. If you Cancel the password step, your current work on screen is <em>not</em> cleared. When you set a password, the app shows a <strong>recovery code</strong> once — write it on paper and keep it safe. If you forget the password, type the recovery code instead of the password to open your library. Nobody can recover the library without the password or the code, so also keep a backup file.</span>
           </div>
         </li>
         <li>
@@ -1015,7 +1015,7 @@ html[data-theme="dark"] .warn-note{background:#3A3115;border-color:#8A6D1F;color
         <li>
           <span>
             <strong>Feed Program</strong>
-            Turn each phase on or off (Pre-Starter, Starter, Grower, Finisher). Change the start and end day if your own program is different. Type the <strong>price per kilogram</strong> for every feed you use. Start and end dates fill automatically from the Placement Date. If you leave feed prices empty, the app cannot calculate true feed cost or true profit.
+            Turn each phase on or off (Pre-Starter, Starter, Grower, Finisher). Change the start and end day if your own program is different. Type the <strong>price per kilogram</strong> for every feed you use. Start and end dates fill automatically from the Placement Date. If you leave feed prices empty, the app cannot calculate true feed cost or true profit, and it shows an amber warning until you add them.
           </span>
         </li>
         <li>
@@ -1056,6 +1056,12 @@ html[data-theme="dark"] .warn-note{background:#3A3115;border-color:#8A6D1F;color
         </li>
         <li>
           <span>
+            <strong>Workers (optional)</strong>
+            A worker can type the daily numbers (feed, deaths and weight) without seeing any prices, costs, sales or profit. <strong>You:</strong> menu ☰ → <strong>Invite a worker</strong> and send it by WhatsApp, as a message or as a file. <strong>The worker:</strong> opens B-records → <strong>I'm a worker</strong> (or taps the file you sent and chooses B-records), then types their name and enters the daily numbers in <strong>Today</strong>. When done, the worker taps menu ☰ → <strong>Send my records</strong>. <strong>You:</strong> menu ☰ → <strong>Merge worker records</strong>, or just tap the file the worker sent. New figures are filled in; if a number is different from yours, you choose which one to keep. Merging the same records twice changes nothing. A worker cannot leave worker mode until the latest records have been sent.
+          </span>
+        </li>
+        <li>
+          <span>
             <strong>Menu ☰ — library, backups, and settings</strong>
             <br><br>
             <strong>Empty template</strong> stores your usual defaults only (farm names, prices, feed phases) — not daily data. Tap <strong>Update empty template from current</strong> when your defaults are set the way you like. Tap <strong>Use</strong> on the empty template to start a clean batch with those defaults.
@@ -1066,7 +1072,8 @@ html[data-theme="dark"] .warn-note{background:#3A3115;border-color:#8A6D1F;color
             <span><strong>Download backup:</strong> type <strong>1</strong> = the batch on screen only; type <strong>2</strong> = everything (screen + library + empty template). File goes into the phone’s <strong>B-records</strong> folder when storage is allowed.<br>
             <strong>Export</strong> on a library row saves <em>that one batch only</em> — other batches are not in the file.<br>
             <strong>Restore backup:</strong> type <strong>1</strong> open on screen only (library unchanged); <strong>2</strong> add into library only (screen unchanged, other batches kept); <strong>3</strong> add to library and open; <strong>4</strong> full replace only if the file is a full backup (overwrites library — use with care).<br>
-            Always download a backup before uninstalling the app.</span>
+            Always download a backup before uninstalling the app.<br>
+            After you choose what to include, you can <strong>Save on this phone</strong> or <strong>Share it</strong> to WhatsApp or any app without saving first (when your phone allows it). In the Android app, a <strong>.json</strong> file you receive can be opened by tapping it and choosing <strong>B-records</strong>.</span>
             <br><br>
             <strong>New batch / Load / Use empty template</strong> automatically save the batch on screen into the library first (when there is data to keep), so you do not lose the last numbers you typed. You can still use <strong>Save batch to library</strong> any time.<br>
             <br><br>
@@ -1077,8 +1084,33 @@ html[data-theme="dark"] .warn-note{background:#3A3115;border-color:#8A6D1F;color
       <p class="start-here-text" style="margin-top:12px;">You can open these instructions again at any time from the menu ☰ → <strong>Instructions</strong>, or from the Instructions link at the bottom of each section.</p>
     </div>
 
+    <div class="card">
+      <h2><span class="step-num">2</span> How the numbers are calculated</h2>
+      <p class="start-here-text">Every calculated figure follows the broiler batch record. Here is what each one means, so you can check it yourself. Weights are typed in grams.</p>
+      <table class="vax-table calc-table">
+        <thead><tr><th>Figure</th><th>How it is worked out</th></tr></thead>
+        <tbody>
+          <tr><td class="day">Total chick cost</td><td>Chicks placed × chick cost per bird.</td></tr>
+          <tr><td class="day">Live birds</td><td>Chicks placed − deaths so far − birds sold (counted from the sale date). Shown for the end of each day.</td></tr>
+          <tr><td class="day">Mortality %</td><td>All deaths so far ÷ chicks placed × 100. Survival rate = 100 − mortality %.</td></tr>
+          <tr><td class="day">Feed per bird</td><td>Feed kg × 1000 ÷ live birds (grams per bird for the day).</td></tr>
+          <tr><td class="day">Water needed</td><td>Feed kg × your water ratio (litres per kg of feed). On a day with 30 °C or more, the hot-weather ratio is used. Both ratios are in Batch Setup.</td></tr>
+          <tr><td class="day">Daily gain</td><td>Today's average weight − the last weight you recorded (the first day uses the opening chick weight), in grams.</td></tr>
+          <tr><td class="day">Feed cost</td><td>Feed kg × the price per kg of the feed that applies to that day (set in the Feed Program).</td></tr>
+          <tr><td class="day">FCR</td><td>All feed eaten so far (kg) ÷ weight gained (kg). Weight gained = live birds after deaths × average weight − chicks placed × opening weight. A lower FCR is better. It needs an average weight to be typed.</td></tr>
+          <tr><td class="day">Total cost</td><td>Total chick cost + feed cost + all costs you added in Costs.</td></tr>
+          <tr><td class="day">Sales revenue</td><td>The birds you logged as sold × their price. If you logged no sales, the app assumes all surviving birds are sold at the selling price in Batch Setup. Other revenue is added.</td></tr>
+          <tr><td class="day">Net profit / loss</td><td>Sales revenue − total cost. Green is profit, red is loss.</td></tr>
+          <tr><td class="day">Profit margin</td><td>Net profit ÷ sales revenue × 100.</td></tr>
+          <tr><td class="day">Cost per bird sold</td><td>Total cost ÷ birds sold (or surviving birds when no sales are logged).</td></tr>
+          <tr><td class="day">Break-even price per bird</td><td>Total cost ÷ birds sold (or surviving birds when no sales are logged). The lowest price per bird that avoids a loss. Other revenue is not counted.</td></tr>
+          <tr><td class="day">Break-even birds</td><td>Total cost ÷ your selling price, rounded up. How many birds you must sell at your price to cover all your costs so far. Other revenue is not counted.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
     <div class="card vax-card">
-      <h2><span class="step-num">2</span> Standard vaccination schedule</h2>
+      <h2><span class="step-num">3</span> Standard vaccination schedule</h2>
       <p class="start-here-text">Below is a common vaccination program used with broilers in Uganda (Newcastle disease and Gumboro / IBD). It is a starting guide only — your hatchery or veterinary officer may recommend a different program for your area.</p>
       <p class="start-here-text">If the box at the bottom stays ticked, the app will add these five rows into the Medication Log automatically the first time you enter a <strong>Placement Date</strong> in Batch Setup, but only if the Medication Log is still empty. The dates are calculated from that placement day. After the rows appear you can change the dates, change the product names, add extra treatments, or delete any row you do not need.</p>
       <table class="vax-table">
@@ -1146,7 +1178,7 @@ html[data-theme="dark"] .warn-note{background:#3A3115;border-color:#8A6D1F;color
         <li>
           <div>
             <strong>Library password is optional</strong>
-            <span>When you first save a batch to the library, you may set a password or leave it blank. A password encrypts saved batches and is required to unlock or delete them. If you set a password and later forget it, contact support for recovery help.</span>
+            <span>When you first save a batch to the library, you may set a password or leave it blank. A password encrypts saved batches and is required to unlock or delete them. When you set a password, the app shows a <strong>recovery code</strong> once — write it on paper and keep it safe. If you forget the password, type the recovery code instead of the password to open your library. Nobody can recover the library without the password or the code, so also keep a backup file.</span>
           </div>
         </li>
         <li>
@@ -1171,7 +1203,7 @@ html[data-theme="dark"] .warn-note{background:#3A3115;border-color:#8A6D1F;color
         <li>
           <span>
             <strong>Phases &amp; Feed</strong>
-            Two tables you can edit. <strong>Lifecycle Phases</strong> are the names the app shows for each stage (Brooding, Rearing, Growing, Pre-Lay, Lay, Post-Peak, Late-Lay) — change the names or weeks, or add and delete phases. <strong>Feed Program</strong> has the five feeds: turn each on or off, change the weeks, and type the <strong>price per kg</strong> of each feed you use. Without feed prices the app cannot calculate true feed cost or profit.
+            Two tables you can edit. <strong>Lifecycle Phases</strong> are the names the app shows for each stage (Brooding, Rearing, Growing, Pre-Lay, Lay, Post-Peak, Late-Lay) — change the names or weeks, or add and delete phases. <strong>Feed Program</strong> has the five feeds: turn each on or off, change the weeks, and type the <strong>price per kg</strong> of each feed you use. Without feed prices the app cannot calculate true feed cost or profit, and it shows an amber warning until you add them.
           </span>
         </li>
         <li>
@@ -1218,6 +1250,12 @@ html[data-theme="dark"] .warn-note{background:#3A3115;border-color:#8A6D1F;color
         </li>
         <li>
           <span>
+            <strong>Workers (optional)</strong>
+            A worker can type the daily numbers (feed, deaths and eggs) without seeing any prices, costs, sales or profit. <strong>You:</strong> menu ☰ → <strong>Invite a worker</strong> and send it by WhatsApp, as a message or as a file. <strong>The worker:</strong> opens B-records → <strong>I'm a worker</strong> (or taps the file you sent and chooses B-records), then types their name and enters the daily numbers in <strong>Today</strong>. When done, the worker taps menu ☰ → <strong>Send my records</strong>. <strong>You:</strong> menu ☰ → <strong>Merge worker records</strong>, or just tap the file the worker sent. New figures are filled in; if a number is different from yours, you choose which one to keep. Merging the same records twice changes nothing. A worker cannot leave worker mode until the latest records have been sent.
+          </span>
+        </li>
+        <li>
+          <span>
             <strong>Menu ☰ — library, backups, and settings</strong>
             <br><br>
             <strong>Empty template</strong> stores your usual defaults only (farm names, prices, phases, feed prices) — not daily data. Tap <strong>Update empty template from current</strong> when your defaults are set the way you like. Tap <strong>Use</strong> on the template to start a clean batch with those defaults.
@@ -1228,7 +1266,8 @@ html[data-theme="dark"] .warn-note{background:#3A3115;border-color:#8A6D1F;color
             <span><strong>Download backup:</strong> type <strong>1</strong> = the batch on screen only; type <strong>2</strong> = everything (screen + library + templates).<br>
             <strong>Export</strong> on a library row saves <em>that one batch only</em>.<br>
             <strong>Restore backup:</strong> type <strong>1</strong> open on screen only (library unchanged); <strong>2</strong> add into library only; <strong>3</strong> add to library and open; <strong>4</strong> full replace (only for a full backup — overwrites the library, use with care).<br>
-            Always download a backup before uninstalling the app.</span>
+            Always download a backup before uninstalling the app.<br>
+            After you choose what to include, you can <strong>Save on this phone</strong> or <strong>Share it</strong> to WhatsApp or any app without saving first (when your phone allows it). In the Android app, a <strong>.json</strong> file you receive can be opened by tapping it and choosing <strong>B-records</strong>.</span>
             <br><br>
             <strong>Dark mode</strong> and <strong>Desktop view</strong> change appearance and layout. Open <strong>Instructions</strong> anytime to read this guide again.
           </span>
@@ -1257,7 +1296,7 @@ html[data-theme="dark"] .warn-note{background:#3A3115;border-color:#8A6D1F;color
           <tr><td class="day">Total revenue</td><td>Egg revenue + spent hen sales + other sales + other revenue.</td></tr>
           <tr><td class="day">Net profit / loss</td><td>Total revenue − total cost. Green is profit, red is loss.</td></tr>
           <tr><td class="day">Cost per egg / tray</td><td>Total cost ÷ sellable eggs, and total cost ÷ trays.</td></tr>
-          <tr><td class="day">Break-even price per tray</td><td>(Total cost − income that is not from eggs) ÷ trays produced. The lowest tray price that avoids a loss for the trays produced so far.</td></tr>
+          <tr><td class="day">Break-even price per tray</td><td>Total cost ÷ trays produced. The lowest tray price that covers all your costs if you sell every tray produced so far. Other income is not counted.</td></tr>
           <tr><td class="day">Break-even trays to sell</td><td>Total cost ÷ your tray price, rounded up. How many trays you must sell at your price to cover all your costs so far. Other income is not counted.</td></tr>
         </tbody>
       </table>
@@ -3879,8 +3918,21 @@ return { recompute, DAY_ROWS, WEEK_ROWS, VAX_ROWS, MED_ROWS, COST_ROWS, SALE_ROW
   const LIBRARY_KEY = "bRecords.library.v2";
   const LIBRARY_RECOVERY_KEY = "bRecords.library.recovery.v2";
   const LIBRARY_LEGACY_KEY = "bRecords.library.v1";
-    /** Master recovery password — only for support when a farmer forgets their library password. */
-  const LIBRARY_MASTER_PASSWORD = "Boono@#1%";
+  /** Personal recovery code: made on the farmer's phone, shown once, never stored on the phone itself.
+   *  The phone keeps only the library password locked with that code. */
+  const LIBRARY_RC_KEY = "bRecords.library.rc.v3";
+  const RC_ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+  function makeRecoveryCode() {
+    const bytes = new Uint8Array(12);
+    crypto.getRandomValues(bytes);
+    let s = "";
+    for (let i = 0; i < 12; i++) { s += RC_ALPHABET[bytes[i] & 31]; if (i % 4 === 3 && i < 11) s += "-"; }
+    return s;
+  }
+  function normalizeRecoveryCode(t) {
+    const s = String(t || "").toUpperCase().replace(/[^A-Z0-9]/g, "");
+    return s.length === 12 && /^[A-HJ-NP-Z2-9]+$/.test(s) ? s : null;
+  }
   /** Session password for the encrypted library (not stored on disk). */
   let librarySessionPassword = null;
   /** In-memory decrypted library — avoids re-running PBKDF2 on every menu open. */
@@ -3964,6 +4016,39 @@ return { recompute, DAY_ROWS, WEEK_ROWS, VAX_ROWS, MED_ROWS, COST_ROWS, SALE_ROW
     } catch (e) { return false; }
   }
 
+  /** Make a new recovery code for this library password, keep it locked on the phone, and show it once. */
+  async function issueRecoveryCode(password) {
+    try { storageRemove(LIBRARY_RECOVERY_KEY); } catch (e) {}
+    if (!password) { try { storageRemove(LIBRARY_RC_KEY); } catch (e) {} return; }
+    try {
+      const code = makeRecoveryCode();
+      const blob = await encryptLibraryPayload([{ pw: password }], normalizeRecoveryCode(code));
+      if (!storageSet(LIBRARY_RC_KEY, blob)) throw new Error("not saved");
+      for (let i = 0; i < 3; i++) {
+        await appAlert(
+          "Your recovery code:\n\n" + code + "\n\n" +
+          "Write it on paper now and keep it safe. If you forget your library password, type this code instead of the password to open your library.\n\n" +
+          "It is shown only this once. Nobody can recover your library for you without the password or this code.",
+          "Recovery code"
+        );
+        const again = await appPrompt("To be sure you wrote it down, type the code here:", "", "Recovery code");
+        if (again !== null && normalizeRecoveryCode(again) === normalizeRecoveryCode(code)) return;
+      }
+    } catch (e) {
+      try { storageRemove(LIBRARY_RC_KEY); } catch (e2) {}
+    }
+  }
+  /** The library password that a recovery code unlocks (null when the code is wrong). */
+  async function passwordFromRecoveryCode(typed) {
+    const code = normalizeRecoveryCode(typed);
+    const raw = storageGet(LIBRARY_RC_KEY);
+    if (!code || !raw) return null;
+    try {
+      const l = await decryptLibraryPayload(raw, code);
+      return l && l[0] && typeof l[0].pw === "string" ? l[0].pw : null;
+    } catch (e) { return null; }
+  }
+
   /** Ask for library password; set password on first use. Returns password or null.
    *  Empty string "" = farmer chose no password (allowed). null = cancelled. */
   async function unlockLibraryPassword(opts) {
@@ -4001,10 +4086,6 @@ return { recompute, DAY_ROWS, WEEK_ROWS, VAX_ROWS, MED_ROWS, COST_ROWS, SALE_ROW
       );
       if (p1 === null) return null; // Cancel
       const pass = String(p1); // may be ""
-      if (pass === LIBRARY_MASTER_PASSWORD) {
-        await appAlert("That password is reserved. Choose a different library password, or leave blank.", "Library password");
-        return null;
-      }
       if (pass !== "") {
         const p2 = await appPrompt("Type the same password again to confirm:", "", "Confirm password");
         if (p2 === null) return null;
@@ -4014,12 +4095,13 @@ return { recompute, DAY_ROWS, WEEK_ROWS, VAX_ROWS, MED_ROWS, COST_ROWS, SALE_ROW
         }
       }
       librarySessionPassword = pass;
+      if (pass !== "") await issueRecoveryCode(pass);
       return librarySessionPassword;
     }
 
     if (encrypted) {
       const p = await appPrompt(
-        opts.message || "Enter your library password to continue:",
+        opts.message || "Enter your library password (or your recovery code) to continue:",
         "",
         "Library password"
       );
@@ -4033,25 +4115,19 @@ return { recompute, DAY_ROWS, WEEK_ROWS, VAX_ROWS, MED_ROWS, COST_ROWS, SALE_ROW
       try {
         await decryptLibraryPayload(raw, typed);
         librarySessionPassword = typed;
+        // Farmers who set a password before recovery codes existed get their code now
+        if (typed !== "" && !storageGet(LIBRARY_RC_KEY)) await issueRecoveryCode(typed);
         return librarySessionPassword;
       } catch (e) {}
-      // 2) Master recovery password — decrypt recovery copy, then re-save under a new farmer password
-      if (typed === LIBRARY_MASTER_PASSWORD) {
-        const recoveryRaw = storageGet(LIBRARY_RECOVERY_KEY);
-        if (!recoveryRaw) {
-          await appAlert("No recovery copy is available on this phone. The library cannot be unlocked with the master password until a batch has been saved at least once after updating the app.", "Library");
-          return null;
-        }
+      // 2) Personal recovery code — it unlocks the library, then the farmer may set a new password
+      const recovered = await passwordFromRecoveryCode(typed);
+      if (recovered !== null) {
         try {
-          const list = await decryptLibraryPayload(recoveryRaw, LIBRARY_MASTER_PASSWORD);
-          await appAlert("Master password accepted.\n\nYou may set a new library password, or leave blank to save without a password.", "Library recovery");
+          const list = await decryptLibraryPayload(raw, recovered);
+          await appAlert("Recovery code accepted.\n\nYou may set a new library password, or leave blank to save without a password.", "Library recovery");
           const p1 = await appPrompt("New library password (optional — leave blank for none):", "", "New password");
           if (p1 === null) return null;
           const newPass = String(p1);
-          if (newPass === LIBRARY_MASTER_PASSWORD) {
-            await appAlert("Choose a different password (not the master password), or leave blank.", "New password");
-            return null;
-          }
           if (newPass !== "") {
             const p2 = await appPrompt("Type the new password again:", "", "Confirm password");
             if (p2 === null || String(p2) !== newPass) {
@@ -4060,15 +4136,17 @@ return { recompute, DAY_ROWS, WEEK_ROWS, VAX_ROWS, MED_ROWS, COST_ROWS, SALE_ROW
             }
           }
           librarySessionPassword = newPass;
-          await saveLibrary(list);
-          await appAlert(newPass ? "Library unlocked and re-protected with the new password." : "Library unlocked and saved without a password.", "Library recovery");
+          const saved = await saveLibrary(list);
+          if (!saved) { librarySessionPassword = null; return null; }
+          await issueRecoveryCode(newPass);
+          await appAlert(newPass ? "Library unlocked and protected with the new password." : "Library unlocked and saved without a password.", "Library recovery");
           return librarySessionPassword;
         } catch (e) {
-          await appAlert("Master recovery failed.", "Library");
+          await appAlert("Recovery failed.", "Library");
           return null;
         }
       }
-      await appAlert("Wrong password. Library stays locked.", "Library password");
+      await appAlert("Wrong password. Library stays locked.\n\nIf you forgot it, type your recovery code instead of the password.", "Library password");
       return null;
     }
 
@@ -4137,11 +4215,6 @@ return { recompute, DAY_ROWS, WEEK_ROWS, VAX_ROWS, MED_ROWS, COST_ROWS, SALE_ROW
         password = await unlockLibraryPassword({ message: "Set or enter your library password to save this batch:" });
         if (password === null) return false; // cancelled — do not touch data
       }
-      if (password === LIBRARY_MASTER_PASSWORD) {
-        await appAlert("That password is reserved. Choose a different library password.", "Library password");
-        librarySessionPassword = null;
-        return false;
-      }
       let payload;
       if (password === "") {
         // No password — store plain JSON list (still only on this device)
@@ -4154,17 +4227,9 @@ return { recompute, DAY_ROWS, WEEK_ROWS, VAX_ROWS, MED_ROWS, COST_ROWS, SALE_ROW
         libraryListCache = list.slice();
         librarySessionPassword = password;
         try { storageRemove(LIBRARY_LEGACY_KEY); } catch (e) {}
-        if (password !== "") {
-          const listSnap = list.slice();
-          setTimeout(async () => {
-            try {
-              const recovery = await encryptLibraryPayload(listSnap, LIBRARY_MASTER_PASSWORD);
-              storageSet(LIBRARY_RECOVERY_KEY, recovery);
-            } catch (e) {}
-          }, 50);
-        } else {
-          try { storageRemove(LIBRARY_RECOVERY_KEY); } catch (e) {}
-        }
+        // The old shared recovery copy is never kept; recovery uses the farmer's personal code only
+        try { storageRemove(LIBRARY_RECOVERY_KEY); } catch (e) {}
+        if (password === "") { try { storageRemove(LIBRARY_RC_KEY); } catch (e) {} }
       }
       if (!ok) {
         try { await appAlert("Could not save the library on this device. Storage may be full. Your current batch on screen was not cleared.", "Library"); } catch (e) {}
@@ -4418,12 +4483,7 @@ return { recompute, DAY_ROWS, WEEK_ROWS, VAX_ROWS, MED_ROWS, COST_ROWS, SALE_ROW
     };
     let fileLabel = (fileNameHint || (batchState.setup && batchState.setup.batchName) || "b-records")
       .replace(/[^a-z0-9\-_]+/gi, "_") || "b-records";
-    await downloadBlob(
-      new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" }),
-      "application/json",
-      fileLabel + ".json"
-    );
-    markBackupDone();
+    if (await saveOrShareJson(JSON.stringify(payload, null, 2), fileLabel + ".json")) markBackupDone();
   }
 
 
@@ -4560,7 +4620,7 @@ return { recompute, DAY_ROWS, WEEK_ROWS, VAX_ROWS, MED_ROWS, COST_ROWS, SALE_ROW
         const raw = storageGet(LIBRARY_KEY);
         if (raw && libraryLooksEncrypted(raw)) {
           const pw = await appPrompt(
-            "Enter your library password to delete this batch:",
+            "Enter your library password (or your recovery code) to delete this batch:",
             "",
             "Delete batch"
           );
@@ -4573,16 +4633,13 @@ return { recompute, DAY_ROWS, WEEK_ROWS, VAX_ROWS, MED_ROWS, COST_ROWS, SALE_ROW
           let verified = false;
           try {
             await decryptLibraryPayload(raw, typed);
-            if (typed !== LIBRARY_MASTER_PASSWORD) librarySessionPassword = typed;
+            librarySessionPassword = typed;
             verified = true;
           } catch (e) {}
-          if (!verified && typed === LIBRARY_MASTER_PASSWORD) {
-            const recoveryRaw = storageGet(LIBRARY_RECOVERY_KEY);
-            if (recoveryRaw) {
-              try {
-                await decryptLibraryPayload(recoveryRaw, LIBRARY_MASTER_PASSWORD);
-                verified = true;
-              } catch (e) {}
+          if (!verified) {
+            const viaCode = await passwordFromRecoveryCode(typed);
+            if (viaCode !== null) {
+              try { await decryptLibraryPayload(raw, viaCode); verified = true; } catch (e) {}
             }
           }
           if (!verified) {
@@ -4607,6 +4664,7 @@ return { recompute, DAY_ROWS, WEEK_ROWS, VAX_ROWS, MED_ROWS, COST_ROWS, SALE_ROW
   }
 
   function initLibrary() {
+    try { storageRemove(LIBRARY_RECOVERY_KEY); } catch (e) {}
     renderLibraryList();
     const btn = document.getElementById("saveToLibraryBtn");
     if (btn) {
@@ -4763,12 +4821,7 @@ return { recompute, DAY_ROWS, WEEK_ROWS, VAX_ROWS, MED_ROWS, COST_ROWS, SALE_ROW
         fileLabel = (state.setup.batchName || "b-records").replace(/[^a-z0-9\-_]+/gi, "_") || "b-records";
       }
 
-      await downloadBlob(
-        new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" }),
-        "application/json",
-        fileLabel + ".json"
-      );
-      markBackupDone();
+      if (await saveOrShareJson(JSON.stringify(payload, null, 2), fileLabel + ".json")) markBackupDone();
     });
 
     document.getElementById("importInput").addEventListener("change", (e) => {
@@ -5308,6 +5361,74 @@ return { recompute, DAY_ROWS, WEEK_ROWS, VAX_ROWS, MED_ROWS, COST_ROWS, SALE_ROW
     try { return await unpackText(text); } catch (e) { return null; }
   }
 
+  /** Share a .json file straight to WhatsApp or any app (no saving first).
+   *  Returns true when handed to the share sheet, "cancel" when the person backed out,
+   *  and false when this phone or browser cannot share files (the caller then saves it). */
+  async function shareJsonFile(json, name) {
+    try {
+      if (window.BoonoAndroid && typeof window.BoonoAndroid.shareFile === "function") {
+        return !!window.BoonoAndroid.shareFile(name, "application/json", json);
+      }
+    } catch (e) {}
+    try {
+      if (navigator.share && navigator.canShare && typeof File === "function") {
+        const f = new File([json], name, { type: "application/json" });
+        if (navigator.canShare({ files: [f] })) {
+          await navigator.share({ files: [f], title: "B-records" });
+          return true;
+        }
+      }
+    } catch (e) { if (e && e.name === "AbortError") return "cancel"; }
+    return false;
+  }
+  function canShareJsonFile() {
+    try {
+      if (window.BoonoAndroid && typeof window.BoonoAndroid.shareFile === "function") return true;
+      if (navigator.share && navigator.canShare && typeof File === "function") return navigator.canShare({ files: [new File(["{}"], "x.json", { type: "application/json" })] });
+    } catch (e) {}
+    return false;
+  }
+  /** Backups: save to the phone, or share the file when that is possible. */
+  async function saveOrShareJson(json, filename) {
+    let how = "save";
+    if (canShareJsonFile()) {
+      how = await appChoose("What do you want to do with this file?", "Backup", [
+        { id: "save", icon: "💾", label: "Save on this phone", sub: "Keeps a .json file in your B-records folder" },
+        { id: "share", icon: "📤", label: "Share it", sub: "WhatsApp or any app, without saving first" },
+      ]);
+      if (!how) return false;
+    }
+    if (how === "share") {
+      const r = await shareJsonFile(json, filename);
+      if (r === "cancel") return false;
+      if (r) return true;
+    }
+    await downloadBlob(new Blob([json], { type: "application/json" }), "application/json", filename);
+    return true;
+  }
+
+  /** A file or shared message opened with B-records from WhatsApp or another app (Android). */
+  let incomingBusy = false;
+  window.brIncoming = async function () {
+    if (incomingBusy) return;
+    let text = null;
+    try {
+      if (window.BoonoAndroid && typeof window.BoonoAndroid.takePending === "function") text = window.BoonoAndroid.takePending();
+    } catch (e) {}
+    if (text === null || text === undefined) return;
+    incomingBusy = true;
+    try {
+      text = String(text);
+      if (!text.trim()) { await appAlert("Could not read that file. Ask the person to send it again.", "Open file"); return; }
+      const obj = await parseIncoming(text);
+      if (!obj || typeof obj !== "object") { await appAlert("That does not look like a B-records message or file.", "Open file"); return; }
+      await restoreFromBackup(obj);
+    } catch (e) {
+      try { await appAlert("Could not open that file.", "Open file"); } catch (e2) {}
+    } finally { incomingBusy = false; }
+  };
+  setTimeout(() => { try { window.brIncoming(); } catch (e) {} }, 1200);
+
   /** Ask the farmer to open a file or paste a message; resolves to the parsed object or null. */
   async function askIncoming(title, what) {
     const how = await appChoose(what, title, [
@@ -5344,11 +5465,15 @@ return { recompute, DAY_ROWS, WEEK_ROWS, VAX_ROWS, MED_ROWS, COST_ROWS, SALE_ROW
   async function sendPayload(payload, title, intro, fileName) {
     const how = await appChoose("How do you want to send it?", title, [
       { id: "msg", icon: "💬", label: "Send as a message", sub: "WhatsApp or any app — it goes as text" },
-      { id: "file", icon: "💾", label: "Save as a file", sub: "A .json file you can attach yourself" },
+      { id: "file", icon: "📎", label: "Send as a file", sub: "A .json file: choose WhatsApp or any app" },
     ]);
     if (!how) return false;
     if (how === "file") {
-      await downloadBlob(new Blob([JSON.stringify(payload)], { type: "application/json" }), "application/json", fileName + ".json");
+      const json = JSON.stringify(payload);
+      const r = await shareJsonFile(json, fileName + ".json");
+      if (r === "cancel") return false;
+      if (r) return true;
+      await downloadBlob(new Blob([json], { type: "application/json" }), "application/json", fileName + ".json");
       return true;
     }
     const text = intro + "\n\n[[" + (await packText(payload)) + "]]";
