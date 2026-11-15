@@ -165,7 +165,6 @@ button{font-family:inherit;}
 }
 .side-panel-foot{margin-top:auto;padding:10px 6px 4px;border-top:1px solid var(--line);font-size:.78rem;color:var(--ink-600);line-height:1.5;}
 .side-panel-foot a{color:var(--green-700);font-weight:600;}
-.coffee-line{background:var(--green-100);border-radius:8px;padding:9px 10px;margin-top:8px;font-size:.82rem;color:var(--green-900);}
 .side-panel.open{transform:translateX(0);}
 .side-panel-head{font-weight:700;font-size:.8rem;color:var(--ink-600);text-transform:uppercase;letter-spacing:.05em;margin:0 6px 8px;}
 .side-item{
@@ -698,7 +697,6 @@ html[data-theme="dark"] .summary-grid label{color:#B8D4C8;}
 html[data-theme="dark"] .summary-grid span,
 html[data-theme="dark"] .summary-grid output{color:#F2F8F5;}
 html[data-theme="dark"] .field.readonly output{color:#F2F8F5;}
-html[data-theme="dark"] .coffee-line{background:#1B2E27;color:#DCEFE6;}
 html[data-theme="dark"] .footer-pill{background:var(--card);color:var(--ink-900);border-color:var(--line);}
 html[data-theme="dark"] .app-footer{background:var(--card);border-top-color:var(--line);color:var(--ink-600);}
 html[data-theme="dark"] h1{color:#DCEFE6;}
@@ -817,7 +815,6 @@ html[data-type="layer"][data-theme="dark"] .summary-grid label{color:#E5CFA8}
 html[data-type="layer"][data-theme="dark"] .summary-grid span,
 html[data-type="layer"][data-theme="dark"] .summary-grid output{color:#FAF3E8}
 html[data-type="layer"][data-theme="dark"] .field.readonly output{color:#FAF3E8}
-html[data-type="layer"][data-theme="dark"] .coffee-line{background:#2A2014;color:#F0E2CC}
 html[data-type="layer"][data-theme="dark"] h1{color:#F0E2CC}
 html[data-type="layer"][data-theme="dark"] h2{color:#E0A64F;border-bottom-color:#4A3B2C}
 
@@ -899,6 +896,93 @@ html[data-theme="dark"] .tf input:focus{background:var(--card);}
 .sum-card .val{font-family:var(--font-num);font-weight:800;font-size:1.1rem;color:var(--green-900);margin-top:3px;word-break:break-word;}
 .sum-card.is-loss .val{color:var(--clay-500);}
 .sum-card.is-profit .val{color:#1B7A3D;}
+
+/* ============ New look (v2 UI) ============ */
+.tf .stp{display:flex;align-items:stretch;gap:8px;}
+.tf .stp input{flex:1;min-width:0;text-align:center;font-weight:800;font-size:1.4rem;height:56px;-moz-appearance:textfield;}
+.tf .stp input::-webkit-outer-spin-button,.tf .stp input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0;}
+.stp-b{flex:0 0 56px;height:56px;border-radius:12px;border:1.5px solid var(--line);background:var(--card);color:var(--green-800);font-size:1.7rem;font-weight:800;line-height:1;cursor:pointer;font-family:var(--font-ui);}
+.stp-b:active{background:var(--green-100);}
+.yday{align-self:flex-start;display:inline-flex;gap:8px;align-items:center;background:var(--green-100);color:var(--green-900);border:none;border-radius:999px;padding:6px 6px 6px 12px;font-size:.8rem;font-weight:700;cursor:pointer;font-family:var(--font-ui);}
+.yday[hidden]{display:none;}
+.yday b{background:var(--green-800);color:#fff;border-radius:999px;padding:3px 10px;font-weight:800;}
+.wk{display:flex;gap:6px;justify-content:space-between;margin:2px 0 4px;}
+.wk-d{flex:1;min-width:0;border:1.5px solid var(--line);background:var(--card);border-radius:12px;padding:6px 0 5px;display:flex;flex-direction:column;align-items:center;gap:3px;font-family:var(--font-ui);color:var(--ink-600);cursor:pointer;}
+.wk-d span{font-size:.68rem;font-weight:800;text-transform:uppercase;}
+.wk-d i{font-style:normal;font-weight:800;font-size:.95rem;width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--grey-input);}
+.wk-d.ok i{background:var(--green-700);color:#fff;}
+.wk-d.miss i{background:#F6D9D2;color:#9A2F1E;}
+.wk-d.now i{background:var(--amber-500);color:#2a1c00;}
+.wk-d.off{opacity:.45;}
+.wk-d.sel{border-color:var(--green-800);background:var(--green-100);}
+.wk-streak{font-size:.86rem;font-weight:700;color:var(--green-900);margin:0 0 8px;}
+.wk-streak b{color:var(--amber-600);}
+.summary-cards{grid-template-columns:repeat(2,minmax(0,1fr));}
+.sum-card{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--green-700);box-shadow:0 1px 3px rgba(0,0,0,.05);}
+.sum-card .val{font-size:1.3rem;}
+.sum-card.is-loss{border-left-color:var(--clay-500);}
+.sum-card.is-profit{border-left-color:#1B7A3D;}
+.sum-card:nth-child(2){border-left-color:var(--amber-500);}
+.dcards{display:none;}
+.dc{display:block;width:100%;text-align:left;background:var(--card);border:1px solid var(--line);border-left:5px solid var(--green-700);border-radius:12px;padding:10px 12px;margin:0 0 9px;cursor:pointer;font-family:var(--font-ui);color:var(--ink-900);}
+.dc.hot{border-left-color:#C0392B;}
+.dc.warn{border-left-color:var(--amber-500);}
+.dc .dc-h{display:flex;justify-content:space-between;gap:8px;font-weight:800;font-size:.95rem;color:var(--green-900);}
+.dc .dc-h small{font-weight:700;color:var(--ink-400);}
+.dc .dc-v{display:flex;gap:14px;flex-wrap:wrap;margin-top:6px;font-size:.86rem;color:var(--ink-600);}
+.dc .dc-v b{font-family:var(--font-num);color:var(--ink-900);font-size:1rem;}
+.dc .dc-flag{margin-top:6px;font-size:.78rem;font-weight:800;color:#9A2F1E;}
+.dc-empty{padding:14px;text-align:center;color:var(--ink-600);font-size:.9rem;}
+.dc-toggle{margin:0 0 10px;}
+#bnav,#subnav{display:none;}
+@media (max-width:760px){
+  body.has-bnav #tabbar{display:none;}
+  body.has-bnav main{padding-bottom:calc(84px + env(safe-area-inset-bottom));}
+  body.has-bnav .app-footer{padding-bottom:calc(84px + env(safe-area-inset-bottom));}
+  body.has-bnav #bnav{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:40;background:var(--card);border-top:1px solid var(--line);padding:0 4px env(safe-area-inset-bottom);box-shadow:0 -2px 10px rgba(0,0,0,.06);}
+  body.has-bnav.kb #bnav{display:none;}
+  body.has-bnav #subnav.has{display:flex;flex-shrink:0;position:sticky;top:var(--topbar-h);z-index:39;gap:8px;overflow-x:auto;padding:8px 12px;background:var(--paper);border-bottom:1px solid var(--line);scrollbar-width:none;}
+  .bn{flex:1;min-width:0;position:relative;background:none;border:none;padding:9px 0 8px;display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--ink-400);font-size:.7rem;font-weight:800;font-family:var(--font-ui);cursor:pointer;}
+  .bn svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+  .bn.active{color:var(--green-800);}
+  .bn.active::before{content:"";position:absolute;top:0;left:22%;right:22%;height:3px;border-radius:0 0 3px 3px;background:var(--amber-500);}
+  #dcBack{display:none;margin:8px 0 2px;}
+  #panel-daily:not(.cards-mode) #dcBack{display:inline-block;}
+  .chip{flex:0 0 auto;border:1.5px solid var(--line);background:var(--card);color:var(--ink-600);border-radius:999px;padding:7px 16px;font-size:.84rem;font-weight:800;font-family:var(--font-ui);cursor:pointer;}
+  .chip.active{background:var(--green-800);border-color:var(--green-800);color:#fff;}
+  #panel-daily.cards-mode .dcards{display:block;}
+  #panel-daily.cards-mode > :not(.panel-head):not(.dcards){display:none !important;}
+  #panel-daily.cards-mode .panel-head > :not(h1):not(.hint){display:none !important;}
+}
+@media print{#bnav,#subnav{display:none !important;}}
+
+
+/* ============ Subscription key ============ */
+.lic-bar{display:none;align-items:center;gap:10px;justify-content:space-between;padding:8px 14px;font-size:.86rem;font-weight:700;background:#FFF3D6;color:#4a3300;border-bottom:1px solid #ecd9a8;}
+.lic-bar.show{display:flex;}
+.lic-bar.red{background:#F9DDD7;color:#7a1f10;border-color:#e6b9b0;}
+.lic-bar button{flex:0 0 auto;border:none;border-radius:999px;padding:6px 14px;font-weight:800;font-size:.82rem;background:var(--green-800);color:#fff;cursor:pointer;font-family:var(--font-ui);}
+.lic-box{max-width:420px;}
+.lic-id{font-family:var(--font-num);font-size:1.7rem;font-weight:800;letter-spacing:.08em;text-align:center;background:var(--green-100);color:var(--green-900);border-radius:12px;padding:12px 8px;margin:8px 0;}
+.lic-box textarea{width:100%;min-height:84px;font-family:Consolas,monospace;font-size:.8rem;border:1.5px solid var(--line);border-radius:10px;padding:8px;background:var(--grey-input);color:var(--ink-900);box-sizing:border-box;word-break:break-all;}
+.lic-msg{min-height:1.3em;font-weight:700;font-size:.9rem;margin:6px 0;}
+.lic-msg.bad{color:#9A2F1E;}.lic-msg.good{color:#1B7A3D;}
+.lic-prices{font-size:.85rem;line-height:1.55;color:var(--ink-600);margin:8px 0;}
+.lic-row{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0;}
+.lic-row button{flex:1 1 auto;min-height:44px;}
+body.lic-ro #resetBtn,body.lic-ro #saveToLibraryBtn,body.lic-ro #mergeRecordsBtn,body.lic-ro #updateTemplateBtn,body.lic-ro .file-btn,body.lic-ro #undoBtn,body.lic-ro #redoBtn{pointer-events:none;opacity:.35;}
+
+/* ============ Limited free version ============ */
+.ltd-card{display:none;text-align:center;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:26px 18px;margin:16px 0;}
+.ltd-card .big{font-size:2.4rem;}
+.ltd-card h2{margin:6px 0;color:var(--green-900);font-size:1.25rem;}
+.ltd-card p{color:var(--ink-600);font-size:.95rem;line-height:1.5;margin:6px 0 14px;}
+.ltd-btn{display:inline-block;background:var(--green-800);color:#fff !important;text-decoration:none;font-weight:800;border-radius:12px;padding:13px 22px;font-size:1rem;}
+.panel.ltd-locked > :not(.ltd-card){display:none !important;}
+.panel.ltd-locked > .ltd-card{display:block;}
+body.ltd .tab[data-tab="costs"]::after,body.ltd .tab[data-tab="sales"]::after,body.ltd .tab[data-tab="report"]::after{content:" \1F512";font-size:.75em;}
+body.ltd #exportExcelBtn::after,body.ltd #exportWordBtn::after,body.ltd #saveToLibraryBtn::after,body.ltd #resetBtn::after,body.ltd #printBtn::after{content:" \1F512";font-size:.8em;}
+body.ltd .bn[data-g="money"]::after,body.ltd .bn[data-g="report"]::after{content:"\1F512";position:absolute;top:3px;right:22%;font-size:.65rem;}
 .app-dialog-form{display:flex;flex-direction:column;gap:10px;margin-bottom:14px;max-height:60vh;overflow-y:auto;}
 .app-dialog-field{display:flex;flex-direction:column;gap:4px;font-size:.82rem;font-weight:700;color:var(--ink-600);}
 .app-dialog-field .app-dialog-input{margin:0;height:46px;}
@@ -947,6 +1031,20 @@ html[data-theme="dark"] .warn-note{background:#3A3115;border-color:#8A6D1F;color
 
     <div id="guide-broiler" style="display:none">
     <p class="start-here-lead">This is your <strong>broiler</strong> batch book. You type what happened on the farm each day — feed, deaths, weight. The app calculates feed cost, live birds, FCR, break-even, and whether the batch made a profit or a loss. Your numbers stay on this phone — nothing is uploaded to the internet.</p>
+
+    <div class="card">
+      <h2><span class="step-num">★</span> Using the app on your phone — quick guide</h2>
+      <ul class="must-know">
+        <li><div><strong>The bottom menu</strong><span>Five buttons at the bottom: <strong>Today</strong> (what you do every day), <strong>Records</strong> (all your days, feed, health), <strong>Money</strong> (costs and sales), <strong>Report</strong> (profit, break-even, charts) and <strong>Setup</strong> (batch details and feed prices). Tap a button and the small buttons above it show the pages inside.</span></div></li>
+        <li><div><strong>Today: type fast with − and +</strong><span>Each number has a <strong>−</strong> and <strong>+</strong> button, or you can type it. The <strong>Yesterday</strong> button copies yesterday's number so you only change what is different. Missed a day? The week strip at the top shows each day: green is done, a gap is a day you forgot. Tap a day to fill it in. Your <strong>streak</strong> counts the days in a row you recorded.</span></div></li>
+        <li><div><strong>Records: one card for each day</strong><span>Open <strong>Records</strong> to see a card for every day. Tap a card to see or change that day. If you like the full table, tap <strong>Full table</strong>, and use <strong>Back to day cards</strong> to come back.</span></div></li>
+        <li><div><strong>The app checks your numbers</strong><span>It refuses numbers that cannot be true: below zero, more deaths than birds, broken eggs more than eggs collected, or selling more birds than you have left. A red message tells you why and the old number comes back.</span></div></li>
+        <li><div><strong>Free for 14 days, then a subscription key</strong><span>When you first open the app you get <strong>14 days free</strong> with everything working. After that the app keeps your records and lets you read and export them, but you need a key to add new numbers. <strong>Prices:</strong> Broilers UGX 5,000 for 1 batch or UGX 15,000 for 4 batches. Layers UGX 15,000 for 3 months or UGX 40,000 for 12 months. To buy: menu ☰ → <strong>Subscription key</strong> → <strong>Send Phone ID on WhatsApp</strong> (+256 750 936 539). Pay by Mobile Money and we send you a key. Paste it in the same screen. A key only works on the phone it was made for.</span></div></li>
+        <li><div><strong>Keep your key safe</strong><span>Keep the key message in WhatsApp. If you reinstall the app, paste the key again. Your records are not part of the key, so make a backup too (see below).</span></div></li>
+        <li><div><strong>Workers never pay</strong><span>Only the owner needs a key. Workers who use <strong>Invite a worker</strong> can always type daily numbers, and they never see prices or profit.</span></div></li>
+        <li><div><strong>Web page and HTML file are a free, limited version</strong><span>If you open B-records as a web page or an HTML file (not the Android app), you get the daily records and basic checks for free, but the Money and Report pages with costs, sales and profit stay locked. Install the Android app to get everything.</span></div></li>
+      </ul>
+    </div>
 
     <div class="card must-card">
       <h2><span class="step-num">!</span> Things you must understand before you start</h2>
@@ -1135,6 +1233,20 @@ html[data-theme="dark"] .warn-note{background:#3A3115;border-color:#8A6D1F;color
     </div>
     <div id="guide-layer" style="display:none">
     <p class="start-here-lead">This is your <strong>layer</strong> batch book. You type what happened on the farm each day — feed, deaths, eggs, broken eggs. The app calculates hen-day %, hen-housed %, feed per egg, trays produced, cost per tray, break-even price, and whether the flock made a profit or a loss. Your numbers stay on this phone — nothing is uploaded to the internet.</p>
+
+    <div class="card">
+      <h2><span class="step-num">★</span> Using the app on your phone — quick guide</h2>
+      <ul class="must-know">
+        <li><div><strong>The bottom menu</strong><span>Five buttons at the bottom: <strong>Today</strong> (what you do every day), <strong>Records</strong> (all your days, feed, health), <strong>Money</strong> (costs and sales), <strong>Report</strong> (profit, break-even, charts) and <strong>Setup</strong> (batch details and feed prices). Tap a button and the small buttons above it show the pages inside.</span></div></li>
+        <li><div><strong>Today: type fast with − and +</strong><span>Each number has a <strong>−</strong> and <strong>+</strong> button, or you can type it. The <strong>Yesterday</strong> button copies yesterday's number so you only change what is different. Missed a day? The week strip at the top shows each day: green is done, a gap is a day you forgot. Tap a day to fill it in. Your <strong>streak</strong> counts the days in a row you recorded.</span></div></li>
+        <li><div><strong>Records: one card for each day</strong><span>Open <strong>Records</strong> to see a card for every day. Tap a card to see or change that day. If you like the full table, tap <strong>Full table</strong>, and use <strong>Back to day cards</strong> to come back.</span></div></li>
+        <li><div><strong>The app checks your numbers</strong><span>It refuses numbers that cannot be true: below zero, more deaths than birds, broken eggs more than eggs collected, or selling more birds than you have left. A red message tells you why and the old number comes back.</span></div></li>
+        <li><div><strong>Free for 14 days, then a subscription key</strong><span>When you first open the app you get <strong>14 days free</strong> with everything working. After that the app keeps your records and lets you read and export them, but you need a key to add new numbers. <strong>Prices:</strong> Broilers UGX 5,000 for 1 batch or UGX 15,000 for 4 batches. Layers UGX 15,000 for 3 months or UGX 40,000 for 12 months. To buy: menu ☰ → <strong>Subscription key</strong> → <strong>Send Phone ID on WhatsApp</strong> (+256 750 936 539). Pay by Mobile Money and we send you a key. Paste it in the same screen. A key only works on the phone it was made for.</span></div></li>
+        <li><div><strong>Keep your key safe</strong><span>Keep the key message in WhatsApp. If you reinstall the app, paste the key again. Your records are not part of the key, so make a backup too (see below).</span></div></li>
+        <li><div><strong>Workers never pay</strong><span>Only the owner needs a key. Workers who use <strong>Invite a worker</strong> can always type daily numbers, and they never see prices or profit.</span></div></li>
+        <li><div><strong>Web page and HTML file are a free, limited version</strong><span>If you open B-records as a web page or an HTML file (not the Android app), you get the daily records and basic checks for free, but the Money and Report pages with costs, sales and profit stay locked. Install the Android app to get everything.</span></div></li>
+      </ul>
+    </div>
 
     <div class="card must-card">
       <h2><span class="step-num">!</span> Things you must understand before you start</h2>
@@ -1377,6 +1489,7 @@ html[data-theme="dark"] .warn-note{background:#3A3115;border-color:#8A6D1F;color
   <button class="side-item" id="startHereReopenBtn" data-open-instructions title="Show the how-to-use guide and data-backup instructions again" style="font-weight:900;">Instructions</button>
   <button class="side-item" id="desktopViewBtn" title="Keep a wider, desktop-style layout across refreshes">Desktop view: Off</button>
   <button class="side-item" id="darkModeBtn" title="Switch between light and dark appearance">Dark mode: Off</button>
+  <button class="side-item owner-only" id="licenseBtn" style="display:none" title="Your subscription key">Subscription key</button>
   <button class="side-item owner-only" id="inviteWorkerBtn" title="Make a starter file for a worker. It has no prices.">Invite a worker (starter)</button>
   <button class="side-item owner-only" id="mergeRecordsBtn" title="Add the records a worker sent you into this batch">Merge worker records</button>
   <button class="side-item worker-only" id="sendRecordsBtn" style="font-weight:900;">Send my records</button>
@@ -1400,7 +1513,6 @@ html[data-theme="dark"] .warn-note{background:#3A3115;border-color:#8A6D1F;color
     <strong>Boono Hasakya Mutwahilu</strong><br>
     Poultry Specialist<br>
     Built by <strong>Boono Innovz Team</strong>.
-    <div class="coffee-line">Enjoying the app? Buy us a coffee: <strong>+256 709 919 991</strong> or <strong>+256 774 566 039</strong></div>
   </div>
 </aside>
 <div class="tab-overlay" id="tabOverlay"></div>
@@ -3252,6 +3364,365 @@ return { recompute, DAY_ROWS, WEEK_ROWS, VAX_ROWS, MED_ROWS, COST_ROWS, SALE_ROW
     try { localStorage.removeItem(key); } catch (e) {}
   }
 
+
+  // ================= Subscription key (only in the Android app) =================
+/* B-records licence core: SHA-256 + ECDSA P-256 verify in plain JavaScript (BigInt). */
+const BRLic = (function () {
+  "use strict";
+  const B32 = "0123456789ABCDEFGHJKMNPQRSTVWXYZ";
+  const EPOCH = Date.UTC(2025, 0, 1);
+  function b64uToBytes(s) {
+    s = String(s).replace(/-/g, "+").replace(/_/g, "/");
+    while (s.length % 4) s += "=";
+    const bin = atob(s), a = new Uint8Array(bin.length);
+    for (let i = 0; i < bin.length; i++) a[i] = bin.charCodeAt(i);
+    return a;
+  }
+  function bytesToB64u(a) {
+    let bin = "";
+    for (let i = 0; i < a.length; i++) bin += String.fromCharCode(a[i]);
+    return btoa(bin).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+  }
+  function hexToBytes(h) { const a = new Uint8Array(h.length / 2); for (let i = 0; i < a.length; i++) a[i] = parseInt(h.substr(i * 2, 2), 16); return a; }
+  /* 5 bytes <-> 8 Crockford base32 characters (no I, L, O, U) */
+  function phoneIdFromBytes(b) {
+    let bits = 0n; for (let i = 0; i < 5; i++) bits = (bits << 8n) | BigInt(b[i]);
+    let out = ""; for (let i = 7; i >= 0; i--) out += B32[Number((bits >> BigInt(i * 5)) & 31n)];
+    return out;
+  }
+  function normalizePhoneId(s) {
+    return String(s || "").toUpperCase().replace(/[^0-9A-Z]/g, "").replace(/O/g, "0").replace(/[IL]/g, "1");
+  }
+  function phoneIdToBytes(s) {
+    s = normalizePhoneId(s);
+    if (s.length !== 8) return null;
+    let bits = 0n;
+    for (const c of s) { const v = B32.indexOf(c); if (v < 0) return null; bits = (bits << 5n) | BigInt(v); }
+    const out = new Uint8Array(5);
+    for (let i = 4; i >= 0; i--) { out[i] = Number(bits & 255n); bits >>= 8n; }
+    return out;
+  }
+  function prettyPhoneId(s) { s = normalizePhoneId(s); return s.slice(0, 4) + "-" + s.slice(4); }
+  /* ---- SHA-256 ---- */
+  const K = new Uint32Array([
+    0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5, 0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5, 0xd807aa98, 0x12835b01, 0x243185be, 0x550c7dc3, 0x72be5d74, 0x80deb1fe, 0x9bdc06a7, 0xc19bf174,
+    0xe49b69c1, 0xefbe4786, 0x0fc19dc6, 0x240ca1cc, 0x2de92c6f, 0x4a7484aa, 0x5cb0a9dc, 0x76f988da, 0x983e5152, 0xa831c66d, 0xb00327c8, 0xbf597fc7, 0xc6e00bf3, 0xd5a79147, 0x06ca6351, 0x14292967,
+    0x27b70a85, 0x2e1b2138, 0x4d2c6dfc, 0x53380d13, 0x650a7354, 0x766a0abb, 0x81c2c92e, 0x92722c85, 0xa2bfe8a1, 0xa81a664b, 0xc24b8b70, 0xc76c51a3, 0xd192e819, 0xd6990624, 0xf40e3585, 0x106aa070,
+    0x19a4c116, 0x1e376c08, 0x2748774c, 0x34b0bcb5, 0x391c0cb3, 0x4ed8aa4a, 0x5b9cca4f, 0x682e6ff3, 0x748f82ee, 0x78a5636f, 0x84c87814, 0x8cc70208, 0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2]);
+  function sha256(msg) {
+    const l = msg.length, padLen = ((l + 9 + 63) >> 6) << 6, buf = new Uint8Array(padLen);
+    buf.set(msg); buf[l] = 0x80;
+    const dv = new DataView(buf.buffer);
+    dv.setUint32(padLen - 8, Math.floor((l * 8) / 4294967296)); dv.setUint32(padLen - 4, (l * 8) >>> 0);
+    const H = new Uint32Array([0x6a09e667, 0xbb67ae85, 0x3c6ef372, 0xa54ff53a, 0x510e527f, 0x9b05688c, 0x1f83d9ab, 0x5be0cd19]);
+    const W = new Uint32Array(64);
+    const rr = (x, n) => (x >>> n) | (x << (32 - n));
+    for (let o = 0; o < padLen; o += 64) {
+      for (let i = 0; i < 16; i++) W[i] = dv.getUint32(o + i * 4);
+      for (let i = 16; i < 64; i++) {
+        const s0 = rr(W[i - 15], 7) ^ rr(W[i - 15], 18) ^ (W[i - 15] >>> 3), s1 = rr(W[i - 2], 17) ^ rr(W[i - 2], 19) ^ (W[i - 2] >>> 10);
+        W[i] = (W[i - 16] + s0 + W[i - 7] + s1) >>> 0;
+      }
+      let [a, b, c, d, e, f, g, h] = H;
+      for (let i = 0; i < 64; i++) {
+        const S1 = rr(e, 6) ^ rr(e, 11) ^ rr(e, 25), ch = (e & f) ^ (~e & g), t1 = (h + S1 + ch + K[i] + W[i]) >>> 0;
+        const S0 = rr(a, 2) ^ rr(a, 13) ^ rr(a, 22), mj = (a & b) ^ (a & c) ^ (b & c), t2 = (S0 + mj) >>> 0;
+        h = g; g = f; f = e; e = (d + t1) >>> 0; d = c; c = b; b = a; a = (t1 + t2) >>> 0;
+      }
+      H[0] += a; H[1] += b; H[2] += c; H[3] += d; H[4] += e; H[5] += f; H[6] += g; H[7] += h;
+    }
+    const out = new Uint8Array(32), od = new DataView(out.buffer);
+    for (let i = 0; i < 8; i++) od.setUint32(i * 4, H[i]);
+    return out;
+  }
+  /* ---- P-256 ---- */
+  const P = 0xffffffff00000001000000000000000000000000ffffffffffffffffffffffffn;
+  const N = 0xffffffff00000000ffffffffffffffffbce6faada7179e84f3b9cac2fc632551n;
+  const GX = 0x6b17d1f2e12c4247f8bce6e563a440f277037d812deb33a0f4a13945d898c296n;
+  const GY = 0x4fe342e2fe1a7f9b8ee7eb4a7c0f9e162bce33576b315ececbb6406837bf51f5n;
+  const mod = (a, m) => { const r = a % m; return r >= 0n ? r : r + m; };
+  function inv(a, m) {
+    let [r0, r1] = [mod(a, m), m], [s0, s1] = [1n, 0n];
+    while (r1 !== 0n) { const q = r0 / r1; [r0, r1] = [r1, r0 - q * r1]; [s0, s1] = [s1, s0 - q * s1]; }
+    return mod(s0, m);
+  }
+  function dbl(p) {
+    if (!p) return null;
+    const [X, Y, Z] = p; if (Y === 0n) return null;
+    const delta = mod(Z * Z, P), gamma = mod(Y * Y, P), beta = mod(X * gamma, P);
+    const alpha = mod(3n * (X - delta) * (X + delta), P);
+    const X3 = mod(alpha * alpha - 8n * beta, P);
+    const Z3 = mod((Y + Z) * (Y + Z) - gamma - delta, P);
+    const Y3 = mod(alpha * (4n * beta - X3) - 8n * gamma * gamma, P);
+    return [X3, Y3, Z3];
+  }
+  function add(p, q) {
+    if (!p) return q; if (!q) return p;
+    const [X1, Y1, Z1] = p, [X2, Y2, Z2] = q;
+    const Z1Z1 = mod(Z1 * Z1, P), Z2Z2 = mod(Z2 * Z2, P);
+    const U1 = mod(X1 * Z2Z2, P), U2 = mod(X2 * Z1Z1, P);
+    const S1 = mod(Y1 * Z2 * Z2Z2, P), S2 = mod(Y2 * Z1 * Z1Z1, P);
+    const H = mod(U2 - U1, P), R = mod(S2 - S1, P);
+    if (H === 0n) return R === 0n ? dbl(p) : null;
+    const HH = mod(H * H, P), HHH = mod(H * HH, P), V = mod(U1 * HH, P);
+    const X3 = mod(R * R - HHH - 2n * V, P);
+    const Y3 = mod(R * (V - X3) - S1 * HHH, P);
+    const Z3 = mod(Z1 * Z2 * H, P);
+    return [X3, Y3, Z3];
+  }
+  function mul(k, pt) {
+    let r = null, a = [pt[0], pt[1], 1n];
+    while (k > 0n) { if (k & 1n) r = add(r, a); a = dbl(a); k >>= 1n; }
+    return r;
+  }
+  function toAffine(p) { if (!p) return null; const zi = inv(p[2], P), z2 = mod(zi * zi, P); return [mod(p[0] * z2, P), mod(p[1] * z2 * zi, P)]; }
+  function onCurve(x, y) { return mod(y * y, P) === mod(x * x * x - 3n * x + 0x5ac635d8aa3a93e7b3ebbd55769886bc651d06b0cc53b0f63bce3c3e27d2604bn, P); }
+  const big = (a) => { let v = 0n; for (const b of a) v = (v << 8n) | BigInt(b); return v; };
+  function parseDer(sig) {
+    let i = 0;
+    if (sig[i++] !== 0x30) return null;
+    let len = sig[i++]; if (len & 0x80) { const n = len & 0x7f; len = 0; for (let k = 0; k < n; k++) len = (len << 8) | sig[i++]; }
+    if (sig[i++] !== 0x02) return null; const rl = sig[i++]; const r = sig.slice(i, i + rl); i += rl;
+    if (sig[i++] !== 0x02) return null; const sl = sig[i++]; const s = sig.slice(i, i + sl);
+    if (r.length !== rl || s.length !== sl) return null;
+    return [big(r), big(s)];
+  }
+  function verify(spki, msg, derSig) {
+    try {
+      if (spki.length < 65 || spki[spki.length - 65] !== 4) return false;
+      const qx = big(spki.slice(spki.length - 64, spki.length - 32)), qy = big(spki.slice(spki.length - 32));
+      if (!onCurve(qx, qy)) return false;
+      const rs = parseDer(derSig); if (!rs) return false;
+      const [r, s] = rs;
+      if (r <= 0n || r >= N || s <= 0n || s >= N) return false;
+      const e = big(sha256(msg)), w = inv(s, N), u1 = mod(e * w, N), u2 = mod(r * w, N);
+      const pt = add(mul(u1, [GX, GY]), mul(u2, [qx, qy]));
+      const aff = toAffine(pt); if (!aff) return false;
+      return mod(aff[0], N) === r;
+    } catch (e) { return false; }
+  }
+  /* ---- key text: "BR1." + base64url( payload(13) + DER signature ) ---- */
+  const PAYLOAD_LEN = 13;
+  function dayToIso(n) { return new Date(EPOCH + n * 864e5).toISOString().slice(0, 10); }
+  function isoToDay(iso) { return Math.round((Date.parse(iso + "T00:00:00Z") - EPOCH) / 864e5); }
+  function buildPayload(o) {
+    const p = new Uint8Array(PAYLOAD_LEN);
+    p[0] = 1; p.set(o.phone, 1);
+    p[6] = (o.issueDay >> 8) & 255; p[7] = o.issueDay & 255;
+    p[8] = (o.days >> 8) & 255; p[9] = o.days & 255;
+    p[10] = o.plan & 255; p[11] = (o.serial >> 8) & 255; p[12] = o.serial & 255;
+    return p;
+  }
+  function parseKey(text) {
+    const t = String(text || "").replace(/\s+/g, "");
+    if (!/^BR1\./.test(t)) return null;
+    let raw; try { raw = b64uToBytes(t.slice(4)); } catch (e) { return null; }
+    if (raw.length < PAYLOAD_LEN + 8 || raw[0] !== 1) return null;
+    const payload = raw.slice(0, PAYLOAD_LEN), sig = raw.slice(PAYLOAD_LEN);
+    const issueDay = (payload[6] << 8) | payload[7], days = (payload[8] << 8) | payload[9];
+    return {
+      payload, sig, phone: phoneIdFromBytes(payload.slice(1, 6)), issueDay, days, plan: payload[10],
+      serial: (payload[11] << 8) | payload[12], issue: dayToIso(issueDay), expiry: dayToIso(issueDay + days),
+      payloadB64: bytesToB64u(payload), sigB64: bytesToB64u(sig),
+    };
+  }
+  function checkSignature(spkiB64, parsed) { return verify(b64uToBytes(spkiB64), parsed.payload, parsed.sig); }
+  /* raw r||s (64 bytes, from WebCrypto) -> DER */
+  function rawToDer(raw) {
+    const enc = (x) => { let i = 0; while (i < x.length - 1 && x[i] === 0) i++; let v = Array.from(x.slice(i)); if (v[0] & 0x80) v.unshift(0); return [0x02, v.length, ...v]; };
+    const r = enc(raw.slice(0, 32)), s = enc(raw.slice(32));
+    return new Uint8Array([0x30, r.length + s.length, ...r, ...s]);
+  }
+  return { b64uToBytes, bytesToB64u, hexToBytes, phoneIdFromBytes, phoneIdToBytes, normalizePhoneId, prettyPhoneId, sha256, verify, parseKey, checkSignature, rawToDer, buildPayload, dayToIso, isoToDay, PAYLOAD_LEN };
+})();
+
+  const LIC_PUB = "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEe39XwIml3Qpqc7B3HTSEgcvYfng5O8TXrFbYZrBHFQRmWKQZHm-3M3UcjCZ8WmF4P9OtzlyemhZ6uZRhWnvUYg";
+  const LIC_TRIAL_DAYS = 14;
+  const LIC_WA = "256750936539";
+  const LTD_APK = "https://github.com/Twahir-B/boono-batch/releases/latest/download/B-records.apk";
+  function licLimited() { return !licOn() && !isWorker(); }
+  function hideMoney() { return isWorker() || licLimited(); }
+  const LIC_K = { trial: "bRecords.lic.trial", key: "bRecords.lic.key", seen: "bRecords.lic.seen" };
+  let licShown = false;
+  function licOn() { return !!(window.BoonoAndroid && typeof window.BoonoAndroid.getDeviceId === "function"); }
+  function licDevice() {
+    try {
+      const h = String(window.BoonoAndroid.getDeviceId() || "");
+      if (/^[0-9a-f]{10,}$/i.test(h)) return BRLic.phoneIdFromBytes(BRLic.hexToBytes(h.slice(0, 10)));
+    } catch (e) {}
+    return "";
+  }
+  function licToday() {
+    let t = isoLocal(new Date());
+    const seen = storageGet(LIC_K.seen);
+    if (seen && /^\d{4}-\d{2}-\d{2}$/.test(seen) && seen > t) t = seen;   // clock set backwards: keep the later day
+    if (seen !== t) storageSet(LIC_K.seen, t);
+    return t;
+  }
+  function licCheckKey(text, device, today) {
+    const p = BRLic.parseKey(text);
+    if (!p) return { ok: false, msg: "This is not a B-records key. Paste the whole text you were sent." };
+    if (!BRLic.checkSignature(LIC_PUB, p)) return { ok: false, msg: "This key is not valid." };
+    try {
+      if (typeof window.BoonoAndroid.verifyKey === "function") {
+        const r = String(window.BoonoAndroid.verifyKey(p.payloadB64, p.sigB64));
+        if (r === "bad") return { ok: false, msg: "This key is not valid." };
+      }
+    } catch (e) {}
+    if (BRLic.normalizePhoneId(p.phone) !== BRLic.normalizePhoneId(device)) return { ok: false, msg: "This key is for a different phone. Send your Phone ID again to get a key for this phone." };
+    if (today > p.expiry) return { ok: false, msg: "This key ended on " + p.expiry + ". Ask for a new key.", ended: true };
+    return { ok: true, p };
+  }
+  function licStatus() {
+    if (isWorker()) return { mode: "free" };
+    if (!licOn()) return { mode: "limited" };
+    const device = licDevice(), today = licToday();
+    try {
+      if (typeof window.BoonoAndroid.isGenuine === "function") {
+        const g = window.BoonoAndroid.isGenuine();
+        if (g === false || g === "false" || g === "0") return { mode: "expired", modified: true, device };
+      }
+    } catch (e) {}
+    const k = storageGet(LIC_K.key);
+    if (k) {
+      const r = licCheckKey(k, device, today);
+      if (r.ok) {
+        const left = BRLic.isoToDay(r.p.expiry) - BRLic.isoToDay(today);
+        return { mode: "active", left, expiry: r.p.expiry, device };
+      }
+    }
+    let start = storageGet(LIC_K.trial);
+    if (!start || !/^\d{4}-\d{2}-\d{2}$/.test(start)) { start = today; storageSet(LIC_K.trial, start); }
+    const left = LIC_TRIAL_DAYS - (BRLic.isoToDay(today) - BRLic.isoToDay(start));
+    if (left > 0 && !k) return { mode: "trial", left, device };
+    return { mode: "expired", device, hadKey: !!k };
+  }
+  const LIC_ALLOW_ID = { todayDate: 1, dailyRangeSelect: 1 };
+  const LIC_ALLOW_BTN = ".wk-d,.dc,.dc-toggle,#dcBack,.chip,#todayPrevBtn,#todayNextBtn,#todayTodayBtn,#dailyPrevBtn,#dailyNextBtn,#dailyThisWeekBtn,[data-open-instructions]";
+  function licLockApp() {
+    const app = document.getElementById("app"); if (!app) return;
+    app.querySelectorAll("input,select,textarea").forEach((el) => { if (!LIC_ALLOW_ID[el.id] && !el.disabled) { el.disabled = true; el.setAttribute("data-lic", "1"); } });
+    app.querySelectorAll("button").forEach((b) => { if (!b.matches(LIC_ALLOW_BTN) && !b.disabled) { b.disabled = true; b.setAttribute("data-lic", "1"); } });
+  }
+  let licObs = null;
+  function licSetReadOnly(on) {
+    document.body.classList.toggle("lic-ro", on);
+    const app = document.getElementById("app"); if (!app) return;
+    if (on) {
+      licLockApp();
+      if (!licObs) { licObs = new MutationObserver(() => { if (document.body.classList.contains("lic-ro")) licLockApp(); }); licObs.observe(app, { childList: true, subtree: true }); }
+    } else {
+      if (licObs) { licObs.disconnect(); licObs = null; }
+      app.querySelectorAll("[data-lic]").forEach((el) => { el.disabled = false; el.removeAttribute("data-lic"); });
+    }
+  }
+  function licApply() {
+    const st = licStatus();
+    let bar = document.getElementById("licBar");
+    if (!bar) {
+      bar = document.createElement("div"); bar.id = "licBar"; bar.className = "lic-bar";
+      const hd = document.querySelector("header.topbar"); if (hd && hd.parentNode) hd.parentNode.insertBefore(bar, hd.nextSibling);
+      bar.addEventListener("click", (e) => { if (e.target.closest("button")) { if (licLimited()) ltdOpen(); else licOpen(); } });
+    }
+    const btn = document.getElementById("licenseBtn");
+    if (btn) {
+      btn.style.display = licOn() ? "" : "none";
+      btn.textContent = st.mode === "active" ? "Subscription key: until " + st.expiry : st.mode === "trial" ? "Subscription key: trial, " + st.left + " day" + (st.left === 1 ? "" : "s") + " left" : "Subscription key";
+    }
+    let text = "", red = false, label = "Get key";
+    document.body.classList.toggle("ltd", st.mode === "limited");
+    ltdApply(st.mode === "limited");
+    if (st.mode === "limited") { text = "Free version. Money, Report and exports are in the full Android app."; label = "Get the app"; }
+    else if (st.mode === "trial") text = "Free trial: " + st.left + " day" + (st.left === 1 ? "" : "s") + " left";
+    else if (st.mode === "active" && st.left <= 14) { text = "Your key ends on " + st.expiry + " (" + st.left + " day" + (st.left === 1 ? "" : "s") + ")"; label = "Renew"; }
+    else if (st.mode === "expired") { red = true; label = "Enter key"; text = st.modified ? "This copy of B-records was changed. Please install it again from the official link." : (st.hadKey ? "Your key has ended." : "Your free trial has ended.") + " Your records are safe. You can read and export them."; }
+    bar.className = "lic-bar" + (text ? " show" : "") + (red ? " red" : "");
+    bar.innerHTML = text ? "<span>" + escapeHtml(text) + "</span><button type=\"button\">" + label + "</button>" : "";
+    licSetReadOnly(st.mode === "expired");
+    if (st.mode === "expired" && !licShown) { licShown = true; setTimeout(licOpen, 300); }
+    return st;
+  }
+  const LTD_HIDE_CARDS = ["netProfit", "breakEvenPrice", "breakEvenTray"];
+  const LTD_HIDE_ITEMS = ["sumCostPerBird", "sumProfitMargin"];
+  function ltdApply(on) {
+    LTD_HIDE_CARDS.forEach((id) => { const e = document.getElementById(id), c = e && e.closest(".card"); if (c) c.style.display = on ? "none" : ""; });
+    LTD_HIDE_ITEMS.forEach((id) => { const e = document.getElementById(id), c = e && e.parentElement; if (c) c.style.display = on ? "none" : ""; });
+    ["costs", "sales", "report"].forEach((k) => ltdPanel(k, on));
+  }
+  function ltdPanel(k, on) {
+    const p = document.getElementById("panel-" + k); if (!p) return;
+    let card = p.querySelector(":scope > .ltd-card");
+    if (on && !card) {
+      card = document.createElement("div"); card.className = "ltd-card";
+      card.innerHTML = '<div class="big">\uD83D\uDD12</div><h2>This is in the full app</h2><p>Costs, sales, profit and the batch report are part of the full B-records app for Android. Your daily records here stay free.</p><a class="ltd-btn" href="' + LTD_APK + '" target="_blank" rel="noopener">Get the Android app</a>';
+      p.insertBefore(card, p.firstChild);
+    }
+    p.classList.toggle("ltd-locked", !!on);
+  }
+  function ltdOpen(what) {
+    const root = ensureDialogRoot(); root.innerHTML = "";
+    const o = document.createElement("div"); o.className = "app-dialog-overlay";
+    o.innerHTML = '<div class="app-dialog lic-box" role="dialog" aria-modal="true"><h3>' + escapeHtml(what || "Full app") + '</h3><p class="app-dialog-body">Money, the batch report, Excel and Word export, printing and the batch library are part of the full B-records app for Android. This free version keeps your daily records, feed program and medication log.</p><div class="app-dialog-actions"><button type="button" class="secondary" data-c>Close</button><a class="ltd-btn" href="' + LTD_APK + '" target="_blank" rel="noopener">Get the Android app</a></div></div>';
+    root.appendChild(o);
+    o.querySelector("[data-c]").onclick = () => { root.innerHTML = ""; };
+  }
+  document.addEventListener("click", (e) => {
+    if (!licLimited()) return;
+    const b = e.target.closest && e.target.closest("#exportExcelBtn,#exportWordBtn,#printBtn,#saveToLibraryBtn,#resetBtn,#updateTemplateBtn");
+    if (!b) return;
+    e.preventDefault(); e.stopImmediatePropagation();
+    const sp = document.getElementById("sidePanel"); if (sp) sp.classList.remove("open");
+    const ov = document.querySelector(".tab-overlay"); if (ov) ov.classList.remove("open");
+    ltdOpen(b.id === "resetBtn" || b.id === "saveToLibraryBtn" || b.id === "updateTemplateBtn" ? "One batch in the free version" : b.id === "printBtn" ? "Printing" : "Export");
+  }, true);
+  function licCopy(text) {
+    try { if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(text); return true; } } catch (e) {}
+    try { const t = document.createElement("textarea"); t.value = text; document.body.appendChild(t); t.select(); const ok = document.execCommand("copy"); t.remove(); return ok; } catch (e) {}
+    return false;
+  }
+  function licOpen() {
+    const st = licStatus();
+    const root = ensureDialogRoot(); root.innerHTML = "";
+    const pid = BRLic.prettyPhoneId(st.device || "");
+    const status = st.mode === "active" ? "Your key works until " + st.expiry + "." : st.mode === "trial" ? "Free trial: " + st.left + " day" + (st.left === 1 ? "" : "s") + " left." : st.modified ? "This copy was changed." : (st.hadKey ? "Your key has ended." : "Your free trial has ended.") + " You can still read and export your records.";
+    const overlay = document.createElement("div"); overlay.className = "app-dialog-overlay";
+    overlay.innerHTML = `<div class="app-dialog lic-box" role="dialog" aria-modal="true"><h3>Subscription key</h3>
+      <p class="app-dialog-body" style="margin-bottom:6px">${escapeHtml(status)}</p>
+      <div style="font-weight:800;font-size:.85rem;color:var(--ink-600)">Your Phone ID</div><div class="lic-id" id="licId">${escapeHtml(pid || "not available")}</div>
+      <div class="lic-row"><button type="button" class="secondary" id="licSend">Send Phone ID on WhatsApp</button><button type="button" class="secondary" id="licCopyId">Copy</button></div>
+      <div class="lic-prices"><b>Prices</b><br>Broilers: UGX 5,000 for 1 batch · UGX 15,000 for 4 batches<br>Layers: UGX 15,000 for 3 months · UGX 40,000 for 12 months<br>Pay by Mobile Money. WhatsApp +256 750 936 539 for payment details. Workers do not need a key.</div>
+      <div style="font-weight:800;font-size:.85rem;color:var(--ink-600)">Paste your key here</div>
+      <textarea id="licKey" placeholder="BR1...."></textarea><div class="hint" style="font-size:.8rem;margin-top:4px">Keep your key message in WhatsApp. If you reinstall the app, paste it again.</div><div class="lic-msg" id="licMsg"></div>
+      <div class="app-dialog-actions"><button type="button" class="secondary" id="licClose">Close</button><button type="button" class="primary" id="licGo">Activate</button></div></div>`;
+    root.appendChild(overlay);
+    const $ = (id) => overlay.querySelector("#" + id);
+    const msg = (t, good) => { const m = $("licMsg"); m.textContent = t; m.className = "lic-msg " + (good ? "good" : "bad"); };
+    $("licClose").onclick = () => { root.innerHTML = ""; };
+    $("licCopyId").onclick = () => { const ok = licCopy(pid); msg(ok ? "Phone ID copied." : "Could not copy. Please write it down.", ok); };
+    $("licSend").onclick = () => {
+      const text = "B-records key request. My Phone ID: " + pid;
+      try { if (window.BoonoAndroid && typeof window.BoonoAndroid.shareText === "function") { window.BoonoAndroid.shareText(text); return; } } catch (e) {}
+      try { window.open("https://wa.me/" + LIC_WA + "?text=" + encodeURIComponent(text), "_blank"); } catch (e) {}
+    };
+    $("licGo").onclick = () => {
+      const v = $("licKey").value;
+      const r = licCheckKey(v, st.device || licDevice(), licToday());
+      if (!r.ok) { msg(r.msg, false); return; }
+      storageSet(LIC_K.key, v.replace(/\s+/g, ""));
+      const s2 = licApply();
+      msg("Thank you! Your key works until " + r.p.expiry + ".", true);
+      setTimeout(() => { root.innerHTML = ""; }, 1600);
+      return s2;
+    };
+    if (st.modified) { $("licGo").disabled = true; $("licKey").disabled = true; }
+  }
+  function initLicense() {
+    const b = document.getElementById("licenseBtn");
+    if (b) b.addEventListener("click", () => { try { const sp = document.getElementById("sidePanel"); if (sp) sp.classList.remove("open"); const ov = document.querySelector(".tab-overlay"); if (ov) ov.classList.remove("open"); } catch (e) {} licOpen(); });
+    licApply();
+    document.addEventListener("visibilitychange", () => { if (!document.hidden) licApply(); });
+  }
+
   // ================= B-records shell: two batch types in one app =================
   let state = null;
   let computed = null;
@@ -3321,6 +3792,133 @@ return { recompute, DAY_ROWS, WEEK_ROWS, VAX_ROWS, MED_ROWS, COST_ROWS, SALE_ROW
     const shareBtn = document.getElementById("todayShareBtn");
     if (shareBtn) shareBtn.addEventListener("click", shareDay);
     bindTabs(mod);
+    setupNav(mod, shownTabs);
+  }
+
+
+  // ---------- bottom navigation (phones) ----------
+  const NAV_ICONS = {
+    today: '<path d="M3 11l9-8 9 8v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/>',
+    records: '<rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/>',
+    money: '<circle cx="12" cy="12" r="9"/><path d="M12 7v10M9.5 9.7c0-1 1-1.6 2.5-1.6s2.5.6 2.5 1.7-1 1.5-2.5 1.8-2.5.7-2.5 1.8 1 1.7 2.5 1.7 2.5-.6 2.5-1.6"/>',
+    report: '<path d="M5 20V10M12 20V4M19 20v-7"/>',
+    setup: '<path d="M4 7h10M18 7h2M4 17h2M10 17h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/>',
+  };
+  const NAV_LABELS = { today: "Today", records: "Records", money: "Money", report: "Report", setup: "Setup" };
+  const NAV_GROUPS = {
+    broiler: [["today", ["today"]], ["records", ["daily", "med"]], ["money", ["costs", "sales"]], ["report", ["report"]], ["setup", ["setup", "feed"]]],
+    layer: [["today", ["today"]], ["records", ["daily", "weekly", "health"]], ["money", ["costs", "sales"]], ["report", ["report"]], ["setup", ["setup", "feed"]]],
+  };
+  const CHIP_LABELS = { daily: "Daily", med: "Medication", weekly: "Weekly", health: "Health", costs: "Costs", sales: "Sales", setup: "Batch", feed: "Feed program" };
+  let navLast = {};
+  function setupNav(mod, shownTabs) {
+    const have = shownTabs.map((t) => t[0]);
+    const groups = NAV_GROUPS[mod.type].map((g) => [g[0], g[1].filter((k) => have.includes(k))]).filter((g) => g[1].length);
+    let bar = document.getElementById("bnav"), sub = document.getElementById("subnav");
+    if (!bar) {
+      bar = document.createElement("nav"); bar.id = "bnav"; bar.setAttribute("aria-label", "Main sections");
+      document.body.appendChild(bar);
+      sub = document.createElement("div"); sub.id = "subnav";
+      const tb = document.getElementById("tabbar"); tb.parentNode.insertBefore(sub, tb.nextSibling);
+      let maxH = window.innerHeight;
+      const chk = () => {
+        const h = (window.visualViewport && window.visualViewport.height) || window.innerHeight;
+        if (h > maxH) maxH = h;
+        document.body.classList.toggle("kb", h < maxH * 0.75);
+      };
+      window.addEventListener("resize", chk);
+      if (window.visualViewport) window.visualViewport.addEventListener("resize", chk);
+    }
+    document.body.classList.add("has-bnav");
+    bar.innerHTML = groups.map((g) => `<button type="button" class="bn" data-g="${g[0]}"><svg viewBox="0 0 24 24" aria-hidden="true">${NAV_ICONS[g[0]]}</svg><span>${NAV_LABELS[g[0]]}</span></button>`).join("");
+    const go = (key) => {
+      const t = document.querySelector('#tabbar .tab[data-tab="' + key + '"]');
+      if (t) t.click();
+    };
+    const sync = () => {
+      const key = currentTabKey();
+      const g = groups.find((x) => x[1].includes(key));
+      bar.querySelectorAll(".bn").forEach((b) => b.classList.toggle("active", !!g && b.dataset.g === g[0]));
+      if (g) navLast[g[0]] = key;
+      if (g && g[1].length > 1) {
+        sub.classList.add("has");
+        sub.innerHTML = g[1].map((k) => `<button type="button" class="chip${k === key ? " active" : ""}" data-k="${k}">${CHIP_LABELS[k] || k}</button>`).join("");
+      } else { sub.classList.remove("has"); sub.innerHTML = ""; }
+      const dp = document.getElementById("panel-daily");
+      if (dp) {
+        if (!dp._cardsInit) {
+          dp._cardsInit = true; dp.classList.toggle("cards-mode", window.innerWidth <= 760);
+          const hd = dp.querySelector(".panel-head");
+          if (hd) {
+            const bb = document.createElement("button");
+            bb.type = "button"; bb.id = "dcBack"; bb.className = "btn small secondary"; bb.textContent = "\u2190 Back to day cards";
+            bb.addEventListener("click", () => { dp.classList.add("cards-mode"); renderDayCards(mod); window.scrollTo(0, 0); });
+            const h1 = hd.querySelector("h1");
+            if (h1) hd.insertBefore(bb, h1.nextSibling); else hd.appendChild(bb);
+          }
+        }
+        if (key === "daily") renderDayCards(mod);
+      }
+    };
+    bar.onclick = (e) => {
+      const b = e.target.closest(".bn"); if (!b) return;
+      const g = groups.find((x) => x[0] === b.dataset.g);
+      go(g[1].includes(navLast[g[0]]) ? navLast[g[0]] : g[1][0]);
+    };
+    sub.onclick = (e) => { const c = e.target.closest(".chip"); if (c) go(c.dataset.k); };
+    const orig = activateTab;
+    activateTab = function (k, sc) { orig(k, sc); sync(); if (typeof ltdApply === "function") ltdApply(licLimited()); };
+    sync();
+    if (typeof ltdApply === "function") ltdApply(licLimited());
+  }
+
+  // ---------- Records as day cards (phones) ----------
+  function renderDayCards(mod) {
+    const panel = document.getElementById("panel-daily");
+    if (!panel) return;
+    let box = document.getElementById("dayCards");
+    if (!box) {
+      box = document.createElement("div"); box.id = "dayCards"; box.className = "dcards";
+      panel.appendChild(box);
+      box.addEventListener("click", (e) => {
+        const tg = e.target.closest("[data-toggle]");
+        if (tg) { panel.classList.remove("cards-mode"); return; }
+        const c = e.target.closest(".dc");
+        if (!c) return;
+        const t = document.querySelector('#tabbar .tab[data-tab="today"]');
+        if (t) t.click();
+        mod.today.setDate(c.dataset.iso);
+      });
+    }
+    const type = mod.type;
+    const specs = type === "layer"
+      ? [["feedKg", "Feed", "kg"], ["eggs", "Eggs", ""], ["mort", "Deaths", ""]]
+      : [["feedConsumed", "Feed", "kg"], ["mortality", "Deaths", ""], ["avgWeight", "Weight", "g"]];
+    const deathKey = type === "layer" ? "mort" : "mortality";
+    const placed = state.setup.placementDate;
+    const rows = [];
+    if (placed) {
+      (state.daily || []).forEach((r, i) => {
+        if (!r) return;
+        const has = specs.some((sp) => r[sp[0]] !== "" && r[sp[0]] !== undefined && r[sp[0]] !== null);
+        if (has) rows.push(i);
+      });
+    }
+    rows.reverse();
+    const shown = rows.slice(0, 90);
+    const dt = (i) => { const d = new Date(placed + "T00:00:00"); d.setDate(d.getDate() + i); return isoLocal(d); };
+    const cards = shown.map((i) => {
+      const r = state.daily[i], c = (computed.daily && computed.daily[i]) || {};
+      const iso = dt(i);
+      const dead = Number(r[deathKey]) || 0, live = c.liveEnd ? c.liveEnd + dead : 0;
+      const hot = dead > 0 && live && dead / live >= 0.01;
+      const vals = specs.filter((sp) => r[sp[0]] !== "" && r[sp[0]] !== undefined && r[sp[0]] !== null)
+        .map((sp) => `<span>${sp[1]} <b>${escapeHtml(String(r[sp[0]]))}${sp[2] ? " " + sp[2] : ""}</b></span>`).join("");
+      return `<button type="button" class="dc${hot ? " hot" : ""}" data-iso="${iso}"><div class="dc-h"><span>${escapeHtml(fmtDate(iso))}</span><small>Day ${i + 1}</small></div><div class="dc-v">${vals}</div>${hot ? '<div class="dc-flag">High deaths: check the cause</div>' : ""}</button>`;
+    }).join("");
+    box.innerHTML = '<button type="button" class="btn small secondary dc-toggle" data-toggle="1">Open the full table</button>' +
+      (cards || '<div class="dc-empty">No days recorded yet. Open Today and enter the first day.</div>') +
+      (rows.length > shown.length ? '<div class="dc-empty">Showing the latest 90 days. Open the full table for older days.</div>' : "");
   }
 
   let activateTab = function () {};
@@ -5645,6 +6243,7 @@ return { recompute, DAY_ROWS, WEEK_ROWS, VAX_ROWS, MED_ROWS, COST_ROWS, SALE_ROW
   /** Show only what the current role may see. */
   function applyRoleUI() {
     document.body.classList.toggle("role-worker", isWorker());
+    try { if (typeof licApply === "function" && document.getElementById("licBar")) licApply(); } catch (e) {}
     const sub = document.getElementById("brandSub");
     if (sub && currentType) sub.textContent = isWorker() ? "Worker · " + (state.workerName || "") : TYPE_LABEL[currentType] + " record";
   }
@@ -5829,6 +6428,7 @@ return { recompute, DAY_ROWS, WEEK_ROWS, VAX_ROWS, MED_ROWS, COST_ROWS, SALE_ROW
     }, 2500);
     updateHistoryButtons();
     initDarkMode();
+    try { initLicense(); } catch (e) { console.warn(e); }
   });
 
 
@@ -6285,8 +6885,23 @@ function makeBroiler() {
     });
     body.querySelectorAll("input").forEach((inp) => {
       inp.addEventListener("input", () => {
-        pushHistory();
         const idx = +inp.dataset.idx;
+        if (inp.dataset.field === "birds" && inp.value !== "") {
+          const placed = Number(state.setup.chicksPlaced);
+          if (placed > 0) {
+            const dead = state.daily.reduce((a, r) => a + (Number(r.mortality) || 0), 0);
+            const others = state.sales.reduce((a, r, i) => a + (i === idx ? 0 : (Number(r.birds) || 0)), 0);
+            const left = placed - dead - others;
+            if (Number(inp.value) > left || Number(inp.value) < 0) {
+              const old = state.sales[idx].birds, neg = Number(inp.value) < 0;
+              inp.value = old === undefined || old === null ? "" : old;
+              inp.classList.add("bad"); setTimeout(() => inp.classList.remove("bad"), 1500);
+              entryToast(neg ? "This number cannot be below zero." : "Only " + Math.max(0, left) + " birds are left to sell (placed " + placed + ", died " + dead + ", already sold " + others + ").");
+              return;
+            }
+          }
+        }
+        pushHistory();
         state.sales[idx][inp.dataset.field] = inp.value;
         fullRecompute();
         // update line total cell in place
@@ -6785,6 +7400,15 @@ function makeBroiler() {
             { key: "notes", label: "Notes (optional)", type: "text" },
           ], { okLabel: "Add sale" });
           if (!v) return false;
+          {
+            const placed = Number(state.setup.chicksPlaced), nb = Number(v.birds) || 0;
+            if (placed > 0 && nb > 0) {
+              const dead = state.daily.reduce((x, r) => x + (Number(r.mortality) || 0), 0);
+              const sold = state.sales.reduce((x, r) => x + (Number(r.birds) || 0), 0);
+              const left = placed - dead - sold;
+              if (nb > left) { entryToast("Only " + Math.max(0, left) + " birds are left to sell (placed " + placed + ", died " + dead + ", already sold " + sold + ")."); return false; }
+            }
+          }
           pushHistory();
           state.sales.push({ date: iso, birds: v.birds || "", pricePerBird: v.pricePerBird || "", notes: v.notes || "" });
           rowAdded();
@@ -8430,13 +9054,32 @@ function createTodayKit(cfg) {
     return last || placed;
   }
 
-  function fieldHtml(f, row) {
+  function isoAdd(iso, n) {
+    const d = new Date(iso + "T00:00:00");
+    d.setDate(d.getDate() + n);
+    return isoLocal(d);
+  }
+  function stepFor(f) {
+    if (/egg/i.test(f.unit || "")) return 10;
+    if (/grams/i.test(f.unit || "")) return 10;
+    if (/°C/.test(f.unit || "")) return 0.5;
+    return 1;
+  }
+  const filled = (v) => v !== "" && v !== undefined && v !== null;
+  function hasEntry(idx) {
+    const row = getState().daily[idx];
+    return !!row && cfg.fields.main.some((f) => filled(row[f.key]));
+  }
+  function fieldHtml(f, row, prev) {
     const v = row ? row[f.key] : "";
     const common = `data-field="${f.key}" value="${escapeHtml(v === undefined || v === null ? "" : v)}" ${f.placeholder ? `placeholder="${escapeHtml(f.placeholder)}"` : ""}`;
     const input = f.type === "text"
       ? `<input type="text" ${common}>`
-      : `<input type="number" inputmode="decimal" ${f.min !== undefined ? `min="${f.min}"` : ""} step="${f.step || 1}" ${common}>`;
-    return `<label class="tf"><span>${escapeHtml(f.label)}${f.unit ? ` <small>${escapeHtml(f.unit)}</small>` : ""}</span>${input}</label>`;
+      : `<div class="stp"><button type="button" class="stp-b" data-d="-1" aria-label="Less">−</button><input type="number" inputmode="decimal" data-step="${stepFor(f)}" ${f.min !== undefined ? `min="${f.min}"` : ""} step="${f.step || 1}" ${common}><button type="button" class="stp-b" data-d="1" aria-label="More">+</button></div>`;
+    const pv = prev ? prev[f.key] : "";
+    const chip = f.type !== "text" && filled(pv) && String(pv) !== String(v === undefined || v === null ? "" : v)
+      ? `<button type="button" class="yday" data-use="${escapeHtml(pv)}">Yesterday: ${escapeHtml(pv)} <b>Use ${escapeHtml(pv)}</b></button>` : "";
+    return `<label class="tf"><span>${escapeHtml(f.label)}${f.unit ? ` <small>${escapeHtml(f.unit)}</small>` : ""}</span>${input}${chip}</label>`;
   }
 
   function renderForm() {
@@ -8455,8 +9098,10 @@ function createTodayKit(cfg) {
     box.style.display = "";
     off.style.display = "none";
     const row = getState().daily[idx];
-    main.innerHTML = cfg.fields.main.map((f) => fieldHtml(f, row)).join("");
-    more.innerHTML = cfg.fields.more.map((f) => fieldHtml(f, row)).join("");
+    const prevIdx = cfg.dayIndexForDate(isoAdd(selected, -1));
+    const prevRow = prevIdx === null ? null : getState().daily[prevIdx];
+    main.innerHTML = cfg.fields.main.map((f) => fieldHtml(f, row, prevRow)).join("");
+    more.innerHTML = cfg.fields.more.map((f) => fieldHtml(f, row, null)).join("");
     const det = $("todayMoreDetails");
     if (det) {
       // Open the optional fields automatically when the day already has something in them.
@@ -8475,7 +9120,7 @@ function createTodayKit(cfg) {
     }
     const sum = $("todaySummary");
     if (sum) {
-      sum.innerHTML = cfg.summaryCards().filter((c) => !(isWorker() && /profit|cost|revenue/i.test(c[0]))).map((c) =>
+      sum.innerHTML = cfg.summaryCards().filter((c) => !(hideMoney() && /profit|cost|revenue/i.test(c[0]))).map((c) =>
         `<div class="sum-card${c[2] ? " " + c[2] : ""}"><label>${escapeHtml(c[0])}</label><div class="val">${c[1]}</div></div>`
       ).join("");
     }
@@ -8487,14 +9132,47 @@ function createTodayKit(cfg) {
     }
     const live = $("todayLive");
     if (live) live.innerHTML = idx === null ? "" : (cfg.liveNote ? cfg.liveNote(idx) : "");
-    if (live && isWorker()) live.innerHTML = live.innerHTML.replace(/ · Feed cost: <strong>.*?<\/strong>/, "");
+    if (live && hideMoney()) live.innerHTML = live.innerHTML.replace(/ · Feed cost: <strong>.*?<\/strong>/, "");
     const cards = $("todayCards");
     if (cards) {
       cards.innerHTML = idx === null
         ? '<div class="day-card"><label>Daily record</label><div class="val">No daily row for this date</div></div>'
-        : cfg.dayCards(idx, selected).filter((c) => !(isWorker() && /cost|profit|revenue/i.test(c[0]))).map((c) => `<div class="day-card"><label>${escapeHtml(c[0])}</label><div class="val">${c[1]}</div></div>`).join("");
+        : cfg.dayCards(idx, selected).filter((c) => !(hideMoney() && /cost|profit|revenue/i.test(c[0]))).map((c) => `<div class="day-card"><label>${escapeHtml(c[0])}</label><div class="val">${c[1]}</div></div>`).join("");
     }
     cfg.renderActivity(selected, idx);
+    renderWeek();
+  }
+
+  function renderWeek() {
+    const el = $("todayWeek");
+    if (!el) return;
+    if (!getState().setup.placementDate) { el.style.display = "none"; return; }
+    el.style.display = "";
+    const t = today(), sel = selected || t;
+    const dow = (new Date(sel + "T00:00:00").getDay() + 6) % 7;
+    const start = isoAdd(sel, -dow);
+    let dots = "";
+    for (let i = 0; i < 7; i++) {
+      const iso = isoAdd(start, i), idx = cfg.dayIndexForDate(iso);
+      let cls = "off", mark = iso.slice(8).replace(/^0/, "");
+      if (idx !== null) {
+        if (hasEntry(idx)) { cls = "ok"; mark = "✓"; }
+        else if (iso < t) { cls = "miss"; mark = "!"; }
+        else if (iso === t) cls = "now";
+        else cls = "future";
+      }
+      dots += `<button type="button" class="wk-d ${cls}${iso === sel ? " sel" : ""}" data-d="${iso}"><span>${"MTWTFSS"[i]}</span><i>${mark}</i></button>`;
+    }
+    let n = 0, cur = t;
+    const ti = cfg.dayIndexForDate(t);
+    if (ti !== null && !hasEntry(ti)) cur = isoAdd(t, -1);
+    for (let k = 0; k < 600; k++) {
+      const ix = cfg.dayIndexForDate(cur);
+      if (ix === null || !hasEntry(ix)) break;
+      n++; cur = isoAdd(cur, -1);
+    }
+    const txt = n > 0 ? `<b>${n}</b> ${n === 1 ? "day" : "days"} in a row. Keep going!` : "Enter today's numbers to start a streak.";
+    el.innerHTML = `<div class="wk">${dots}</div><div class="wk-streak">${txt}</div>`;
   }
 
   /** full = rebuild the form too (only when the date changed or the tab was opened). */
@@ -8541,9 +9219,41 @@ function createTodayKit(cfg) {
     };
     $("todayFormMain").addEventListener("input", handler);
     $("todayFormMore").addEventListener("input", handler);
+    const syncChips = (box) => box.querySelectorAll(".yday").forEach((b) => {
+      const lab = b.closest(".tf"), inp = lab && lab.querySelector("input");
+      b.hidden = !!inp && inp.value === b.dataset.use;
+    });
+    const clk = (e) => {
+      const b = e.target.closest && e.target.closest("button");
+      if (!b) return;
+      const lab = b.closest(".tf"), inp = lab && lab.querySelector("input");
+      if (!inp) return;
+      if (b.dataset.d) {
+        const step = Number(inp.dataset.step) || 1;
+        let v = parseFloat(inp.value);
+        if (!isFinite(v)) v = 0;
+        v = Math.max(0, Math.round((v + Number(b.dataset.d) * step) * 100) / 100);
+        inp.value = String(v);
+      } else if (b.dataset.use !== undefined) {
+        inp.value = b.dataset.use;
+      } else return;
+      inp.dispatchEvent(new Event("input", { bubbles: true }));
+      syncChips(e.currentTarget);
+    };
+    $("todayFormMain").addEventListener("click", clk);
+    $("todayFormMore").addEventListener("click", clk);
+    $("todayFormMain").addEventListener("input", (e) => syncChips(e.currentTarget));
+    const barEl = $("todayDate").closest(".today-bar");
+    if (barEl && !$("todayWeek")) {
+      barEl.insertAdjacentHTML("afterend", '<div id="todayWeek"></div>');
+      $("todayWeek").addEventListener("click", (e) => {
+        const b = e.target.closest(".wk-d");
+        if (b) setDate(b.dataset.d);
+      });
+    }
 
     const quick = $("todayQuick");
-    const quickList = cfg.quick.filter((q) => !(isWorker() && q.money));
+    const quickList = cfg.quick.filter((q) => !(hideMoney() && q.money));
     quick.innerHTML = quickList.map((q, i) => `<button type="button" class="btn small secondary" data-q="${i}">${escapeHtml(q.label)}</button>`).join("");
     quick.querySelectorAll("button").forEach((b) => {
       b.addEventListener("click", async () => {
@@ -8554,7 +9264,26 @@ function createTodayKit(cfg) {
     });
   }
 
-  return { init, render, setDate, getDate: () => selected };
+  function missedDates() {
+    const placed = getState().setup.placementDate;
+    if (!placed) return [];
+    const t = today(), out = [];
+    let d = placed;
+    for (let k = 0; k < 700; k++) {
+      const idx = cfg.dayIndexForDate(d);
+      if (idx === null || d > t) break;
+      if (!hasEntry(idx)) out.push(d);
+      d = isoAdd(d, 1);
+    }
+    return out;
+  }
+  function valueOn(iso, key) {
+    const i = cfg.dayIndexForDate(iso);
+    if (i === null) return "";
+    const r = getState().daily[i];
+    return r && filled(r[key]) ? String(r[key]) : "";
+  }
+  return { init, render, setDate, getDate: () => selected, missedDates, valueOn, isoAdd, mainFields: cfg.fields.main };
 }
 
 })();
