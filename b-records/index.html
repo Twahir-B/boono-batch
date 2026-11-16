@@ -1735,112 +1735,16 @@ html[data-theme="dark"] .warn-note{background:#3A3115;border-color:#8A6D1F;color
   </section>
 
   <!-- ============ OTHER COSTS ============ -->
-  <section class="panel" id="panel-costs" data-panel="costs">
-    <div class="panel-head">
-      <h1>Operational Costs</h1>
-      <p class="hint">Enter the money in the <strong>Amount (UGX)</strong> column — that is what is added into Total Cost. Description is only a note (e.g. supplier name).</p>
-      <p class="hint">Optional. Non-feed costs. Start typing a category (labour, transport, bedding, etc.) — matching suggestions appear in a small list above the keyboard. You can type any category that is not in the list.</p>
-      <button class="btn small" id="addCostRow">+ Add row</button>
-    </div>
-    <div class="table-scroll tall">
-      <table class="data-table" id="costsTable">
-        <thead>
-          <tr><th>Date</th><th>Category</th><th>Description</th><th>Amount (UGX)</th><th></th></tr>
-        </thead>
-        <tbody id="costsBody"><!-- rows injected --></tbody>
-      </table>
-    </div>
-    <div class="panel-instructions-link"><button class="link-btn" data-open-instructions>Instructions</button></div>
-  </section>
+  <section class="panel" id="panel-costs" data-panel="costs"><div hidden><button id="addCostRow"></button><table><tbody id="costsBody"></tbody></table></div></section>
 
 
   <!-- ============ SALES (partial offtakes) ============ -->
-  <section class="panel" id="panel-sales" data-panel="sales">
-    <div class="panel-head">
-      <h1>Sales</h1>
-      <p class="hint">Record each sale or offtake (date, birds, price). From the sale date onward, those birds are removed from <strong>Live Birds</strong> on the Daily Record. Put a date on every sale so the daily sheet updates. If you leave Sales empty, the app assumes all remaining live birds are sold at the Selling Price from Batch Setup.</p>
-      <button class="btn small" id="addSaleRow">+ Add sale</button>
-    </div>
-    <div class="table-scroll tall">
-      <table class="data-table" id="salesTable">
-        <thead>
-          <tr><th>Date</th><th>Birds Sold</th><th>Price / Bird (UGX)</th><th>Line Total (UGX)</th><th>Notes</th><th></th></tr>
-        </thead>
-        <tbody id="salesBody"><!-- rows injected --></tbody>
-      </table>
-    </div>
-    <div class="card" style="margin-top:14px;">
-      <div class="summary-grid">
-        <div><label>Total Birds Sold</label><output id="salesTotalBirds">—</output></div>
-        <div><label>Sales from Lots (UGX)</label><output id="salesLotsTotal">—</output></div>
-        <div><label>Birds Still Unsold</label><output id="salesUnsold">—</output></div>
-      </div>
-    </div>
-    <div class="panel-instructions-link"><button class="link-btn" data-open-instructions>Instructions</button></div>
-  </section>
+  <section class="panel" id="panel-sales" data-panel="sales"><div hidden><button id="addSaleRow"></button><table><tbody id="salesBody"></tbody></table><output id="salesTotalBirds"></output><output id="salesLotsTotal"></output><output id="salesUnsold"></output></div></section>
 
 
   <!-- ============ DAY VIEW / DASHBOARD ============ -->
   <!-- ============ BATCH REPORT ============ -->
-  <section class="panel" id="panel-report" data-panel="report">
-    <div class="panel-head">
-      <h1>Batch Report</h1>
-      <p class="hint">Printable summary. Use the print icon in the top bar, or copy a short text summary to paste into WhatsApp.</p>
-      <button class="btn small" id="copySummaryBtn" title="Copy a short text summary for WhatsApp">📋 Copy summary for WhatsApp</button>
-    </div>
-    <div class="report-sheet" id="reportSheet">
-      <h2 id="repBatchName">—</h2>
-      <div class="report-grid">
-        <div><label>Farm Name</label><span id="repFarmName">—</span></div>
-        <div><label>Farmer Name</label><span id="repFarmerName">—</span></div>
-        <div><label>House / Pen</label><span id="repHousePen">—</span></div>
-        <div><label>Placement Date</label><span id="repPlacement">—</span></div>
-        <div><label>Expected Harvest Date</label><span id="repHarvest">—</span></div>
-        <div><label>Supplier Name</label><span id="repSupplier">—</span></div>
-      </div>
-      <hr>
-      <div class="report-grid two-col">
-        <div>
-          <div><label>Chicks Placed</label><span id="repChicks">—</span></div>
-          <div><label>Birds Sold</label><span id="repSold">—</span></div>
-          <div><label>Total Mortality</label><span id="repMortality">—</span></div>
-          <div><label>Mortality %</label><span id="repMortalityPct">—</span></div>
-          <div><label>Survival Rate</label><span id="repSurvival">—</span></div>
-          <div><label>Final Avg Weight (g)</label><span id="repFinalWeight">—</span></div>
-          <div><label>Final FCR</label><span id="repFinalFCR">—</span></div>
-        </div>
-        <div>
-          <div><label>Feed Cost (UGX)</label><span id="repFeedCost">—</span></div>
-          <div><label>Operational Cost (UGX)</label><span id="repOpCost">—</span></div>
-          <div><label>Chick Cost (UGX)</label><span id="repChickCost">—</span></div>
-          <div><label>Total Cost (UGX)</label><span id="repTotalCost">—</span></div>
-          <div><label>Sales Revenue (UGX)</label><span id="repRevenue">—</span></div>
-          <div><label>Break-Even Price / Bird (UGX)</label><span id="repBEPrice">—</span></div>
-          <div><label>Break-Even Point (Birds)</label><span id="repBEBirds">—</span></div>
-        </div>
-      </div>
-      <div class="profit-banner" id="repProfitBanner">
-        <label>Net Profit / Loss (UGX)</label>
-        <span id="repProfit">—</span>
-      </div>
-      <p class="benchmark-row" id="repBenchmarks"></p>
-      <hr>
-      <h2 style="border:none;margin:0 0 6px;">Trends</h2>
-      <div class="chart-grid" id="chartGrid">
-        <div class="chart-card"><h3>Avg Weight (g)</h3><div id="chartWeight"></div></div>
-        <div class="chart-card"><h3>Cumulative Mortality</h3><div id="chartMort"></div></div>
-        <div class="chart-card"><h3>Daily Feed (kg)</h3><div id="chartFeed"></div></div>
-        <div class="chart-card"><h3>Cumulative FCR</h3><div id="chartFCR"></div></div>
-      </div>
-      <hr>
-      <div class="field">
-        <label for="farmerComments">Farmer Comments</label>
-        <textarea class="input-editable" id="farmerComments" rows="4" placeholder="Notes about this batch..."></textarea>
-      </div>
-    </div>
-    <div class="panel-instructions-link"><button class="link-btn" data-open-instructions>📖 Instructions</button></div>
-
-  </section>
+  <section class="panel" id="panel-report" data-panel="report"><div hidden><button id="copySummaryBtn"></button><div id="reportSheet"></div><h2 id="repBatchName"></h2><span id="repFarmName"></span><span id="repFarmerName"></span><span id="repHousePen"></span><span id="repPlacement"></span><span id="repHarvest"></span><span id="repSupplier"></span><span id="repChicks"></span><span id="repSold"></span><span id="repMortality"></span><span id="repMortalityPct"></span><span id="repSurvival"></span><span id="repFinalWeight"></span><span id="repFinalFCR"></span><span id="repFeedCost"></span><span id="repOpCost"></span><span id="repChickCost"></span><span id="repTotalCost"></span><span id="repRevenue"></span><span id="repBEPrice"></span><span id="repBEBirds"></span><div id="repProfitBanner"></div><span id="repProfit"></span><p id="repBenchmarks"></p><div id="chartGrid"></div><div id="chartWeight"></div><div id="chartMort"></div><div id="chartFeed"></div><div id="chartFCR"></div><textarea id="farmerComments"></textarea></div></section>
 
 </template>
 <template id="tpl-layer">
@@ -2139,143 +2043,14 @@ html[data-theme="dark"] .warn-note{background:#3A3115;border-color:#8A6D1F;color
   </section>
 
   <!-- ============ OTHER COSTS ============ -->
-  <section class="panel" id="panel-costs" data-panel="costs">
-    <div class="panel-head">
-      <h1>Operational Costs</h1>
-      <p class="hint">Enter the money in the <strong>Amount (UGX)</strong> column — that is what is added into Total Cost. Description is only a note (e.g. supplier name).</p>
-      <p class="hint">Optional. Non-feed costs. Start typing a category (labour, egg trays, lighting, etc.) — matching suggestions appear in a small list. You can type any category that is not in the list.</p>
-      <button class="btn small" id="addCostRow">+ Add row</button>
-    </div>
-    <div class="table-scroll tall">
-      <table class="data-table" id="costsTable">
-        <thead>
-          <tr><th>Date</th><th>Category</th><th>Description</th><th>Amount (UGX)</th><th></th></tr>
-        </thead>
-        <tbody id="costsBody"><!-- rows injected --></tbody>
-      </table>
-    </div>
-    <div class="panel-instructions-link"><button class="link-btn" data-open-instructions>Instructions</button></div>
-  </section>
+  <section class="panel" id="panel-costs" data-panel="costs"><div hidden><button id="addCostRow"></button><table><tbody id="costsBody"></tbody></table></div></section>
 
   <!-- ============ SALES ============ -->
-  <section class="panel" id="panel-sales" data-panel="sales">
-    <div class="panel-head">
-      <h1>Spent Hen &amp; Other Sales</h1>
-      <p class="hint"><strong>Spent hens</strong> and <strong>culled birds</strong> are removed from Live Birds from the sale date onward — always put a date on them. Add rows with <strong>Egg trays</strong> or <strong>Loose eggs</strong> only if you want to record your real egg sales; if you add none, the app assumes all sellable eggs are sold at the tray price in Batch Setup.</p>
-      <button class="btn small" id="addSaleRow">+ Add sale</button>
-    </div>
-    <div class="table-scroll tall">
-      <table class="data-table" id="salesTable">
-        <thead>
-          <tr><th>Date</th><th>Item</th><th>Quantity</th><th>Unit Price (UGX)</th><th>Total (UGX)</th><th>Notes</th><th></th></tr>
-        </thead>
-        <tbody id="salesBody"><!-- rows injected --></tbody>
-      </table>
-    </div>
-    <div class="card" style="margin-top:14px;">
-      <div class="summary-grid">
-        <div><label>Hens / Birds Sold</label><output id="salesBirds">—</output></div>
-        <div><label>Spent Hen Revenue (UGX)</label><output id="salesHenRev">—</output></div>
-        <div><label>Egg Sales Logged (UGX)</label><output id="salesEggRev">—</output></div>
-        <div><label>Other Sales (UGX)</label><output id="salesOtherRev">—</output></div>
-        <div><label>Birds Still on Farm</label><output id="salesAlive">—</output></div>
-      </div>
-      <p class="hint small" id="salesEggNote" style="margin-top:8px;"></p>
-    </div>
-    <div class="panel-instructions-link"><button class="link-btn" data-open-instructions>Instructions</button></div>
-  </section>
+  <section class="panel" id="panel-sales" data-panel="sales"><div hidden><button id="addSaleRow"></button><table><tbody id="salesBody"></tbody></table><output id="salesBirds"></output><output id="salesHenRev"></output><output id="salesEggRev"></output><output id="salesOtherRev"></output><output id="salesAlive"></output><p id="salesEggNote"></p></div></section>
 
   <!-- ============ DAY VIEW / DASHBOARD ============ -->
   <!-- ============ BATCH REPORT ============ -->
-  <section class="panel" id="panel-report" data-panel="report">
-    <div class="panel-head">
-      <h1>Batch Report</h1>
-      <p class="hint">Printable summary. Use the print icon in the top bar, or copy a short text summary to paste into WhatsApp.</p>
-      <button class="btn small" id="copySummaryBtn" title="Copy a short text summary for WhatsApp">📋 Copy summary for WhatsApp</button>
-    </div>
-    <div class="report-sheet" id="reportSheet">
-      <h2 id="repBatchName">—</h2>
-      <div class="report-grid">
-        <div><label>Farm / Farmer</label><span id="repFarmFarmer">—</span></div>
-        <div><label>House / Pen</label><span id="repHousePen">—</span></div>
-        <div><label>Breed</label><span id="repBreed">—</span></div>
-        <div><label>Placement Date</label><span id="repPlacement">—</span></div>
-        <div><label>Starting Age (weeks)</label><span id="repStartAge">—</span></div>
-        <div><label>Supplier Name</label><span id="repSupplier">—</span></div>
-      </div>
-      <hr>
-      <h2 style="border:none;margin:0 0 6px;">Performance</h2>
-      <div class="report-grid two-col">
-        <div>
-          <div><label>Pullets Placed</label><span id="repPlaced">—</span></div>
-          <div><label>Birds Alive Now</label><span id="repAlive">—</span></div>
-          <div><label>Total Mortality</label><span id="repMortality">—</span></div>
-          <div><label>Mortality %</label><span id="repMortalityPct">—</span></div>
-          <div><label>Total Eggs Laid</label><span id="repEggs">—</span></div>
-          <div><label>Sellable Eggs</label><span id="repSellable">—</span></div>
-          <div><label>Trays Produced</label><span id="repTrays">—</span></div>
-        </div>
-        <div>
-          <div><label>Average Hen-Day %</label><span id="repAvgHD">—</span></div>
-          <div><label>Peak Hen-Day %</label><span id="repPeakHD">—</span></div>
-          <div><label>Average Hen-Housed %</label><span id="repAvgHH">—</span></div>
-          <div><label>Feed per Egg (g)</label><span id="repFeedPerEgg">—</span></div>
-          <div><label>Feed per Bird in Lay (g/day)</label><span id="repFeedPerBird">—</span></div>
-          <div><label>Weeks of Lay Completed</label><span id="repWeeksLay">—</span></div>
-          <div><label>Broken Eggs %</label><span id="repBrokenPct">—</span></div>
-        </div>
-      </div>
-      <hr>
-      <h2 style="border:none;margin:0 0 6px;">Costs &amp; Revenue</h2>
-      <div class="report-grid two-col">
-        <div>
-          <div><label>Pullet Cost (UGX)</label><span id="repPulletCost">—</span></div>
-          <div><label>Feed Cost (UGX)</label><span id="repFeedCost">—</span></div>
-          <div><label>Operational Cost (UGX)</label><span id="repOpCost">—</span></div>
-          <div><label>Total Cost (UGX)</label><span id="repTotalCost">—</span></div>
-        </div>
-        <div>
-          <div><label>Egg Revenue (UGX)</label><span id="repEggRev">—</span></div>
-          <div><label>Spent Hen &amp; Other Sales (UGX)</label><span id="repHenRev">—</span></div>
-          <div><label>Other Revenue (UGX)</label><span id="repOtherRev">—</span></div>
-          <div><label>Total Revenue (UGX)</label><span id="repTotalRev">—</span></div>
-        </div>
-      </div>
-      <div class="profit-banner" id="repProfitBanner">
-        <label>Net Profit / Loss (UGX)</label>
-        <span id="repProfit">—</span>
-      </div>
-      <div class="report-grid two-col" style="margin-top:10px;">
-        <div>
-          <div><label>Cost per Egg (UGX)</label><span id="repCostEgg">—</span></div>
-          <div><label>Cost per Tray (UGX)</label><span id="repCostTray">—</span></div>
-        </div>
-        <div>
-          <div><label>Break-Even Price per Tray (UGX)</label><span id="repBETray">—</span></div>
-          <div><label>Break-Even Trays to Sell</label><span id="repBETrays">—</span></div>
-        </div>
-      </div>
-      <p class="be-sentence" id="repBeSentence"></p>
-      <p class="benchmark-row" id="repBenchmarks"></p>
-      <hr>
-      <h2 style="border:none;margin:0 0 6px;">Trends (by week of the batch)</h2>
-      <div class="chart-grid" id="chartGrid">
-        <div class="chart-card"><h3>Hen-Day % (weekly)</h3><div id="chartHD"></div></div>
-        <div class="chart-card"><h3>Eggs per Week</h3><div id="chartEggs"></div></div>
-        <div class="chart-card"><h3>Feed per Bird per Day (g)</h3><div id="chartFeed"></div></div>
-        <div class="chart-card"><h3>Cumulative Mortality %</h3><div id="chartMort"></div></div>
-        <div class="chart-card"><h3>Avg Body Weight (g)</h3><div id="chartWeight"></div></div>
-        <div class="chart-card"><h3>Feed per Egg (g)</h3><div id="chartFeedEgg"></div></div>
-      </div>
-      <hr>
-      <div class="field">
-        <label for="farmerComments">Farmer Comments</label>
-        <textarea class="input-editable" id="farmerComments" rows="4" placeholder="Notes about this batch..."></textarea>
-      </div>
-    </div>
-    <div class="panel-instructions-link"><button class="link-btn" data-open-instructions>📖 Instructions</button></div>
-
-  </section>
+  <section class="panel" id="panel-report" data-panel="report"><div hidden><button id="copySummaryBtn"></button><div id="reportSheet"></div><h2 id="repBatchName"></h2><span id="repFarmFarmer"></span><span id="repHousePen"></span><span id="repBreed"></span><span id="repPlacement"></span><span id="repStartAge"></span><span id="repSupplier"></span><span id="repPlaced"></span><span id="repAlive"></span><span id="repMortality"></span><span id="repMortalityPct"></span><span id="repEggs"></span><span id="repSellable"></span><span id="repTrays"></span><span id="repAvgHD"></span><span id="repPeakHD"></span><span id="repAvgHH"></span><span id="repFeedPerEgg"></span><span id="repFeedPerBird"></span><span id="repWeeksLay"></span><span id="repBrokenPct"></span><span id="repPulletCost"></span><span id="repFeedCost"></span><span id="repOpCost"></span><span id="repTotalCost"></span><span id="repEggRev"></span><span id="repHenRev"></span><span id="repOtherRev"></span><span id="repTotalRev"></span><div id="repProfitBanner"></div><span id="repProfit"></span><span id="repCostEgg"></span><span id="repCostTray"></span><span id="repBETray"></span><span id="repBETrays"></span><p id="repBeSentence"></p><p id="repBenchmarks"></p><div id="chartGrid"></div><div id="chartHD"></div><div id="chartEggs"></div><div id="chartFeed"></div><div id="chartMort"></div><div id="chartWeight"></div><div id="chartFeedEgg"></div><textarea id="farmerComments"></textarea></div></section>
 
 </template>
 
@@ -3536,7 +3311,7 @@ const BRLic = (function () {
   return { b64uToBytes, bytesToB64u, hexToBytes, phoneIdFromBytes, phoneIdToBytes, normalizePhoneId, prettyPhoneId, sha256, verify, parseKey, checkSignature, rawToDer, buildPayload, dayToIso, isoToDay, PAYLOAD_LEN };
 })();
 
-  const LIC_PUB = "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEe39XwIml3Qpqc7B3HTSEgcvYfng5O8TXrFbYZrBHFQRmWKQZHm-3M3UcjCZ8WmF4P9OtzlyemhZ6uZRhWnvUYg";
+  const LIC_PUB = "";
   const LIC_TRIAL_DAYS = 14;
   const LIC_WA = "256750936539";
   const LTD_APK = "https://github.com/Twahir-B/boono-batch/releases/latest/download/B-records.apk";
@@ -3544,7 +3319,7 @@ const BRLic = (function () {
   function hideMoney() { return isWorker() || licLimited(); }
   const LIC_K = { trial: "bRecords.lic.trial", key: "bRecords.lic.key", seen: "bRecords.lic.seen" };
   let licShown = false;
-  function licOn() { return !!(window.BoonoAndroid && typeof window.BoonoAndroid.getDeviceId === "function"); }
+  function licOn() { return false; }
   function licDevice() {
     try {
       const h = String(window.BoonoAndroid.getDeviceId() || "");
