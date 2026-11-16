@@ -58,6 +58,16 @@ After the first visit with internet, the web app also opens without internet.
 
 ---
 
+
+## Free and full versions
+
+- **Web and HTML file (free, limited):** daily records, feed program, medication and health logs, sharing the day, and backups. Costs, Sales, the Report, Excel and Word export, printing and the batch library are in the Android app.
+- **Android app:** 14 days free with everything unlocked, then a subscription key.
+  - Broilers: UGX 5,000 for 1 batch, or UGX 15,000 for 4 batches.
+  - Layers: UGX 15,000 for 3 months, or UGX 40,000 for 12 months.
+  - How to get a key: open the menu, choose **Subscription key**, send your Phone ID on WhatsApp (+256 750 936 539), pay by Mobile Money, then paste the key you receive.
+  - Workers do not need a key. When a key ends, your records stay readable and can still be exported.
+
 ## Workers and managers
 
 A manager can let a worker enter the daily numbers **without seeing any prices or profit**.
@@ -95,6 +105,5 @@ A worker cannot leave worker mode until their latest records have been sent.
 - Email: boonomutwahil@gmail.com
 - WhatsApp: +256 750 936 539
 
-*Enjoying the app? Buy us a coffee: +256 709 919 991 or +256 774 566 039*
 
 **Author:** Boono Hasakya Mutwahilu, Poultry Specialist · Built by Boono Innovz Team
