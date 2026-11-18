@@ -1022,8 +1022,8 @@ html[data-theme="dark"] .warn-note{background:#3A3115;border-color:#8A6D1F;color
 .welcome-line{background:var(--green-100);border:1px solid var(--line);border-radius:var(--radius);padding:12px 14px;margin:0 0 14px;font-size:1rem;line-height:1.45;color:var(--green-900);}
 .tour-btn-start{width:100%;justify-content:center;font-size:1.05rem;padding:15px 18px;margin-bottom:10px;background:var(--amber-500);color:#1c201d;border:none;font-weight:900;border-radius:var(--radius);box-shadow:0 4px 14px rgba(214,154,45,.35);cursor:pointer;display:flex;align-items:center;gap:8px;}
 .tour{position:fixed;inset:0;z-index:10050;}
-.tour.dim{background:rgba(10,25,18,.66);}
-.tour-hole{position:fixed;border-radius:12px;box-shadow:0 0 0 9999px rgba(10,25,18,.66);border:3px solid var(--amber-500);pointer-events:none;transition:all .25s ease;display:none;}
+.tour.dim{background:rgba(10,25,18,.5);}
+.tour-hole{position:fixed;border-radius:12px;box-shadow:0 0 0 9999px rgba(10,25,18,.55);border:3px solid var(--amber-500);pointer-events:none;transition:all .25s ease;display:none;}
 .tour.has-hole .tour-hole{display:block;}
 .tour-card{position:fixed;left:12px;right:12px;margin:0 auto;max-width:460px;background:var(--card);color:var(--ink-900);border-radius:16px;padding:16px 16px 14px;box-shadow:0 10px 36px rgba(0,0,0,.4);font-family:var(--font-ui);}
 .tour-card.at-bottom{bottom:14px;}
@@ -3826,12 +3826,17 @@ const BRLic = (function () {
       sub = document.createElement("div"); sub.id = "subnav";
       const tb = document.getElementById("tabbar"); tb.parentNode.insertBefore(sub, tb.nextSibling);
       let maxH = window.innerHeight;
+      // Hide the bottom buttons only while the on-screen keyboard is really open (a field is being typed in).
+      const typing = () => { const a = document.activeElement; return !!a && (a.tagName === "INPUT" || a.tagName === "TEXTAREA" || a.tagName === "SELECT" || a.isContentEditable); };
       const chk = () => {
         const h = (window.visualViewport && window.visualViewport.height) || window.innerHeight;
         if (h > maxH) maxH = h;
-        document.body.classList.toggle("kb", h < maxH * 0.75);
+        document.body.classList.toggle("kb", typing() && h < maxH * 0.8);
       };
       window.addEventListener("resize", chk);
+      window.addEventListener("orientationchange", () => { maxH = 0; setTimeout(chk, 300); });
+      document.addEventListener("focusout", () => setTimeout(chk, 150), true);
+      document.addEventListener("focusin", () => setTimeout(chk, 350), true);
       if (window.visualViewport) window.visualViewport.addEventListener("resize", chk);
     }
     document.body.classList.add("has-bnav");
@@ -5350,7 +5355,13 @@ const BRLic = (function () {
     applyDesktopView(on); // re-assert on load (the inline <head> script already
     // did this before first paint — this just keeps the button label and any
     // late-settling window width in sync).
-    btn.addEventListener("click", () => applyDesktopView(!(localStorage.getItem(DESKTOP_VIEW_KEY) === "1")));
+    btn.addEventListener("click", () => {
+      applyDesktopView(!(localStorage.getItem(DESKTOP_VIEW_KEY) === "1"));
+      // A phone browser or the app's web view does not re-lay-out the page when the viewport changes,
+      // so the bottom buttons would stay missing until the app is closed. Reload the page now (everything is saved).
+      try { if (typeof flushSaveState === "function") flushSaveState(); } catch (e) {}
+      setTimeout(() => { try { location.reload(); } catch (e) {} }, 250);
+    });
   }
 
   function initSidePanel() {
@@ -6381,7 +6392,8 @@ const BRLic = (function () {
     const worker = isWorker();
     const L = type === "layer";
     const S = [];
-    S.push({ t: "Welcome 👋", x: worker ? "This is your daily record book. Each day you only type what happened on the farm. Let me show you where." : "This app helps you write down your " + (L ? "layers" : "broilers") + " each day and shows you if you are making money. Let me show you around. It takes about a minute, and you can stop any time." });
+    S.push({ t: "Welcome 👋", x: worker ? "Each day you type what happened on the farm. Let me show you where." : (L ? "Record your layer flock every day: feed, eggs, broken eggs and deaths. The app then shows you if you are making money." : "Record your broiler batch every day: feed, deaths and weight. The app then shows you if you are making money.") + " Let me show you around. It takes about a minute and you can stop any time." });
+    S.push({ key: "today", sel: ["#bnav", "#tabbar"], t: "Your buttons", x: worker ? "These buttons at the bottom move you around the app. <b>Today</b> is where you type each day." : "These buttons move you around the app: <b>Today</b> (type each day), <b>Records</b> (all your days), <b>Money</b>, <b>Report</b> and <b>Setup</b> (start here). On a computer they are across the top." });
     if (!worker) {
       S.push({ key: "setup", sel: ["#panel-setup #placementDate"], up: "field", t: "1. Start with Batch Setup", x: "Type the date the " + (L ? "birds" : "chicks") + " arrived, how many you placed and what each cost. The rest is optional. Open it from the <b>Setup</b> button." });
       S.push({ key: "feed", sel: ["#panel-feed #feedProgramTable"], t: "2. Feed price", x: "Type the price per kg you pay for each feed. You never type feed cost: the app works it out from the kg you record each day." });
