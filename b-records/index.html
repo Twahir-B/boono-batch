@@ -915,6 +915,14 @@ html[data-theme="dark"] .tf input:focus{background:var(--card);}
 .wk-d.now i{background:var(--amber-500);color:#2a1c00;}
 .wk-d.off{opacity:.45;}
 .wk-d.sel{border-color:var(--green-800);background:var(--green-100);}
+.be-controls{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;margin-bottom:8px;font-size:.86rem}
+.be-controls input,.be-controls select{font:inherit;padding:6px 8px;border:1px solid var(--line,#ccd);border-radius:8px;max-width:100%}
+.be-controls input{width:8em}
+.be-box{font-size:.95rem;line-height:1.5}
+.be-box p{margin:6px 0}
+.be-box .be-ok{color:var(--green-900,#14532d);font-weight:800}
+.be-box .be-bad{color:#b42318;font-weight:800}
+.be-box .be-note{font-size:.8rem;opacity:.8}
 .wk-streak{font-size:.86rem;font-weight:700;color:var(--green-900);margin:0 0 8px;}
 .wk-streak b{color:var(--amber-600);}
 .summary-cards{grid-template-columns:repeat(2,minmax(0,1fr));}
@@ -980,7 +988,7 @@ body.lic-ro #resetBtn,body.lic-ro #saveToLibraryBtn,body.lic-ro #mergeRecordsBtn
 .ltd-btn{display:inline-block;background:var(--green-800);color:#fff !important;text-decoration:none;font-weight:800;border-radius:12px;padding:13px 22px;font-size:1rem;}
 .panel.ltd-locked > :not(.ltd-card){display:none !important;}
 .panel.ltd-locked > .ltd-card{display:block;}
-body.ltd .tab[data-tab="costs"]::after,body.ltd .tab[data-tab="sales"]::after,body.ltd .tab[data-tab="report"]::after{content:" \1F512";font-size:.75em;}
+body.ltd .tab[data-tab="mymoney"]::after,body.ltd .tab[data-tab="costs"]::after,body.ltd .tab[data-tab="sales"]::after,body.ltd .tab[data-tab="report"]::after{content:" \1F512";font-size:.75em;}
 body.ltd #exportExcelBtn::after,body.ltd #exportWordBtn::after,body.ltd #saveToLibraryBtn::after,body.ltd #resetBtn::after,body.ltd #printBtn::after{content:" \1F512";font-size:.8em;}
 body.ltd .bn[data-g="money"]::after,body.ltd .bn[data-g="report"]::after{content:"\1F512";position:absolute;top:3px;right:22%;font-size:.65rem;}
 .app-dialog-form{display:flex;flex-direction:column;gap:10px;margin-bottom:14px;max-height:60vh;overflow-y:auto;}
@@ -1009,6 +1017,30 @@ input.bad{outline:2px solid #c62828;background:#fdecea}
 .warn-note{background:#FFF4D6;border:1px solid #E0B341;color:#5A4300;padding:10px 12px;border-radius:10px;margin:8px 0;font-size:.95rem}
 html[data-theme="dark"] .warn-note{background:#3A3115;border-color:#8A6D1F;color:#F3E2B0}
 
+
+/* ---- Welcome + guided tour ---- */
+.welcome-line{background:var(--green-100);border:1px solid var(--line);border-radius:var(--radius);padding:12px 14px;margin:0 0 14px;font-size:1rem;line-height:1.45;color:var(--green-900);}
+.tour-btn-start{width:100%;justify-content:center;font-size:1.05rem;padding:15px 18px;margin-bottom:10px;background:var(--amber-500);color:#1c201d;border:none;font-weight:900;border-radius:var(--radius);box-shadow:0 4px 14px rgba(214,154,45,.35);cursor:pointer;display:flex;align-items:center;gap:8px;}
+.tour{position:fixed;inset:0;z-index:10050;}
+.tour.dim{background:rgba(10,25,18,.66);}
+.tour-hole{position:fixed;border-radius:12px;box-shadow:0 0 0 9999px rgba(10,25,18,.66);border:3px solid var(--amber-500);pointer-events:none;transition:all .25s ease;display:none;}
+.tour.has-hole .tour-hole{display:block;}
+.tour-card{position:fixed;left:12px;right:12px;margin:0 auto;max-width:460px;background:var(--card);color:var(--ink-900);border-radius:16px;padding:16px 16px 14px;box-shadow:0 10px 36px rgba(0,0,0,.4);font-family:var(--font-ui);}
+.tour-card.at-bottom{bottom:14px;}
+.tour-card.at-top{top:64px;}
+.tour-card .tour-count{font-size:.72rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--amber-600);margin-bottom:4px;}
+.tour-card h3{margin:0 0 6px;font-size:1.2rem;color:var(--green-900);line-height:1.25;}
+.tour-card p{margin:0 0 12px;font-size:1rem;line-height:1.5;color:var(--ink-900);}
+.tour-dots{display:flex;gap:5px;margin:0 0 12px;}
+.tour-dots i{flex:1;height:4px;border-radius:2px;background:var(--line);}
+.tour-dots i.on{background:var(--green-700);}
+.tour-btns{display:flex;gap:8px;align-items:center;}
+.tour-btns .btn{padding:12px 16px;font-size:1rem;}
+.tour-btns .tour-next{flex:1;justify-content:center;}
+.tour-skip{background:none;border:none;color:var(--ink-600);font-size:.9rem;text-decoration:underline;cursor:pointer;padding:8px 4px;margin-left:auto;font-family:var(--font-ui);}
+html[data-theme="dark"] .tour-card{background:#1d2420;color:#e8ece9;}
+html[data-theme="dark"] .tour-card h3{color:#bfe3cf;}
+html[data-theme="dark"] .tour-card p{color:#e8ece9;}
 </style>
 </head>
 <body>
@@ -1023,6 +1055,7 @@ html[data-theme="dark"] .warn-note{background:#3A3115;border-color:#8A6D1F;color
   <div class="start-here-inner">
 
     <div class="type-chooser" id="typeChooser">
+      <p class="welcome-line">👋 <strong>Welcome to B-records!</strong> Write down what happens on your farm each day, and the app tells you if you are making money. You do not have to read anything: choose what you keep, then tap <strong>Show me around</strong> and it walks you through in about a minute.</p>
       <h2>What do you keep?</h2>
       <p>B-records has a batch book for broilers and one for layers. Choose one to read its short guide. You can keep both kinds of batches in the same app — later use menu ☰ → <strong>New batch</strong> and pick the kind.</p>
       <button type="button" class="type-card broiler" data-pick-type="broiler"><span class="ic">🐔</span><span><strong>Broilers</strong><small>Meat birds — feed, weight, FCR and profit for each batch</small></span></button>
@@ -1243,6 +1276,8 @@ html[data-theme="dark"] .warn-note{background:#3A3115;border-color:#8A6D1F;color
         <li><div><strong>The app checks your numbers</strong><span>It refuses numbers that cannot be true: below zero, more deaths than birds, broken eggs more than eggs collected, or selling more birds than you have left. A red message tells you why and the old number comes back.</span></div></li>
         <li><div><strong>Free for 14 days, then a subscription key</strong><span>When you first open the app you get <strong>14 days free</strong> with everything working. After that the app keeps your records and lets you read and export them, but you need a key to add new numbers. <strong>Prices:</strong> Broilers UGX 5,000 for 1 batch or UGX 15,000 for 4 batches. Layers UGX 15,000 for 3 months or UGX 40,000 for 12 months. To buy: menu ☰ → <strong>Subscription key</strong> → <strong>Send Phone ID on WhatsApp</strong> (+256 750 936 539). Pay by Mobile Money and we send you a key. Paste it in the same screen. A key only works on the phone it was made for.</span></div></li>
         <li><div><strong>Keep your key safe</strong><span>Keep the key message in WhatsApp. If you reinstall the app, paste the key again. Your records are not part of the key, so make a backup too (see below).</span></div></li>
+        <li><div><strong>Layers: money put in, and getting it back</strong><span>Before the birds lay you only spend: birds, rearing feed and running costs. The app adds this up as <strong>Money put in</strong>. Once the birds lay, each day's egg money (trays at your tray price) pays for feed and running costs. What is left is the <strong>surplus</strong>, and it pays back the money you put in. The <strong>Report</strong> shows the surplus for the last 7 days and about how many weeks until you get your money back. To make this honest, enter your <strong>wages and other running costs</strong> in Costs and choose how many days each one covers: 7 days for a weekly cost, 30 days for a monthly one (the app spreads it per day). If you do not enter them the app warns you.</span></div></li>
+        <li><div><strong>Layers: prices, feed and customers</strong><span>Everything about money for layers is in the <strong>My money</strong> tab (Money button at the bottom). If the market price of a tray changes, add it in <strong>Batch Setup → Tray price changes</strong> (or type a price on the Today card and tap <em>Save this as my tray price</em>). Every day is then counted at the price of that day. In <strong>Phases &amp; Feed</strong>, add the feed you buy: the app tells you how many days of feed are left and warns you before it runs out. In <strong>Sales</strong>, type what the customer paid if they still owe you; the app shows trays in stock and what customers owe. After the birds pass their peak, the Report and Today screen tell you if the flock is still covering its costs, and what the spent hens would bring if you type an expected price per hen.</span></div></li>
         <li><div><strong>Workers never pay</strong><span>Only the owner needs a key. Workers who use <strong>Invite a worker</strong> can always type daily numbers, and they never see prices or profit.</span></div></li>
         <li><div><strong>Web page and HTML file are a free, limited version</strong><span>If you open B-records as a web page or an HTML file (not the Android app), you get the daily records and basic checks for free, but the Money and Report pages with costs, sales and profit stay locked. Install the Android app to get everything.</span></div></li>
       </ul>
@@ -1438,6 +1473,7 @@ html[data-theme="dark"] .warn-note{background:#3A3115;border-color:#8A6D1F;color
     </div>
 
     <div class="start-here-actions" id="startHereActions" style="display:none">
+      <button type="button" class="tour-btn-start" id="startTourBtn">▶ Show me around (1 minute)</button>
       <button class="btn" id="startHereContinue">I understand — start my batch →</button>
       <button type="button" class="link-btn guide-switch" id="guideSwitch">Read the layer guide instead</button>
     </div>
@@ -1487,6 +1523,7 @@ html[data-theme="dark"] .warn-note{background:#3A3115;border-color:#8A6D1F;color
 <aside class="side-panel" id="sidePanel" aria-label="Menu">
   <div class="side-panel-head">Tools</div>
   <button class="side-item" id="startHereReopenBtn" data-open-instructions title="Show the how-to-use guide and data-backup instructions again" style="font-weight:900;">Instructions</button>
+  <button class="side-item" id="tourBtn" title="A one-minute walk through the app" style="font-weight:900;">▶ Take the tour</button>
   <button class="side-item" id="desktopViewBtn" title="Keep a wider, desktop-style layout across refreshes">Desktop view: Off</button>
   <button class="side-item" id="darkModeBtn" title="Switch between light and dark appearance">Dark mode: Off</button>
   <button class="side-item owner-only" id="licenseBtn" style="display:none" title="Your subscription key">Subscription key</button>
@@ -1679,6 +1716,12 @@ html[data-theme="dark"] .warn-note{background:#3A3115;border-color:#8A6D1F;color
         <tbody id="feedProgramBody"><!-- rows injected --></tbody>
       </table>
     </div>
+    <div class="card money-sec" id="feedPriceCard" style="margin-top:14px;">
+      <h2>When the feed price changes</h2>
+      <p class="hint small">Optional. The price you typed above is used from the start. If a feed gets dearer or cheaper, add the change here: pick the feed, the date it starts and the new price per kg. Days before that date keep the old price, so old costs never change. Feed cost is always worked out for you (kg eaten &times; price per kg), so do not enter feed under Costs.</p>
+      <div class="table-scroll"><table class="data-table" id="feedPriceTable"><thead><tr><th>Feed</th><th>From date</th><th>New price per kg (UGX)</th><th></th></tr></thead><tbody id="feedPriceBody"></tbody></table></div>
+      <button type="button" class="btn small" id="addFeedPrice">+ Add price change</button>
+    </div>
     <div class="panel-instructions-link"><button class="link-btn" data-open-instructions>Instructions</button></div>
   </section>
 
@@ -1776,6 +1819,10 @@ html[data-theme="dark"] .warn-note{background:#3A3115;border-color:#8A6D1F;color
       <h2>Your batch so far</h2>
       <div class="summary-cards" id="todaySummary"></div>
     </div>
+    <div class="card money-sec" id="moneyLine">
+      <p class="be-box" id="moneyLineText" style="margin:0 0 8px"></p>
+      <button type="button" class="btn small" id="openMyMoney">Open My money</button>
+    </div>
     <div class="card">
       <h2>What happened on this day</h2>
       <div class="day-cards" id="todayCards"></div>
@@ -1837,8 +1884,14 @@ html[data-theme="dark"] .warn-note{background:#3A3115;border-color:#8A6D1F;color
         <div class="field"><label for="birdsAtLayOverride">Birds at Lay Onset <span class="optional">(optional — leave empty to use the estimate)</span></label><input class="input-editable" type="number" min="0" step="1" id="birdsAtLayOverride"></div>
         <div class="field readonly"><label>Birds at Lay Onset used (estimate)</label><output id="birdsAtLayUsed">—</output></div>
         <div class="field"><label for="eggsPerTray">Eggs per Tray</label><input class="input-editable" type="number" min="1" step="1" id="eggsPerTray"></div>
-        <div class="field"><label for="trayPrice">Selling Price per Tray (UGX)</label><input class="input-editable" type="number" min="0" step="1" id="trayPrice"></div>
+        <div class="field"><label for="trayPrice">Selling Price per Tray (UGX) <span class="optional">(your price at the start; if it changes, add the change below)</span></label><input class="input-editable" type="number" min="0" step="1" id="trayPrice"></div>
         <div class="field"><label for="eggPrice">Selling Price per Egg (UGX) <span class="optional">(optional — used only if no tray price)</span></label><input class="input-editable" type="number" min="0" step="1" id="eggPrice"></div>
+        <div class="field"><label for="spentHenPrice">Expected price per spent hen (UGX) <span class="optional">(optional — used to tell you what selling now would bring)</span></label><input class="input-editable" type="number" min="0" step="1" id="spentHenPrice"></div>
+        <div class="field" id="priceChangesField">
+          <label>Tray price changes <span class="optional">(optional — when the market price moves)</span></label>
+          <div class="table-scroll"><table class="data-table" id="priceChangesTable"><thead><tr><th>From date</th><th>New price per tray (UGX)</th><th></th></tr></thead><tbody id="priceChangesBody"></tbody></table></div>
+          <button type="button" class="btn small" id="addPriceChange">+ Add price change</button>
+        </div>
         <div class="field"><label for="otherRevenue">Other Revenue (UGX)</label><input class="input-editable" type="number" min="0" step="1" id="otherRevenue"></div>
         <div class="field"><label for="normalWaterRatio">Normal Water Ratio (L per kg feed)</label><input class="input-editable" type="number" min="0" step="0.01" id="normalWaterRatio"></div>
         <div class="field"><label for="hotWaterRatio">Hot Weather Water Ratio (Temp ≥ 30°C)</label><input class="input-editable" type="number" min="0" step="0.01" id="hotWaterRatio"></div>
@@ -1946,6 +1999,21 @@ html[data-theme="dark"] .warn-note{background:#3A3115;border-color:#8A6D1F;color
         </table>
       </div>
     </div>
+
+    <div class="card money-sec" id="feedPriceCard" style="margin-top:14px;">
+      <h2>When the feed price changes</h2>
+      <p class="hint small">Optional. The price you typed above is used from the start. If a feed gets dearer or cheaper, add the change here: pick the feed, the date it starts and the new price per kg. Days before that date keep the old price, so old costs never change. Feed cost is always worked out for you (kg eaten &times; price per kg), so do not enter feed under Costs.</p>
+      <div class="table-scroll"><table class="data-table" id="feedPriceTable"><thead><tr><th>Feed</th><th>From date</th><th>New price per kg (UGX)</th><th></th></tr></thead><tbody id="feedPriceBody"></tbody></table></div>
+      <button type="button" class="btn small" id="addFeedPrice">+ Add price change</button>
+    </div>
+
+    <div class="card money-sec" id="feedStockCard" style="margin-top:14px;">
+      <h2>Feed bought and feed in store</h2>
+      <p class="hint small">Optional. Type each time you buy feed. The app then tells you how many days of feed are left, warns you before it runs out, and shows the average price you really paid per kg.</p>
+      <button class="btn small" id="addFeedBuy" style="margin-bottom:8px;">+ Add feed bought</button>
+      <div class="table-scroll"><table class="data-table" id="feedBuyTable"><thead><tr><th>Date</th><th>Kilograms bought</th><th>Total paid (UGX)</th><th>Price per kg</th><th></th></tr></thead><tbody id="feedBuyBody"></tbody></table></div>
+      <p class="be-box" id="feedStockLine"></p>
+    </div>
     <div class="panel-instructions-link"><button class="link-btn" data-open-instructions>Instructions</button></div>
   </section>
 
@@ -2043,10 +2111,12 @@ html[data-theme="dark"] .warn-note{background:#3A3115;border-color:#8A6D1F;color
   </section>
 
   <!-- ============ OTHER COSTS ============ -->
+  <section class="panel" id="panel-mymoney" data-panel="mymoney"><div hidden><div id="beCard"></div><select id="beView"></select><input id="bePrice"><button id="beReset"></button><button id="beSave"></button><div id="beBody"></div><div id="cullCard"></div><p id="myCull"></p><div id="repEconCard"></div><span id="repInvest"></span><span id="repInvestFeed"></span><span id="repRecovered"></span><span id="repRemaining"></span><span id="repAvg7"></span><span id="repPayback"></span><span id="repStock"></span><span id="repReceived"></span><span id="repOwed"></span><p id="repEconNote"></p><div id="repEconWarn"></div><div id="myFeedCard"></div><p id="myFeedStock"></p><table><tbody id="myWeekBody"></tbody></table></div></section>
+
   <section class="panel" id="panel-costs" data-panel="costs"><div hidden><button id="addCostRow"></button><table><tbody id="costsBody"></tbody></table></div></section>
 
   <!-- ============ SALES ============ -->
-  <section class="panel" id="panel-sales" data-panel="sales"><div hidden><button id="addSaleRow"></button><table><tbody id="salesBody"></tbody></table><output id="salesBirds"></output><output id="salesHenRev"></output><output id="salesEggRev"></output><output id="salesOtherRev"></output><output id="salesAlive"></output><p id="salesEggNote"></p></div></section>
+  <section class="panel" id="panel-sales" data-panel="sales"><div hidden><button id="addSaleRow"></button><table><tbody id="salesBody"></tbody></table><output id="salesBirds"></output><output id="salesHenRev"></output><output id="salesEggRev"></output><output id="salesOtherRev"></output><output id="salesAlive"></output><output id="salesStock"></output><output id="salesReceived"></output><output id="salesOwed"></output><p id="salesEggNote"></p></div></section>
 
   <!-- ============ DAY VIEW / DASHBOARD ============ -->
   <!-- ============ BATCH REPORT ============ -->
@@ -2080,6 +2150,11 @@ function daysBetween(a, b) {
 }
 const num = (v) => (v === "" || v === null || v === undefined || isNaN(v) ? null : Number(v));
 
+function feedWorking(cost, price) {
+  if (!(price > 0) || cost === null || cost === undefined || !isFinite(cost)) return "";
+  const kg = Math.round(cost / price * 10) / 10;
+  return " (" + String(kg).replace(/\.0$/, "") + " kg × UGX " + Math.round(price).toLocaleString("en-US") + ")";
+}
 function fmtInt(n) {
   return n === null || n === undefined || isNaN(n) ? "—" : Math.round(n).toLocaleString("en-UG");
 }
@@ -2293,6 +2368,14 @@ function recompute(state) {
     const p = feedComputed.find((x) => x.name === phaseName);
     return p ? num(p.priceKg) : null;
   }
+  // Price changes by date: the latest change on or before the day wins; days before it keep the older price.
+  const feedPriceChanges = (state.feedPriceChanges || []).filter((c) => c && c.feed && c.date && num(c.price) > 0).slice().sort((a, b) => (a.date < b.date ? -1 : a.date > b.date ? 1 : 0));
+  function priceForPhaseOn(phaseName, iso) {
+    let p = priceForPhase(phaseName);
+    if (!iso) return p;
+    for (const c of feedPriceChanges) { if (c.feed === phaseName && c.date <= iso) p = num(c.price); }
+    return p;
+  }
 
   // ---------- Daily Record ----------
   const chicksPlaced = num(s.chicksPlaced);
@@ -2361,7 +2444,7 @@ function recompute(state) {
     const liveEnd = liveAfterMort === null ? null : Math.max(0, liveAfterMort - cumSoldToDate);
     const mortPct = chicksPlaced ? cumMortality / chicksPlaced : null;
 
-    const feedPrice = feedType ? priceForPhase(feedType) : null;
+    const feedPrice = feedType ? priceForPhaseOn(feedType, date) : null;
     const dailyFeedCost = feedConsumed !== null && feedPrice !== null ? feedConsumed * feedPrice : null;
 
     cumFeed += feedConsumed || 0;
@@ -2818,6 +2901,13 @@ function recompute(state, todayIso) {
     startDate: p.used ? wkStartDate(num(p.startWk) || 0) : null,
     endDate: p.used ? wkEndDate(num(p.endWk) || 0) : null,
   }));
+  const feedPriceChanges = (state.feedPriceChanges || []).filter((c) => c && c.feed && c.date && num(c.price) > 0).slice().sort((a, b) => (a.date < b.date ? -1 : a.date > b.date ? 1 : 0));
+  function priceForFeedOn(p, iso) {
+    let v = num(p.priceKg);
+    if (!iso) return v;
+    for (const c of feedPriceChanges) { if (c.feed === p.name && c.date <= iso) v = num(c.price); }
+    return v;
+  }
   function feedForWeek(w) {
     for (const p of feed) {
       const a = num(p.startWk), b = num(p.endWk);
@@ -2872,7 +2962,7 @@ function recompute(state, todayIso) {
     const phase = phaseForWeek(weekOfLife);
     const fp = feedForWeek(weekOfLife);
     const feedType = fp ? fp.name : "";
-    const feedPrice = fp ? num(fp.priceKg) : null;
+    const feedPrice = fp ? priceForFeedOn(fp, date) : null;
     const feedKg = num(row.feedKg);
     const mort = num(row.mort);
     const culls = num(row.culls);
@@ -2899,7 +2989,7 @@ function recompute(state, todayIso) {
       dayNo, batchWk, weekOfLife, date, phase, feedType, feedPrice, feedKg, water,
       mort, culls, cumMort, cumCull, cumMortPct: placed ? cumMort / placed : null,
       liveEnd, eggs, broken, sellable, trays: sellable === null ? null : sellable / ept,
-      hd, hh: null, feedPerBirdG, feedPerEggG, feedCost, cumFeed, cumFeedCost,
+      hd, hh: null, feedPerBirdG, feedPerEggG, feedCost, feedPrice, cumFeed, cumFeedCost,
       feedUnpriced: feedKg !== null && feedKg > 0 && feedPrice === null,
       inLay: weekOfLife >= onsetWk, pastDepl: weekOfLife > depletionWk,
       weight, temp, soldToDate: cumSold,
@@ -3000,9 +3090,20 @@ function recompute(state, todayIso) {
 
   // Egg revenue: logged egg sales if any, otherwise sellable eggs x price
   const trayP = num(s.trayPrice), eggP = num(s.eggPrice);
+  const priceChanges = (state.priceChanges || []).filter((c) => c && c.date && num(c.price) > 0).slice().sort((a, b) => (a.date < b.date ? -1 : a.date > b.date ? 1 : 0));
+  function trayPriceOn(iso) {
+    let p = trayP !== null && trayP > 0 ? trayP : null;
+    if (!iso) return p;
+    for (const c of priceChanges) { if (c.date <= iso) p = num(c.price); else break; }
+    return p;
+  }
   let eggRevenue = null, eggRevenueSource = "";
   if (eggRowsLogged > 0) { eggRevenue = eggRevLogged; eggRevenueSource = "logged"; }
-  else if (trayP !== null && trayP > 0) { eggRevenue = trays * trayP; eggRevenueSource = "tray"; }
+  else if ((trayP !== null && trayP > 0) || priceChanges.length) {
+    if (priceChanges.length) { eggRevenue = daily.reduce((a, d) => { const p = d.sellable === null ? null : trayPriceOn(d.date); return a + (p ? (d.sellable / ept) * p : 0); }, 0); }
+    else eggRevenue = trays * trayP;
+    eggRevenueSource = "tray";
+  }
   else if (eggP !== null && eggP > 0) { eggRevenue = sellableEggs * eggP; eggRevenueSource = "egg"; }
   const otherRevenue = num(s.otherRevenue) || 0;
   const totalRevenue = (eggRevenue || 0) + henRevenue + otherSalesRevenue + otherRevenue;
@@ -3013,7 +3114,7 @@ function recompute(state, todayIso) {
   const costPerTray = totalCost !== null && trays > 0 ? totalCost / trays : null;
   const breakEvenTray = totalCost !== null && trays > 0 ? totalCost / trays : null;
   const breakEvenTrayNet = totalCost !== null && trays > 0 ? Math.max(0, totalCost - nonEggRevenue) / trays : null;
-  const effTrayPrice = trayP !== null && trayP > 0 ? trayP : (eggP !== null && eggP > 0 ? eggP * ept : null);
+  const effTrayPrice = trayPriceOn(todayIso || isoLocal(new Date())) || (eggP !== null && eggP > 0 ? eggP * ept : null);
   const breakEvenTrays = totalCost !== null && effTrayPrice ? Math.ceil(totalCost / effTrayPrice) : null;
   const breakEvenTraysNet = totalCost !== null && effTrayPrice ? Math.ceil(Math.max(0, totalCost - nonEggRevenue) / effTrayPrice) : null;
 
@@ -3069,8 +3170,130 @@ function recompute(state, todayIso) {
 
   const activePhases = feed.filter((p) => p.used).map((p) => p.name).join(", ");
 
+  // ---------- Investment, daily running surplus and payback (layers) ----------
+  const econ = (function () {
+    const COV = { day: 1, week: 7, month: 30 };
+    const alloc = new Array(DAY_ROWS).fill(0);
+    let beforeLay = 0, undated = 0, spreadTotal = 0;
+    (state.costs || []).forEach((c) => {
+      let v = num(c.amount);
+      if (v === null || v === 0) {
+        const d0 = String(c.description || "").replace(/,/g, "").trim();
+        if (d0 && /^\d+(\.\d+)?$/.test(d0)) v = num(d0);
+      }
+      if (!v) return;
+      if (!c.date || !placement) { undated++; return; }
+      const idx = daysBetween(placement, c.date);
+      if (idx === null) { undated++; return; }
+      const n = COV[c.covers] || 1;
+      const share = v / n;
+      for (let k = 0; k < n; k++) {
+        const j = idx + k;
+        if (j < 0) beforeLay += share;
+        else if (j < DAY_ROWS) alloc[j] += share;
+      }
+    });
+    const cutoff = placement ? Math.min(DAY_ROWS - 1, daysBetween(placement, today) === null ? -1 : daysBetween(placement, today)) : -1;
+    const price = effTrayPrice;
+    const pAt = (i) => { const d = daily[i]; const p = d && d.date ? trayPriceOn(d.date) : null; return p || price; };
+    let invFeed = 0, invOther = beforeLay;
+    const sold = new Array(DAY_ROWS).fill(0);
+    salesRows.forEach((r) => {
+      if (!r || !r.date || !placement) return;
+      const k = saleKind(r.item); if (k !== "tray" && k !== "loose") return;
+      const idx = daysBetween(placement, r.date); const q = num(r.qty), p = num(r.price);
+      if (idx !== null && idx >= 0 && idx < DAY_ROWS && q !== null && p !== null) sold[idx] += q * p;
+    });
+    const days = [];
+    let recoveredSurplus = 0, layDaysCounted = 0, otherInLay = 0, anyLay = false;
+    for (let i = 0; i < DAY_ROWS; i++) {
+      const d = daily[i];
+      if (i > cutoff) { days.push(null); continue; }
+      if (!d.inLay) { invFeed += d.feedCost || 0; invOther += alloc[i]; days.push(null); continue; }
+      anyLay = true;
+      const counted = d.eggs !== null;
+      const running = (d.feedCost || 0) + alloc[i];
+      const pDay = pAt(i);
+      const eggValue = counted && pDay && d.sellable !== null ? (d.sellable / ept) * pDay : null;
+      const surplus = counted && eggValue !== null ? eggValue - running : null;
+      if (counted) { layDaysCounted++; otherInLay += alloc[i]; if (surplus !== null) recoveredSurplus += surplus; }
+      days.push({ running, eggValue, surplus, soldValue: sold[i], price: pDay, beTrays: pDay ? running / pDay : null, trays: d.sellable === null ? null : d.sellable / ept, counted });
+    }
+    const pulletCost = totalPulletCost || 0;
+    const investment = pulletCost + invFeed + invOther;
+    // last 7 counted laying days
+    const counted = []; for (let i = days.length - 1; i >= 0 && counted.length < 7; i--) if (days[i] && days[i].counted && days[i].surplus !== null) counted.push(days[i].surplus);
+    const avg7 = counted.length ? counted.reduce((a, b) => a + b, 0) / counted.length : null;
+    const nonEgg = (henRevenue || 0) + (otherSalesRevenue || 0) + (num(s.otherRevenue) || 0);
+    const recovered = recoveredSurplus + nonEgg;
+    const remaining = Math.max(0, investment - recovered);
+    const paybackWeeks = remaining <= 0 ? 0 : (avg7 !== null && avg7 > 0 ? remaining / (avg7 * 7) : null);
+    // weekly
+    const wk = [];
+    for (let w = 0; w < WEEK_ROWS; w++) {
+      let run = 0, egg = 0, sur = 0, n = 0;
+      for (let i = w * 7; i < w * 7 + 7 && i < DAY_ROWS; i++) { const x = days[i]; if (x && x.counted && x.surplus !== null) { run += x.running; egg += x.eggValue; sur += x.surplus; n++; } }
+      wk.push(n ? { running: run, eggValue: egg, surplus: sur, days: n, beTrays: price ? run / price : null } : null);
+    }
+    const warn = [];
+    if (anyLay && layDaysCounted > 0 && otherInLay <= 0) warn.push("noRunning");
+    if (anyLay && layDaysCounted > 0 && price === null) warn.push("noPrice");
+    if (undated > 0) warn.push("undated");
+    // ---- feed in store
+    let feedInfo = null;
+    const buys = (state.feedBuys || []).filter((b) => b && num(b.kg) > 0);
+    if (buys.length) {
+      const bought = buys.reduce((a, b) => a + num(b.kg), 0);
+      const paidKg = buys.filter((b) => num(b.amount) > 0).reduce((a, b) => a + num(b.kg), 0);
+      const paid = buys.reduce((a, b) => a + (num(b.amount) > 0 ? num(b.amount) : 0), 0);
+      let eaten = 0; const recent = [];
+      for (let i = 0; i <= cutoff && i < DAY_ROWS; i++) { const k = daily[i].feedKg; if (k !== null) { eaten += k; } }
+      for (let i = Math.min(cutoff, DAY_ROWS - 1); i >= 0 && recent.length < 7; i--) { const k = daily[i].feedKg; if (k !== null) recent.push(k); }
+      const avgEat = recent.length ? recent.reduce((a, b) => a + b, 0) / recent.length : null;
+      const stock = bought - eaten;
+      feedInfo = { bought, eaten, stock, avgPaid: paidKg > 0 ? paid / paidKg : null, avgEat, daysLeft: avgEat > 0 ? stock / avgEat : null, usedPrice: totalFeed > 0 ? feedCostTotal / totalFeed : null };
+      if (stock < 0) warn.push("feedNegative");
+      else if (feedInfo.daysLeft !== null && feedInfo.daysLeft <= 3) warn.push("feedLow");
+    }
+    // ---- eggs in stock, money received, owed
+    let stockInfo = null;
+    if (eggRowsLogged > 0) {
+      let prod = 0; for (let i = 0; i <= cutoff && i < DAY_ROWS; i++) prod += (daily[i].sellable || 0);
+      const sold = traysSoldLogged + looseEggsSoldLogged / ept;
+      let received = 0, owed = 0;
+      salesRows.forEach((r) => {
+        if (!r) return; const line = (num(r.qty) !== null && num(r.price) !== null) ? num(r.qty) * num(r.price) : 0; if (!line) return;
+        const p = (r.paid === "" || r.paid === undefined || r.paid === null) ? line : Math.min(line, Math.max(0, num(r.paid) || 0));
+        received += p; owed += line - p;
+      });
+      stockInfo = { stockTrays: prod / ept - sold, received, owed };
+    } else if (salesRows.length) {
+      let received = 0, owed = 0;
+      salesRows.forEach((r) => { if (!r) return; const line = (num(r.qty) !== null && num(r.price) !== null) ? num(r.qty) * num(r.price) : 0; if (!line) return; const p = (r.paid === "" || r.paid === undefined || r.paid === null) ? line : Math.min(line, Math.max(0, num(r.paid) || 0)); received += p; owed += line - p; });
+      stockInfo = { stockTrays: null, received, owed };
+    }
+    // ---- is the flock still worth its feed? (only after the peak)
+    let cull = null;
+    const lastCounted = (function () { for (let i = days.length - 1; i >= 0; i--) if (days[i] && days[i].counted) return i; return -1; })();
+    if (lastCounted >= 0 && counted.length >= 7) {
+      const wkLife = daily[lastCounted].weekOfLife;
+      let hdSum = 0, hdN = 0, runSum = 0, runN = 0;
+      for (let i = lastCounted, c = 0; i >= 0 && c < 7; i--) { if (days[i] && days[i].counted) { c++; const dd = daily[i]; if (dd.hd !== null) { hdSum += dd.hd; hdN++; } runSum += days[i].running; runN++; } }
+      const hd7 = hdN ? hdSum / hdN : null, run7 = runN ? runSum / runN : 0;
+      const alive = daily[lastCounted].liveEnd || 0;
+      let level = "ok";
+      if (wkLife <= peakEndWk) level = "building";
+      else if (avg7 !== null && avg7 <= 0) level = "act";
+      else if (avg7 !== null && run7 > 0 && avg7 / run7 < 0.15) level = "watch";
+      else if (hd7 !== null && hd7 < 0.6) level = "watch";
+      const spentP = num(s.spentHenPrice);
+      cull = { level, hd7, surplusDay: avg7, perHen: alive && avg7 !== null ? avg7 / alive : null, alive, henValue: spentP > 0 && alive ? spentP * alive : null, spentP, weekOfLife: wkLife };
+    }
+    return { investment, pulletCost, invFeed, invOther, recovered, remaining, avg7, paybackWeeks, days, weeks: wk, warn, undated, price, anyLay, layDaysCounted, nonEgg, feedInfo, stockInfo, cull };
+  })();
+
   return {
-    phases, feed, daily, weeks, vax, milestones, hatchDate,
+    phases, feed, daily, weeks, vax, milestones, hatchDate, econ,
     sales: {
       birdsSoldTotal, henRevenue, otherSalesRevenue, eggRevenueLogged: eggRevLogged,
       eggRowsLogged, traysSoldLogged, looseEggsSoldLogged,
@@ -3422,7 +3645,8 @@ const BRLic = (function () {
   function ltdApply(on) {
     LTD_HIDE_CARDS.forEach((id) => { const e = document.getElementById(id), c = e && e.closest(".card"); if (c) c.style.display = on ? "none" : ""; });
     LTD_HIDE_ITEMS.forEach((id) => { const e = document.getElementById(id), c = e && e.parentElement; if (c) c.style.display = on ? "none" : ""; });
-    ["costs", "sales", "report"].forEach((k) => ltdPanel(k, on));
+    ["priceChangesField", "feedStockCard", "feedPriceCard", "moneyLine", "spentHenPrice"].forEach((id) => { let e = document.getElementById(id); if (e && id === "spentHenPrice") e = e.parentElement; if (e) e.style.display = on ? "none" : ""; });
+    ["costs", "sales", "report", "mymoney"].forEach((k) => ltdPanel(k, on));
   }
   function ltdPanel(k, on) {
     const p = document.getElementById("panel-" + k); if (!p) return;
@@ -3450,9 +3674,15 @@ const BRLic = (function () {
     const ov = document.querySelector(".tab-overlay"); if (ov) ov.classList.remove("open");
     ltdOpen(b.id === "resetBtn" || b.id === "saveToLibraryBtn" || b.id === "updateTemplateBtn" ? "One batch in the free version" : b.id === "printBtn" ? "Printing" : "Export");
   }, true);
-  function licCopy(text) {
-    try { if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(text); return true; } } catch (e) {}
-    try { const t = document.createElement("textarea"); t.value = text; document.body.appendChild(t); t.select(); const ok = document.execCommand("copy"); t.remove(); return ok; } catch (e) {}
+  async function licCopy(text) {
+    try {
+      const t = document.createElement("textarea"); t.value = text; t.setAttribute("readonly", "");
+      t.style.cssText = "position:fixed;left:0;top:0;width:1px;height:1px;opacity:0;";
+      document.body.appendChild(t); t.focus(); t.select(); t.setSelectionRange(0, text.length);
+      let ok = false; try { ok = document.execCommand("copy"); } catch (e) {}
+      t.remove(); if (ok) return true;
+    } catch (e) {}
+    try { if (navigator.clipboard && navigator.clipboard.writeText) { await navigator.clipboard.writeText(text); return true; } } catch (e) {}
     return false;
   }
   function licOpen() {
@@ -3473,7 +3703,7 @@ const BRLic = (function () {
     const $ = (id) => overlay.querySelector("#" + id);
     const msg = (t, good) => { const m = $("licMsg"); m.textContent = t; m.className = "lic-msg " + (good ? "good" : "bad"); };
     $("licClose").onclick = () => { root.innerHTML = ""; };
-    $("licCopyId").onclick = () => { const ok = licCopy(pid); msg(ok ? "Phone ID copied." : "Could not copy. Please write it down.", ok); };
+    $("licCopyId").onclick = async () => { const ok = await licCopy(pid); msg(ok ? "Phone ID copied." : "Could not copy. Please write it down.", ok); };
     $("licSend").onclick = () => {
       const text = "B-records key request. My Phone ID: " + pid;
       try { if (window.BoonoAndroid && typeof window.BoonoAndroid.shareText === "function") { window.BoonoAndroid.shareText(text); return; } } catch (e) {}
@@ -3582,9 +3812,9 @@ const BRLic = (function () {
   const NAV_LABELS = { today: "Today", records: "Records", money: "Money", report: "Report", setup: "Setup" };
   const NAV_GROUPS = {
     broiler: [["today", ["today"]], ["records", ["daily", "med"]], ["money", ["costs", "sales"]], ["report", ["report"]], ["setup", ["setup", "feed"]]],
-    layer: [["today", ["today"]], ["records", ["daily", "weekly", "health"]], ["money", ["costs", "sales"]], ["report", ["report"]], ["setup", ["setup", "feed"]]],
+    layer: [["today", ["today"]], ["records", ["daily", "weekly", "health"]], ["money", ["mymoney", "costs", "sales"]], ["report", ["report"]], ["setup", ["setup", "feed"]]],
   };
-  const CHIP_LABELS = { daily: "Daily", med: "Medication", weekly: "Weekly", health: "Health", costs: "Costs", sales: "Sales", setup: "Batch", feed: "Feed program" };
+  const CHIP_LABELS = { mymoney: "My money", daily: "Daily", med: "Medication", weekly: "Weekly", health: "Health", costs: "Costs", sales: "Sales", setup: "Batch", feed: "Feed program" };
   let navLast = {};
   function setupNav(mod, shownTabs) {
     const have = shownTabs.map((t) => t[0]);
@@ -3817,10 +4047,11 @@ const BRLic = (function () {
       { key: "category", label: "What was it for?", suggest: T().costCategories, placeholder: "e.g. Labour" },
       { key: "description", label: "Details (optional)", type: "text" },
       { key: "amount", label: "Amount (UGX)", type: "number" },
+      ...(detectType(state) === "layer" ? [{ key: "covers", label: "How long does this amount cover?", type: "select", options: [{ value: "once", label: "One-off (only this day)" }, { value: "day", label: "1 day" }, { value: "week", label: "7 days (weekly cost)" }, { value: "month", label: "30 days (monthly cost, e.g. wages)" }], value: "once" }] : []),
     ], { okLabel: "Add cost" });
     if (!v) return false;
     pushHistory();
-    state.costs.push({ date: iso, category: v.category || "", description: v.description || "", amount: v.amount || "" });
+    state.costs.push({ date: iso, category: v.category || "", description: v.description || "", amount: v.amount || "", covers: v.covers || "once" });
     rowAdded();
     return true;
   }
@@ -5693,7 +5924,7 @@ const BRLic = (function () {
 
   // ================= Worker mode: manager invites, worker records, manager merges =================
   const WORKER_TABS = { broiler: ["today", "daily", "med"], layer: ["today", "daily", "health"] };
-  const MONEY_SETUP_FIELDS = ["costPerPullet", "trayPrice", "eggPrice", "otherRevenue", "chickCostPerBird", "sellingPrice"];
+  const MONEY_SETUP_FIELDS = ["costPerPullet", "trayPrice", "eggPrice", "spentHenPrice", "otherRevenue", "chickCostPerBird", "sellingPrice"];
   function isWorker() { return !!(state && state.role === "worker"); }
   function newBatchId() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 7); }
 
@@ -5887,8 +6118,8 @@ const BRLic = (function () {
     const s = JSON.parse(JSON.stringify(state));
     MONEY_SETUP_FIELDS.forEach((k) => { if (k in s.setup) s.setup[k] = ""; });
     (s.feed || []).forEach((f) => { f.priceKg = ""; });
-    s.costs = [];
-    (s.sales || []).forEach((r) => { if ("pricePerBird" in r) r.pricePerBird = ""; if ("price" in r) r.price = ""; r.notes = ""; });
+    s.costs = []; s.priceChanges = []; s.feedPriceChanges = []; s.feedBuys = [];
+    (s.sales || []).forEach((r) => { if ("pricePerBird" in r) r.pricePerBird = ""; if ("price" in r) r.price = ""; if ("paid" in r) r.paid = ""; r.notes = ""; });
     s.comments = ""; s.role = "worker"; s.workerName = "";
     const daily = sparseDaily(s.daily); delete s.daily;
     const payload = { kind: "bRecords.invite.v1", type: currentType, batchId: state.batchId, batchName: state.setup.batchName || "", sentAt: new Date().toISOString(), state: s, daily };
@@ -6139,6 +6370,95 @@ const BRLic = (function () {
     }
     showGuideFor(currentType);
   }
+
+  // ---------------- Welcome tour ----------------
+  const TOUR_KEY = "bRecords.tourDone.";
+  let tourEl = null, tourSteps = [], tourI = 0, tourType = "broiler";
+  function tourVisible(el) { if (!el) return false; const r = el.getBoundingClientRect(); return r.width > 4 && r.height > 4 && getComputedStyle(el).visibility !== "hidden"; }
+  function tourFind(sels) { for (const q of sels) { const els = document.querySelectorAll(q); for (const e of els) if (tourVisible(e)) return e; } return null; }
+  function tourGo(key) { const t = document.querySelector('#tabbar .tab[data-tab="' + key + '"]'); if (t) t.click(); return !!t; }
+  function tourBuild(type) {
+    const worker = isWorker();
+    const L = type === "layer";
+    const S = [];
+    S.push({ t: "Welcome 👋", x: worker ? "This is your daily record book. Each day you only type what happened on the farm. Let me show you where." : "This app helps you write down your " + (L ? "layers" : "broilers") + " each day and shows you if you are making money. Let me show you around. It takes about a minute, and you can stop any time." });
+    if (!worker) {
+      S.push({ key: "setup", sel: ["#panel-setup #placementDate"], up: "field", t: "1. Start with Batch Setup", x: "Type the date the " + (L ? "birds" : "chicks") + " arrived, how many you placed and what each cost. The rest is optional. Open it from the <b>Setup</b> button." });
+      S.push({ key: "feed", sel: ["#panel-feed #feedProgramTable"], t: "2. Feed price", x: "Type the price per kg you pay for each feed. You never type feed cost: the app works it out from the kg you record each day." });
+      S.push({ key: "feed", sel: ["#feedPriceCard"], money: true, t: "If the feed price changes", x: "When feed gets dearer or cheaper, add the new price and the date it starts here. Old days keep the old price." });
+    }
+    S.push({ key: "today", sel: ["#todayFormMain", "#panel-today .panel-head"], t: worker ? "Every day: Today" : "3. Every day: Today", x: L ? "This is your daily job. Pick the date, then type the feed eaten, eggs collected, broken eggs and deaths. Use the − and + buttons or just type. It saves by itself." : "This is your daily job. Pick the date, then type the feed eaten, birds that died and the weight when you weigh. Use the − and + buttons or just type. It saves by itself." });
+    S.push({ key: "daily", sel: ["#bnav .bn[data-g=records]", "#tabbar .tab[data-tab=daily]"], t: "Records", x: "All your days are kept here. Tap any day to look at it or fix a mistake." + (worker ? "" : (L ? " Weekly and Health are in the same place." : " Medicine and vaccines are in the same place.")) });
+    if (!worker) {
+      if (L) S.push({ key: "mymoney", sel: ["#beCard", "#panel-mymoney .panel-head"], money: true, t: "4. My money", x: "This tells you if the flock is paying. It shows if today's eggs cover today's costs, what price you need to break even, and how many weeks until you get your money back." });
+      S.push({ key: "costs", sel: ["#panel-costs .panel-head"], money: true, t: (L ? "5. " : "4. ") + "Costs and Sales", x: "Type wages, medicine, transport and other costs in <b>Costs</b>, and each sale in <b>Sales</b>. <b>Do not type feed</b>: it is already counted for you." });
+      S.push({ key: "report", sel: ["#panel-report .panel-head", "#bnav .bn[data-g=report]"], money: true, t: (L ? "6. " : "5. ") + "Report", x: "Your profit, break-even price, deaths and feed use for the whole batch, ready to print or share." });
+    }
+    S.push({ key: "today", sel: ["#menuToggle"], t: worker ? "Send your records" : "Back up your records", x: worker ? "When you finish, open this menu and choose <b>Send my records</b> to send your work to your manager." : "Your records stay only on this phone. Open this menu and choose <b>Download backup</b> every week or so, and keep the file safe. You can also take this tour again from here." });
+    S.push({ t: "You are ready ✅", x: worker ? "Open <b>Today</b> and type your first day." : "Start with <b>Setup</b>, then use <b>Today</b> every day. To see this tour again, open the menu and choose <b>Take the tour</b>." });
+    return S.filter((st) => !(st.money && hideMoney()) && !(st.key && !document.querySelector('#tabbar .tab[data-tab="' + st.key + '"]')));
+  }
+  function tourEnd(done) {
+    if (tourEl) { tourEl.remove(); tourEl = null; }
+    window.removeEventListener("resize", tourPlace); document.removeEventListener("keydown", tourKey, true);
+    if (done) { try { localStorage.setItem(TOUR_KEY + tourType, "1"); } catch (e) {} }
+    try { tourGo("today"); } catch (e) {}
+    window.scrollTo(0, 0);
+  }
+  function tourKey(e) { if (e.key === "Escape") tourEnd(true); }
+  function tourPlace() {
+    if (!tourEl) return;
+    const st = tourSteps[tourI], card = tourEl.querySelector(".tour-card"), hole = tourEl.querySelector(".tour-hole");
+    const el = st && st.sel ? tourFind(st.sel) : null;
+    const vh = window.innerHeight;
+    if (!el) { tourEl.classList.add("dim"); tourEl.classList.remove("has-hole"); card.className = "tour-card at-bottom"; card.style.bottom = ""; card.style.top = ""; if (!st.sel) { card.style.top = "50%"; card.style.bottom = "auto"; card.style.transform = "translateY(-50%)"; card.className = "tour-card"; } else card.style.transform = ""; return; }
+    card.style.transform = ""; card.style.top = ""; card.style.bottom = "";
+    tourEl.classList.remove("dim"); tourEl.classList.add("has-hole");
+    let target = el; if (st.up === "field") target = el.closest(".field") || el;
+    const fixedLow = getComputedStyle(el).position === "fixed" || !!el.closest("#bnav");
+    const cardH = card.offsetHeight || 220;
+    if (!fixedLow && !el.closest("header") ) {
+      const r0 = target.getBoundingClientRect();
+      const wantTop = 78;
+      if (Math.abs(r0.top - wantTop) > 6 || r0.top < 0) window.scrollTo({ top: Math.max(0, window.scrollY + r0.top - wantTop), behavior: "auto" });
+    }
+    const r = target.getBoundingClientRect();
+    const maxH = Math.max(60, vh - cardH - 100);
+    let top = Math.max(6, r.top - 6), h = Math.min(r.height + 12, fixedLow ? r.height + 12 : maxH);
+    if (top + h > vh - 4) h = vh - 4 - top;
+    hole.style.left = Math.max(4, r.left - 6) + "px"; hole.style.top = top + "px";
+    hole.style.width = Math.min(window.innerWidth - 8, r.width + 12) + "px"; hole.style.height = h + "px";
+    const low = (top + h / 2) > vh / 2;
+    card.className = "tour-card " + (low ? "at-top" : "at-bottom");
+  }
+  function tourShow() {
+    const st = tourSteps[tourI]; if (!st) { tourEnd(true); return; }
+    if (st.key) tourGo(st.key);
+    const n = tourSteps.length, card = tourEl.querySelector(".tour-card");
+    card.innerHTML = '<div class="tour-count">Step ' + (tourI + 1) + ' of ' + n + '</div><h3>' + st.t + '</h3><p>' + st.x + '</p><div class="tour-dots">' + tourSteps.map((_, k) => '<i class="' + (k <= tourI ? "on" : "") + '"></i>').join("") + '</div><div class="tour-btns">' +
+      (tourI > 0 ? '<button type="button" class="btn secondary tour-back">Back</button>' : "") +
+      '<button type="button" class="btn tour-next">' + (tourI === n - 1 ? "Finish" : tourI === 0 ? "Show me →" : "Next →") + '</button>' +
+      (tourI < n - 1 ? '<button type="button" class="tour-skip">Skip</button>' : "") + '</div>';
+    card.querySelector(".tour-next").onclick = () => { if (tourI >= n - 1) tourEnd(true); else { tourI++; tourShow(); } };
+    const b = card.querySelector(".tour-back"); if (b) b.onclick = () => { tourI--; tourShow(); };
+    const sk = card.querySelector(".tour-skip"); if (sk) sk.onclick = () => tourEnd(true);
+    setTimeout(tourPlace, 120); setTimeout(tourPlace, 450);
+  }
+  function startTour(type) {
+    if (tourEl) return;
+    tourType = type || currentType || "broiler";
+    const sp = document.getElementById("sidePanel"); if (sp) sp.classList.remove("open");
+    const ov = document.getElementById("tabOverlay"); if (ov) ov.classList.remove("open");
+    const sh = document.getElementById("startHere"); if (sh) sh.style.display = "none";
+    try { localStorage.setItem(START_HERE_KEY, "1"); } catch (e) {}
+    tourSteps = tourBuild(tourType); tourI = 0;
+    tourEl = document.createElement("div"); tourEl.className = "tour dim"; tourEl.setAttribute("role", "dialog"); tourEl.setAttribute("aria-label", "Guided tour");
+    tourEl.innerHTML = '<div class="tour-hole"></div><div class="tour-card"></div>';
+    document.body.appendChild(tourEl);
+    window.addEventListener("resize", tourPlace); document.addEventListener("keydown", tourKey, true);
+    tourShow();
+  }
+
   function initStartHere(fresh) {
     const screen = document.getElementById("startHere");
     const continueBtn = document.getElementById("startHereContinue");
@@ -6161,13 +6481,22 @@ const BRLic = (function () {
     const sw = document.getElementById("guideSwitch");
     if (sw) sw.addEventListener("click", () => { showGuideFor(sw.dataset.other); if (screen) screen.scrollTop = 0; });
 
+    const tourStartBtn = document.getElementById("startTourBtn");
+    if (tourStartBtn) tourStartBtn.addEventListener("click", () => {
+      if (guideType === "broiler" && vaxCheck) getModule("broiler").onGuideContinue(vaxCheck.checked);
+      startTour(guideType || currentType);
+    });
+    const tourMenuBtn = document.getElementById("tourBtn");
+    if (tourMenuBtn) tourMenuBtn.addEventListener("click", () => startTour(currentType));
     if (continueBtn) {
       continueBtn.addEventListener("click", () => {
         if (screen) screen.style.display = "none";
+        let toured = false; try { toured = localStorage.getItem(TOUR_KEY + (guideType || currentType)) === "1"; } catch (e) {}
         try { localStorage.setItem(START_HERE_KEY, "1"); } catch (e) {}
         if (guideType === "broiler" && vaxCheck) {
           getModule("broiler").onGuideContinue(vaxCheck.checked);   // remembers the choice
         }
+        if (!toured) setTimeout(() => startTour(guideType || currentType), 350);   // first time: offer the walk-through
       });
     }
     // One shared handler for the side-panel link and the "Instructions" link at the bottom of every tab.
@@ -6237,6 +6566,7 @@ function makeBroiler() {
       })),
       meds: [],
       costs: [],
+      feedPriceChanges: [],
       sales: [],
       comments: "",
     };
@@ -6254,6 +6584,7 @@ function makeBroiler() {
       meds: Array.isArray(parsed.meds) ? parsed.meds : [],
       costs: Array.isArray(parsed.costs) ? parsed.costs : [],
       sales: Array.isArray(parsed.sales) ? parsed.sales : [],
+      feedPriceChanges: Array.isArray(parsed.feedPriceChanges) ? parsed.feedPriceChanges : [],
       comments: parsed.comments || "",
     };
   }
@@ -6417,6 +6748,37 @@ function makeBroiler() {
     });
   }
 
+  function renderFeedPriceChanges() {
+    const body = document.getElementById("feedPriceBody"); if (!body) return;
+    if (!Array.isArray(state.feedPriceChanges)) state.feedPriceChanges = [];
+    const rows = state.feedPriceChanges, names = (state.feed || []).map((f) => f.name);
+    body.innerHTML = rows.map((r, i) => `<tr>
+      <td><select data-idx="${i}" data-field="feed">${names.map((n) => `<option value="${escapeHtml(n)}"${n === r.feed ? " selected" : ""}>${escapeHtml(n)}</option>`).join("")}</select></td>
+      <td><input type="date" data-idx="${i}" data-field="date" value="${escapeHtml(r.date || "")}"></td>
+      <td><input type="number" min="0" step="1" data-idx="${i}" data-field="price" value="${escapeHtml(r.price === undefined ? "" : r.price)}"></td>
+      <td><button class="row-del" data-idx="${i}" title="Remove row">✕</button></td></tr>`).join("");
+    const jump = (i) => {
+      const r = rows[i], np = Number(r.price); if (!(np > 0) || !r.date) return;
+      const f = (state.feed || []).find((x) => x.name === r.feed); let prev = f ? Number(f.priceKg) : 0;
+      rows.slice().map((x, j) => [x, j]).filter(([x, j]) => j !== i && x.feed === r.feed && x.date && x.date <= r.date && Number(x.price) > 0).sort((a, b) => (a[0].date < b[0].date ? -1 : 1)).forEach(([x]) => { prev = Number(x.price); });
+      if (prev > 0 && Math.abs(np / prev - 1) > 0.25) entryToast("That is " + Math.round(Math.abs(np / prev - 1) * 100) + "% " + (np > prev ? "higher" : "lower") + " than the price before (UGX " + fmtInt(prev) + " per kg). Please check it.");
+    };
+    body.querySelectorAll("input,select").forEach((el) => {
+      el.addEventListener(el.tagName === "SELECT" ? "change" : "input", () => {
+        pushHistory(); const i = +el.dataset.idx; rows[i][el.dataset.field] = el.value;
+        if (el.dataset.field === "price") jump(i);
+        onFeedProgramChange(); try { todayKit.render(false); } catch (e) {}
+      });
+    });
+    body.querySelectorAll(".row-del").forEach((btn) => {
+      btn.addEventListener("click", async () => {
+        if (!(await appConfirm("Delete this price change?", "Delete row", { danger: true, okLabel: "Delete" }))) return;
+        pushHistory(); rows.splice(+btn.dataset.idx, 1); renderFeedPriceChanges(); onFeedProgramChange(); try { todayKit.render(false); } catch (e) {}
+      });
+    });
+    const add = document.getElementById("addFeedPrice");
+    if (add && !add.dataset.bound) { add.dataset.bound = "1"; add.addEventListener("click", () => { pushHistory(); const u = (state.feed || []).find((f) => f.used) || (state.feed || [])[0]; state.feedPriceChanges.push({ feed: u ? u.name : "", date: isoLocal(new Date()), price: "" }); renderFeedPriceChanges(); saveState(); }); }
+  }
   function onFeedProgramChange() {
     fullRecompute();
     renderFeedProgramDates(); // keep the user's input element intact
@@ -6754,7 +7116,11 @@ function makeBroiler() {
       body.appendChild(tr);
     });
     bindDynamicRows(body, state.costs, renderCosts, true);
-    body.querySelectorAll('input[data-field="category"]').forEach((inp) => bindSuggestInput(inp, COST_CATEGORIES));
+    body.querySelectorAll('input[data-field="category"]').forEach((inp) => bindSuggestInput(inp, COST_CATEGORIES))
+    body.querySelectorAll('input[data-field="category"]').forEach((inp) => inp.addEventListener("change", () => {
+      const v = inp.value || "";
+      if (/\b(feed|mash|maize bran|starter|grower|finisher|pellets?)\b/i.test(v) && !/additive|supplement|feeder/i.test(v)) entryToast("Feed is counted for you from the kg you record each day and the feed price. Do not enter it here, or it will be counted twice.");
+    }));
     fitTableInputs(body);
     if (migrated) {
       fullRecompute();
@@ -7133,7 +7499,7 @@ function makeBroiler() {
       if (!d) return "";
       const r = state.daily[idx], fc = num(r.feedConsumed);
       const per = fc !== null && d.liveEnd ? fmtDec(fc * 1000 / d.liveEnd, 0) + " g per bird" : "—";
-      return "Live birds at end of day: <strong>" + fmtInt(d.liveEnd) + "</strong> · Feed per bird: <strong>" + per + "</strong> · Water needed: <strong>" + fmtDec(d.water, 1) + " L</strong> · Feed cost: <strong>" + fmtMoney(d.dailyFeedCost) + "</strong>";
+      return "Live birds at end of day: <strong>" + fmtInt(d.liveEnd) + "</strong> · Feed per bird: <strong>" + per + "</strong> · Water needed: <strong>" + fmtDec(d.water, 1) + " L</strong> · Feed cost: <strong>" + fmtMoney(d.dailyFeedCost) + "<span class=\"feed-working\">" + feedWorking(d.dailyFeedCost, d.feedPrice) + "</span></strong>";
     },
     dayCards(idx) {
       const c = computed.daily[idx], r = state.daily[idx];
@@ -7221,6 +7587,7 @@ function makeBroiler() {
     fillSetupInputs();
     renderSetupOutputs();
     renderFeedProgram();
+    renderFeedPriceChanges();
     renderDaily();
     renderMeds();
     renderCosts();
@@ -7306,7 +7673,7 @@ function makeLayer() {
         houseLengthM: "", houseWidthM: "",
         placementDate: "", purchaseType: "chicks", startingAgeWeeks: 0, supplierName: "",
         pulletsPlaced: "", costPerPullet: "", eggsPerTray: 30,
-        trayPrice: "", eggPrice: "", otherRevenue: 0,
+        trayPrice: "", eggPrice: "", spentHenPrice: "", otherRevenue: 0,
         birdsAtLayOverride: "",
         normalWaterRatio: 2, hotWaterRatio: 2.5,
         layOnsetWk: 18, peakStartWk: 26, peakEndWk: 28, depletionWk: 72,
@@ -7319,6 +7686,9 @@ function makeLayer() {
       meds: [],
       costs: [],
       sales: [],
+      priceChanges: [],
+      feedPriceChanges: [],
+      feedBuys: [],
       comments: "",
     };
   }
@@ -7345,6 +7715,9 @@ function makeLayer() {
       meds: Array.isArray(parsed.meds) ? parsed.meds : [],
       costs: Array.isArray(parsed.costs) ? parsed.costs : [],
       sales: Array.isArray(parsed.sales) ? parsed.sales : [],
+      priceChanges: Array.isArray(parsed.priceChanges) ? parsed.priceChanges : [],
+      feedPriceChanges: Array.isArray(parsed.feedPriceChanges) ? parsed.feedPriceChanges : [],
+      feedBuys: Array.isArray(parsed.feedBuys) ? parsed.feedBuys : [],
       comments: parsed.comments || "",
     };
   }
@@ -7353,7 +7726,7 @@ function makeLayer() {
   const setupFieldIds = [
     "batchName", "farmName", "farmerName", "housePen", "breed", "houseLengthM", "houseWidthM",
     "placementDate", "purchaseType", "startingAgeWeeks", "supplierName",
-    "pulletsPlaced", "costPerPullet", "birdsAtLayOverride", "eggsPerTray", "trayPrice", "eggPrice",
+    "pulletsPlaced", "costPerPullet", "birdsAtLayOverride", "eggsPerTray", "trayPrice", "eggPrice", "spentHenPrice",
     "otherRevenue", "normalWaterRatio", "hotWaterRatio", "targetPeakHD", "targetFeedG",
     "layOnsetWk", "peakStartWk", "peakEndWk", "depletionWk",
   ];
@@ -7655,6 +8028,37 @@ function makeLayer() {
     });
   }
 
+  function renderFeedPriceChanges() {
+    const body = document.getElementById("feedPriceBody"); if (!body) return;
+    if (!Array.isArray(state.feedPriceChanges)) state.feedPriceChanges = [];
+    const rows = state.feedPriceChanges, names = (state.feed || []).map((f) => f.name);
+    body.innerHTML = rows.map((r, i) => `<tr>
+      <td><select data-idx="${i}" data-field="feed">${names.map((n) => `<option value="${escapeHtml(n)}"${n === r.feed ? " selected" : ""}>${escapeHtml(n)}</option>`).join("")}</select></td>
+      <td><input type="date" data-idx="${i}" data-field="date" value="${escapeHtml(r.date || "")}"></td>
+      <td><input type="number" min="0" step="1" data-idx="${i}" data-field="price" value="${escapeHtml(r.price === undefined ? "" : r.price)}"></td>
+      <td><button class="row-del" data-idx="${i}" title="Remove row">✕</button></td></tr>`).join("");
+    const jump = (i) => {
+      const r = rows[i], np = Number(r.price); if (!(np > 0) || !r.date) return;
+      const f = (state.feed || []).find((x) => x.name === r.feed); let prev = f ? Number(f.priceKg) : 0;
+      rows.slice().map((x, j) => [x, j]).filter(([x, j]) => j !== i && x.feed === r.feed && x.date && x.date <= r.date && Number(x.price) > 0).sort((a, b) => (a[0].date < b[0].date ? -1 : 1)).forEach(([x]) => { prev = Number(x.price); });
+      if (prev > 0 && Math.abs(np / prev - 1) > 0.25) entryToast("That is " + Math.round(Math.abs(np / prev - 1) * 100) + "% " + (np > prev ? "higher" : "lower") + " than the price before (UGX " + fmtInt(prev) + " per kg). Please check it.");
+    };
+    body.querySelectorAll("input,select").forEach((el) => {
+      el.addEventListener(el.tagName === "SELECT" ? "change" : "input", () => {
+        pushHistory(); const i = +el.dataset.idx; rows[i][el.dataset.field] = el.value;
+        if (el.dataset.field === "price") jump(i);
+        onFeedProgramChange(); try { todayKit.render(false); } catch (e) {}
+      });
+    });
+    body.querySelectorAll(".row-del").forEach((btn) => {
+      btn.addEventListener("click", async () => {
+        if (!(await appConfirm("Delete this price change?", "Delete row", { danger: true, okLabel: "Delete" }))) return;
+        pushHistory(); rows.splice(+btn.dataset.idx, 1); renderFeedPriceChanges(); onFeedProgramChange(); try { todayKit.render(false); } catch (e) {}
+      });
+    });
+    const add = document.getElementById("addFeedPrice");
+    if (add && !add.dataset.bound) { add.dataset.bound = "1"; add.addEventListener("click", () => { pushHistory(); const u = (state.feed || []).find((f) => f.used) || (state.feed || [])[0]; state.feedPriceChanges.push({ feed: u ? u.name : "", date: isoLocal(new Date()), price: "" }); renderFeedPriceChanges(); saveState(); }); }
+  }
   function onFeedProgramChange() {
     fullRecompute();
     renderFeedProgramDates();
@@ -8079,6 +8483,7 @@ function makeLayer() {
         <td><input type="number" min="0" step="1" data-idx="${idx}" data-field="qty" value="${escapeHtml(row.qty)}"></td>
         <td><input type="number" min="0" step="1" data-idx="${idx}" data-field="price" value="${escapeHtml(row.price)}"></td>
         <td class="readonly-cell" data-c="line">${fmtMoney(saleLine(row))}</td>
+        <td><input type="number" min="0" step="1" data-idx="${idx}" data-field="paid" placeholder="all paid" title="Leave empty if the customer paid everything. Type what was paid if they still owe you." value="${escapeHtml(row.paid === undefined || row.paid === null ? "" : row.paid)}"></td>
         <td><input type="text" data-idx="${idx}" data-field="notes" value="${escapeHtml(row.notes || "")}"></td>
         <td><button class="row-del" data-idx="${idx}" title="Remove row">✕</button></td>
       `;
@@ -8126,6 +8531,182 @@ function makeLayer() {
     fitTableInputs(body);
   }
 
+  let beIso = null;
+  function renderBE(iso) {
+    const card = document.getElementById("beCard"); if (!card) return;
+    if (iso) beIso = iso;
+    if (hideMoney()) { card.style.display = "none"; return; }
+    card.style.display = "";
+    const selV = document.getElementById("beView"), inp = document.getElementById("bePrice"), body = document.getElementById("beBody");
+    if (!card.dataset.bound) {
+      card.dataset.bound = "1";
+      let v = "day", p = "";
+      try { v = storageGet("bRecords.beView") || "day"; p = storageGet("bRecords.bePrice") || ""; } catch (e) {}
+      selV.value = v === "week" ? "week" : "day"; inp.value = p;
+      selV.addEventListener("change", () => { try { storageSet("bRecords.beView", selV.value); } catch (e) {} renderBE(); });
+      inp.addEventListener("input", () => { try { storageSet("bRecords.bePrice", inp.value); } catch (e) {} renderBE(); });
+      document.getElementById("beReset").addEventListener("click", () => { inp.value = ""; try { storageSet("bRecords.bePrice", ""); } catch (e) {} renderBE(); });
+      document.getElementById("beSave").addEventListener("click", () => {
+        const v = num(inp.value); if (!(v > 0) || !beIso) return;
+        pushHistory(); state.priceChanges.push({ date: beIso, price: String(v) }); inp.value = ""; try { storageSet("bRecords.bePrice", ""); } catch (e) {}
+        fullRecompute(); renderPriceChanges(); renderSetupOutputs(); renderReport(); renderWeekly(); saveState(); try { todayKit.render(false); } catch (e) {}
+      });
+    }
+    const idx = beIso ? dayIndexForDate(beIso) : null;
+    const e = computed.econ, ept = num(state.setup.eggsPerTray) > 0 ? num(state.setup.eggsPerTray) : 30;
+    if (idx === null || !e) { body.innerHTML = "<p>Pick a day inside this batch.</p>"; return; }
+    const from = selV.value === "week" ? Math.max(0, idx - 6) : idx;
+    let eggs = 0, run = 0, n = 0, valueSum = 0;
+    const typed = num(inp.value), useTyped = typed !== null && typed > 0;
+    for (let j = from; j <= idx; j++) { const x = e.days[j]; if (x && x.counted) { const sl = computed.daily[j].sellable || 0; eggs += sl; run += x.running; n++; valueSum += (sl / ept) * (useTyped ? typed : (x.price || e.price || 0)); } }
+    const sv = document.getElementById("beSave"); if (sv) sv.style.display = useTyped ? "" : "none";
+    const P = eggs > 0 ? valueSum / (eggs / ept) : (useTyped ? typed : e.price);
+    inp.placeholder = e.price ? fmtMoney(e.price) : "price";
+    const when = selV.value === "week" ? "this week" : "this day";
+    if (!n) { body.innerHTML = "<p>" + (e.anyLay ? "Enter the eggs and feed for " + (selV.value === "week" ? "these days" : "this day") + " to see this." : "Your birds have not started laying yet. Until then you only spend: see <strong>Money put in</strong> in the Report.") + "</p>"; return; }
+    if (!P) { body.innerHTML = "<p>Type a tray price above (or in Batch Setup) to see this.</p>"; return; }
+    if (!(run > 0)) { body.innerHTML = "<p><strong>No costs are counted yet.</strong> You produced <strong>" + fmtInt(eggs) + " sellable eggs</strong> (<strong>" + fmtDec(eggs / ept, 1) + " trays</strong>), but the app cannot tell you about profit until it knows your costs. Type the <strong>feed prices</strong> (Phases &amp; Feed) and your <strong>wages and other running costs</strong> (Costs).</p>"; return; }
+    const trays = eggs / ept, eggP = P / ept, value = trays * P, profit = value - run;
+    const needTrays = run / P, needEggs = run / eggP;
+    const M = (x) => "UGX " + fmtMoney(Math.round(x));
+    const ok = value >= run;
+    let h = "<p>You produced <strong>" + fmtInt(eggs) + " sellable eggs</strong> (<strong>" + fmtDec(trays, 1) + " trays</strong>) " + when + (n > 1 ? " over " + n + " days" : "") + ".</p>";
+    h += "<p>At <strong>" + M(P) + " per tray</strong> (" + M(eggP) + " per egg) you can get <strong>" + M(value) + "</strong>.</p>";
+    h += "<p>Your running costs " + when + " (feed, wages and other costs) are <strong>" + M(run) + "</strong>.</p>";
+    h += '<p class="' + (ok ? "be-ok" : "be-bad") + '">' + (ok ? "Profit " + when + ": " + M(profit) : "Loss " + when + ": " + M(-profit)) + "</p>";
+    h += "<p>To cover those costs you need <strong>" + fmtDec(needTrays, 1) + " trays</strong> (<strong>" + fmtInt(Math.ceil(needEggs)) + " eggs</strong>) at this price. You have <strong>" + fmtDec(trays, 1) + " trays</strong>" + (ok ? ": <strong>covered</strong>." : ": <strong>short by " + fmtDec(needTrays - trays, 1) + " trays</strong>.") + "</p>";
+    h += "<p>Break-even price: <strong>" + M(run / trays) + " per tray</strong> or <strong>" + M(run / eggs) + " per egg</strong>. Sell for less than this and you lose.</p>";
+    h += '<p class="be-note">This counts running costs only. The money you put in before the birds started laying is in the Report under Money put in. Eggs are valued at the price above, whether or not you have sold them yet.</p>';
+    body.innerHTML = h;
+  }
+
+  function bindSimpleRows(body, arr, rerender) {
+    body.querySelectorAll("input").forEach((inp) => {
+      inp.addEventListener("input", () => {
+        pushHistory();
+        arr[+inp.dataset.idx][inp.dataset.field] = inp.value;
+        fullRecompute(); rerender(false);
+        renderSetupOutputs(); renderReport(); renderSalesSummary(); renderWeekly(); renderDailyComputed();
+        try { todayKit.render(false); } catch (e) {}
+        saveState();
+      });
+    });
+    body.querySelectorAll(".row-del").forEach((btn) => {
+      btn.addEventListener("click", async () => {
+        if (!(await appConfirm("Delete this row?", "Delete row", { danger: true, okLabel: "Delete" }))) return;
+        pushHistory(); arr.splice(+btn.dataset.idx, 1);
+        fullRecompute(); rerender(true);
+        renderSetupOutputs(); renderReport(); renderSalesSummary(); renderWeekly(); renderDailyComputed();
+        try { todayKit.render(false); } catch (e) {}
+        saveState();
+      });
+    });
+  }
+  function renderPriceChanges() {
+    const body = document.getElementById("priceChangesBody"); if (!body) return;
+    if (!Array.isArray(state.priceChanges)) state.priceChanges = [];
+    body.innerHTML = state.priceChanges.map((r, i) => `<tr>
+      <td><input type="date" data-idx="${i}" data-field="date" value="${escapeHtml(r.date || "")}"></td>
+      <td><input type="number" min="0" step="1" data-idx="${i}" data-field="price" value="${escapeHtml(r.price === undefined ? "" : r.price)}"></td>
+      <td><button class="row-del" data-idx="${i}" title="Remove row">✕</button></td></tr>`).join("");
+    bindSimpleRows(body, state.priceChanges, (redraw) => { if (redraw) renderPriceChanges(); });
+    const add = document.getElementById("addPriceChange");
+    if (add && !add.dataset.bound) { add.dataset.bound = "1"; add.addEventListener("click", () => { pushHistory(); state.priceChanges.push({ date: isoLocal(new Date()), price: "" }); renderPriceChanges(); saveState(); }); }
+  }
+  function renderFeedBuys() {
+    const body = document.getElementById("feedBuyBody"); if (!body) return;
+    if (!Array.isArray(state.feedBuys)) state.feedBuys = [];
+    body.innerHTML = state.feedBuys.map((r, i) => {
+      const kg = num(r.kg), am = num(r.amount);
+      return `<tr>
+      <td><input type="date" data-idx="${i}" data-field="date" value="${escapeHtml(r.date || "")}"></td>
+      <td><input type="number" min="0" step="1" data-idx="${i}" data-field="kg" value="${escapeHtml(r.kg === undefined ? "" : r.kg)}"></td>
+      <td><input type="number" min="0" step="1" data-idx="${i}" data-field="amount" value="${escapeHtml(r.amount === undefined ? "" : r.amount)}"></td>
+      <td class="readonly-cell">${kg > 0 && am > 0 ? fmtMoney(Math.round(am / kg)) : "—"}</td>
+      <td><button class="row-del" data-idx="${i}" title="Remove row">✕</button></td></tr>`; }).join("");
+    bindSimpleRows(body, state.feedBuys, (redraw) => { if (redraw) renderFeedBuys(); renderFeedStockLine(); });
+    const add = document.getElementById("addFeedBuy");
+    if (add && !add.dataset.bound) { add.dataset.bound = "1"; add.addEventListener("click", () => { pushHistory(); state.feedBuys.push({ date: isoLocal(new Date()), kg: "", amount: "" }); renderFeedBuys(); saveState(); }); }
+    renderFeedStockLine();
+  }
+  function feedStockText() {
+    const f = computed.econ && computed.econ.feedInfo; if (!f) return "";
+    let t = "You bought <strong>" + fmtDec(f.bought, 0) + " kg</strong> and the birds have eaten <strong>" + fmtDec(f.eaten, 0) + " kg</strong>, so about <strong>" + fmtDec(Math.max(0, f.stock), 0) + " kg</strong> should be in the store";
+    if (f.daysLeft !== null && f.stock >= 0) t += " (<strong>" + fmtDec(f.daysLeft, 1) + " days</strong> at " + fmtDec(f.avgEat, 0) + " kg a day)";
+    t += ".";
+    if (f.stock < 0) t += " <strong>The birds have eaten more than you recorded buying.</strong> Add the missing purchase.";
+    if (f.avgPaid !== null) t += " Average price you paid: <strong>UGX " + fmtMoney(Math.round(f.avgPaid)) + " per kg</strong>" + (f.usedPrice ? " (the app uses UGX " + fmtMoney(Math.round(f.usedPrice)) + " per kg from your Feed Program)" : "") + ".";
+    return t;
+  }
+  function renderFeedStockLine() { const el = document.getElementById("feedStockLine"); if (el) el.innerHTML = hideMoney() ? "" : feedStockText(); }
+  function cullText() {
+    const c = computed.econ && computed.econ.cull; if (!c) return "";
+    const M = (x) => "UGX " + fmtMoney(Math.round(x));
+    if (c.level === "building") return "";
+    const base = "Last 7 days: surplus <strong>" + M(c.surplusDay) + " per day</strong>" + (c.perHen !== null ? " (" + M(c.perHen) + " per hen)" : "") + ", hen-day <strong>" + (c.hd7 === null ? "—" : fmtPct(c.hd7)) + "</strong>.";
+    const sell = c.henValue ? " Selling the " + fmtInt(c.alive) + " hens now at UGX " + fmtMoney(c.spentP) + " each would bring about <strong>" + M(c.henValue) + "</strong>." : " Type an expected price per spent hen in Batch Setup to see what selling now would bring.";
+    if (c.level === "act") return "<strong>Flock check: not covering its costs.</strong> " + base + " The hens are eating more than their eggs are worth. Think about selling the spent hens." + sell;
+    if (c.level === "watch") return "<strong>Flock check: barely covering its costs.</strong> " + base + " Watch the next weeks closely; plan when to sell the spent hens." + sell;
+    return "<strong>Flock check: still paying its way.</strong> " + base;
+  }
+  function renderMyMoney(iso) {
+    if (iso) beIso = iso;
+    if (!beIso) beIso = isoLocal(new Date());
+    try { renderBE(); } catch (e0) { console.warn(e0); }
+    const line = document.getElementById("moneyLineText"), card = document.getElementById("moneyLine");
+    const e = computed.econ; if (!e) return;
+    if (card && !card.dataset.bound) { card.dataset.bound = "1"; document.getElementById("openMyMoney").addEventListener("click", () => { const t = document.querySelector('#tabbar .tab[data-tab=mymoney]'); if (t) t.click(); }); }
+    const idx = beIso ? dayIndexForDate(beIso) : null;
+    const M = (x) => "UGX " + fmtMoney(Math.round(x));
+    if (card) card.style.display = hideMoney() ? "none" : "";
+    if (line && !hideMoney()) {
+      const x = idx !== null ? e.days[idx] : null, parts = [];
+      if (!e.anyLay) parts.push("Your birds have not started laying yet. See My money for the money put in.");
+      else if (x && x.surplus !== null) parts.push("Surplus for this day: <strong>" + (x.surplus < 0 ? "-" : "") + M(Math.abs(x.surplus)) + "</strong>");
+      else parts.push("Enter eggs and feed to see this day's surplus.");
+      if (e.feedInfo) parts.push("Feed left: <strong>" + (e.feedInfo.daysLeft === null ? fmtDec(Math.max(0, e.feedInfo.stock), 0) + " kg" : fmtDec(Math.max(0, e.feedInfo.daysLeft), 1) + " days") + "</strong>");
+      if (e.stockInfo && e.stockInfo.owed > 0) parts.push("Customers owe: <strong>" + M(e.stockInfo.owed) + "</strong>");
+      line.innerHTML = parts.join(" · ");
+    }
+    // My money tab pieces
+    const cu = document.getElementById("myCull"); if (cu) cu.innerHTML = hideMoney() ? "" : (cullText() || "<span class='be-note'>This check starts after the birds pass their peak laying weeks.</span>");
+    const fs = document.getElementById("myFeedStock"); if (fs) fs.innerHTML = hideMoney() ? "" : (feedStockText() || "<span class='be-note'>You have not entered any feed bought yet. Add it in Phases &amp; Feed to see how many days of feed are left.</span>");
+    const wb = document.getElementById("myWeekBody");
+    if (wb) {
+      if (!wb.dataset.bound) { wb.dataset.bound = "1"; const pn = document.getElementById("panel-mymoney"); if (pn) pn.addEventListener("click", (ev) => { const b = ev.target.closest("[data-go]"); if (!b) return; const t = document.querySelector('#tabbar .tab[data-tab=' + b.dataset.go + ']'); if (t) t.click(); }); }
+      const rows = [];
+      if (!hideMoney()) computed.weeks.forEach((w, i) => { const ew = e.weeks[i]; if (!ew) return; rows.push(`<tr><td>${w.weekOfLife}</td><td class="readonly-cell">${w.startDate ? shortDate(w.startDate) + " – " + shortDate(w.endDate) : "—"}</td><td class="readonly-cell">${fmtDec(w.trays, 1)}</td><td class="readonly-cell">${fmtMoney(Math.round(ew.running))}</td><td class="readonly-cell">${fmtMoney(Math.round(ew.eggValue))}</td><td class="readonly-cell" style="color:${ew.surplus < 0 ? "#b42318" : "inherit"}">${fmtMoney(Math.round(ew.surplus))}</td><td class="readonly-cell">${ew.beTrays === null ? "—" : fmtDec(ew.beTrays, 1)}</td></tr>`); });
+      wb.innerHTML = rows.length ? rows.join("") : '<tr><td colspan="7" class="readonly-cell">Weeks appear here once the birds are laying and you have entered eggs.</td></tr>';
+    }
+  }
+  function paybackText(e) {
+    if (!e || !e.anyLay) return "Not laying yet";
+    if (e.remaining <= 0) return "Recovered";
+    if (e.paybackWeeks === null) return "—";
+    return fmtDec(e.paybackWeeks, 1) + " weeks";
+  }
+  function econDayCards(idx) {
+    const x = computed.econ && computed.econ.days[idx];
+    if (!x) return [["Running cost today (UGX)", "—"], ["Egg revenue today (UGX), at tray price", "—"], ["Surplus today (UGX)", "—"]];
+    const sp = x.surplus;
+    return [
+      ["Running cost today (UGX)", fmtMoney(Math.round(x.running))],
+      ["Egg revenue today (UGX), at tray price", x.eggValue === null ? "—" : fmtMoney(Math.round(x.eggValue))],
+      ["Trays needed to cover today", x.beTrays === null ? "—" : fmtDec(x.beTrays, 1) + (x.trays === null ? "" : " (you have " + fmtDec(x.trays, 1) + ")")],
+      ["Surplus today (UGX)", sp === null ? "—" : fmtMoney(Math.round(sp)), sp === null ? "" : (sp < 0 ? "is-loss" : "is-profit")],
+    ];
+  }
+  function econWarnHtml() {
+    const e = computed.econ, out = [];
+    if (!e) return out;
+    if (e.warn.indexOf("noRunning") !== -1) out.push("<strong>No running costs entered:</strong> the surplus only counts feed. Add wages and other running costs in Costs (choose how many days each one covers) so the numbers are honest.");
+    if (e.warn.indexOf("noPrice") !== -1) out.push("<strong>No tray price:</strong> type the tray price in Batch Setup to see egg revenue and surplus.");
+    if (e.warn.indexOf("feedLow") !== -1 && e.feedInfo) out.push("<strong>Feed is running low:</strong> about " + fmtDec(Math.max(0, e.feedInfo.daysLeft), 1) + " days left in the store. Buy feed now so the hens do not go without.");
+    if (e.warn.indexOf("feedNegative") !== -1) out.push("<strong>Feed check:</strong> the birds have eaten more feed than you recorded buying. Add the missing purchases in Phases &amp; Feed.");
+    if (e.warn.indexOf("undated") !== -1) out.push("<strong>" + e.undated + " cost(s) have no date:</strong> they are in your total cost but not in the daily and weekly numbers. Give each cost a date.");
+    return out;
+  }
+
   function renderSalesSummary() {
     const s = computed.sales || {}, c = computed.setup;
     setText("salesBirds", fmtInt(s.birdsSoldTotal));
@@ -8133,6 +8714,10 @@ function makeLayer() {
     setText("salesEggRev", s.eggRowsLogged ? fmtMoney(s.eggRevenueLogged) : "—");
     setText("salesOtherRev", fmtMoney(s.otherSalesRevenue));
     setText("salesAlive", fmtInt(c.birdsAlive));
+    const st = computed.econ && computed.econ.stockInfo;
+    setText("salesStock", st && st.stockTrays !== null ? fmtDec(st.stockTrays, 1) : "—");
+    setText("salesReceived", st ? fmtMoney(Math.round(st.received)) : "—");
+    setText("salesOwed", st ? fmtMoney(Math.round(st.owed)) : "—");
     const note = document.getElementById("salesEggNote");
     if (note) {
       if (s.eggRowsLogged) {
@@ -8174,12 +8759,17 @@ function makeLayer() {
         <td><input type="text" class="suggest-input" autocomplete="off" data-idx="${idx}" data-field="category" placeholder="Start typing a category…" value="${escapeHtml(row.category)}" title="Start typing — matching suggestions appear above the keyboard"></td>
         <td><input type="text" data-idx="${idx}" data-field="description" value="${escapeHtml(row.description)}"></td>
         <td><input type="number" min="0" step="1" data-idx="${idx}" data-field="amount" value="${row.amount}"></td>
+        <td><select data-idx="${idx}" data-field="covers" title="Is this cost for one day, a week, a month, or a one-off?">${[["once","One-off"],["day","1 day"],["week","7 days"],["month","30 days"]].map((o) => `<option value="${o[0]}"${(row.covers || "once") === o[0] ? " selected" : ""}>${o[1]}</option>`).join("")}</select></td>
         <td><button class="row-del" data-idx="${idx}" title="Remove row">✕</button></td>
       `;
       body.appendChild(tr);
     });
     bindDynamicRows(body, state.costs, renderCosts, true);
-    body.querySelectorAll('input[data-field="category"]').forEach((inp) => bindSuggestInput(inp, COST_CATEGORIES));
+    body.querySelectorAll('input[data-field="category"]').forEach((inp) => bindSuggestInput(inp, COST_CATEGORIES))
+    body.querySelectorAll('input[data-field="category"]').forEach((inp) => inp.addEventListener("change", () => {
+      const v = inp.value || "";
+      if (/\b(feed|mash|maize bran|starter|grower|finisher|pellets?)\b/i.test(v) && !/additive|supplement|feeder/i.test(v)) entryToast("Feed is counted for you from the kg you record each day and the feed price. Do not enter it here, or it will be counted twice.");
+    }));
     fitTableInputs(body);
     if (migrated) {
       fullRecompute();
@@ -8247,6 +8837,21 @@ function makeLayer() {
     setText("repOpCost", fmtMoney(c.opCostTotal));
     setText("repTotalCost", fmtMoney(c.totalCost));
     setText("repEggRev", c.eggRevenue === null ? "—" : fmtMoney(c.eggRevenue));
+    (function () {
+      const e = computed.econ; if (!e) return;
+      setText("repInvest", fmtMoney(Math.round(e.investment)));
+      setText("repInvestFeed", fmtMoney(Math.round(e.invFeed)));
+      setText("repRecovered", e.anyLay ? fmtMoney(Math.round(e.recovered)) : "—");
+      setText("repRemaining", e.anyLay ? fmtMoney(Math.round(e.remaining)) : "—");
+      setText("repAvg7", e.avg7 === null ? "—" : fmtMoney(Math.round(e.avg7)));
+      setText("repPayback", paybackText(e));
+      const n = document.getElementById("repEconNote");
+      if (n) n.textContent = "Before the first egg the farm only spends: birds, rearing feed and running costs. Once laying, egg revenue (at your tray price) pays for feed and running costs; what is left each day is surplus, and it pays back the money put in. Costs entered as weekly or monthly are spread over 7 or 30 days.";
+      const st = e.stockInfo;
+      setText("repStock", st && st.stockTrays !== null ? fmtDec(st.stockTrays, 1) : "—"); setText("repReceived", st ? fmtMoney(Math.round(st.received)) : "—"); setText("repOwed", st ? fmtMoney(Math.round(st.owed)) : "—");
+      try { renderMyMoney(); } catch (e2) {}
+      const w = document.getElementById("repEconWarn"); if (w) w.innerHTML = isWorker() ? "" : econWarnHtml().map((m) => '<p class="warn-note">' + m + "</p>").join("");
+    })();
     setText("repHenRev", fmtMoney(c.henRevenue + c.otherSalesRevenue));
     setText("repOtherRev", fmtMoney(c.otherRevenue));
     setText("repTotalRev", fmtMoney(c.totalRevenue));
@@ -8620,6 +9225,11 @@ function makeLayer() {
       if (highMortAt(idx)) msgs.push("<strong>Losses:</strong> high deaths / culls today. Check the cause.");
       if (eggDropAt(idx)) msgs.push("<strong>Egg drop:</strong> hen-day is 10 points or more below last week. Check feed, water, heat, light and disease.");
       if (!isWorker() && c.feedUnpriced) msgs.push("<strong>No feed price:</strong> this day's feed has no price, so its cost is not counted. Check the Phases &amp; Feed tab.");
+      if (!isWorker()) {
+        econWarnHtml().forEach((m) => msgs.push(m));
+        const cl = cullText(); const lv = computed.econ && computed.econ.cull && computed.econ.cull.level;
+        if (cl && (lv === "act" || lv === "watch")) msgs.push(cl);
+      }
       return msgs;
     },
     liveNote(idx) {
@@ -8637,7 +9247,7 @@ function makeLayer() {
         ["Live birds", fmtInt(c.liveEnd)], ["Deaths", rawv(r.mort)], ["Culls", rawv(r.culls)],
         ["Cause of death", (r.cause || "").trim() ? escapeHtml(r.cause.trim()) : "—"],
         ["Feed / bird (g)", fmtDec(c.feedPerBirdG, 1)], ["Feed / egg (g)", fmtDec(c.feedPerEggG, 1)],
-        ["Water (L)", fmtDec(c.water, 1)], ["Feed cost (UGX)", fmtMoney(c.feedCost)],
+        ["Water (L)", fmtDec(c.water, 1)], ["Feed cost (UGX)", fmtMoney(c.feedCost) + feedWorking(c.feedCost, c.feedPrice)],
         ["Cum. mortality", fmtPct(c.cumMortPct, 2)], ["Avg weight (g)", rawv(r.weight)],
         ["Temp (°C)", rawv(r.temp)],
         ["Small / Medium", rawv(r.small) + " / " + rawv(r.medium)], ["Large / X-Large", rawv(r.large) + " / " + rawv(r.xl)],
@@ -8645,6 +9255,7 @@ function makeLayer() {
       ];
     },
     renderActivity(iso) {
+      try { renderBE(iso); renderMyMoney(iso); } catch (e) { console.warn(e); }
       renderActivityLists(iso, {
         vax: true, vaxStatus: vaxStatusText,
         salesHead: ["Item", "Quantity", "Unit price", "Total", "Notes"],
@@ -8662,12 +9273,13 @@ function makeLayer() {
             { key: "item", label: "What did you sell?", type: "select", options: SALE_ITEMS, value: "Egg trays" },
             { key: "qty", label: "Quantity (trays, eggs or birds)", type: "number" },
             { key: "price", label: "Price for each one (UGX)", type: "number", value: state.setup.trayPrice || "" },
+            { key: "paid", label: "Paid so far (UGX) - leave empty if paid in full", type: "number" },
             { key: "notes", label: "Notes (optional)", type: "text" },
           ], { okLabel: "Add sale" });
           if (!v) return false;
           if (state.sales.length >= SALE_ROWS) { await appAlert("The sales table is full."); return false; }
           pushHistory();
-          state.sales.push({ date: iso, item: v.item || "", qty: v.qty || "", price: v.price || "", notes: v.notes || "" });
+          state.sales.push({ date: iso, item: v.item || "", qty: v.qty || "", price: v.price || "", paid: v.paid || "", notes: v.notes || "" });
           rowAdded();
           return true;
       } },
@@ -8720,6 +9332,7 @@ function makeLayer() {
     renderSetupOutputs();
     renderPhases();
     renderFeedProgram();
+    renderFeedPriceChanges();
     dailyBlockStart = pickInitialBlock();
     renderDaily();
     renderWeekly();
@@ -8727,6 +9340,8 @@ function makeLayer() {
     renderMeds();
     renderCosts();
     renderSales();
+    renderPriceChanges();
+    renderFeedBuys();
     renderReport();
     todayKit.render(true);
   }
@@ -8791,7 +9406,7 @@ function makeLayer() {
     recompute, defaultState, mergeState, buildEmptyTemplateFrom, batchHasSavableWork, collectExportData,
     renderAll, mount, today: todayKit, shareLines,
     limits: { costs: COST_ROWS, meds: MED_ROWS }, costCategories: COST_CATEGORIES, medNames: LAYER_MEDS,
-    tabs: [["today", "Today"], ["setup", "Batch Setup"], ["feed", "Phases & Feed"], ["daily", "Daily Record"], ["weekly", "Weekly Summary"], ["health", "Health & Vaccines"], ["costs", "Operational Costs"], ["sales", "Sales"], ["report", "Batch Report"]],
+    tabs: [["today", "Today"], ["setup", "Batch Setup"], ["feed", "Phases & Feed"], ["daily", "Daily Record"], ["weekly", "Weekly Summary"], ["health", "Health & Vaccines"], ["mymoney", "My money"], ["costs", "Operational Costs"], ["sales", "Sales"], ["report", "Batch Report"]],
     printPrepare(tab) {
       if (tab !== "daily") return () => {};
       dailyPrintAll = true; renderDaily();
@@ -8895,7 +9510,7 @@ function createTodayKit(cfg) {
     }
     const sum = $("todaySummary");
     if (sum) {
-      sum.innerHTML = cfg.summaryCards().filter((c) => !(hideMoney() && /profit|cost|revenue/i.test(c[0]))).map((c) =>
+      sum.innerHTML = cfg.summaryCards().filter((c) => !(hideMoney() && /profit|cost|revenue|surplus|money back|invest|recover|owe|feed left/i.test(c[0]))).map((c) =>
         `<div class="sum-card${c[2] ? " " + c[2] : ""}"><label>${escapeHtml(c[0])}</label><div class="val">${c[1]}</div></div>`
       ).join("");
     }
@@ -8912,7 +9527,7 @@ function createTodayKit(cfg) {
     if (cards) {
       cards.innerHTML = idx === null
         ? '<div class="day-card"><label>Daily record</label><div class="val">No daily row for this date</div></div>'
-        : cfg.dayCards(idx, selected).filter((c) => !(hideMoney() && /cost|profit|revenue/i.test(c[0]))).map((c) => `<div class="day-card"><label>${escapeHtml(c[0])}</label><div class="val">${c[1]}</div></div>`).join("");
+        : cfg.dayCards(idx, selected).filter((c) => !(hideMoney() && /cost|profit|revenue|surplus|money back|invest|recover|trays needed/i.test(c[0]))).map((c) => `<div class="day-card"><label>${escapeHtml(c[0])}</label><div class="val">${c[1]}</div></div>`).join("");
     }
     cfg.renderActivity(selected, idx);
     renderWeek();
