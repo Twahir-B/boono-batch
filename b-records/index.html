@@ -1115,7 +1115,7 @@ html[data-theme="dark"] .tour-card p{color:#e8ece9;}
         <li>
           <div>
             <strong>Make a backup before you change phones or uninstall</strong>
-            <span>The phone will <strong>not</strong> ask you to back up when you uninstall — that is an Android limit, not a missing feature. You must back up yourself: ☰ → <strong>Download backup</strong> → type <strong>2</strong> (everything). Keep the file somewhere safe (B-records folder, WhatsApp to yourself, or Drive). On another phone: install B-records → ☰ → <strong>Restore backup</strong> → choose how to restore (usually <strong>3</strong> = add to library and open, which keeps any batches already on that phone).</span>
+            <span>The phone will <strong>not</strong> ask you to back up when you uninstall — that is an Android limit, not a missing feature. You must back up yourself: ☰ → <strong>Download backup</strong> → type <strong>2</strong> (everything). Keep the file somewhere safe (the B-records folder, WhatsApp to yourself, or Drive). Not sure where it went? Open ☰ → <strong>Where are my files?</strong>. On another phone: install B-records → ☰ → <strong>Restore backup</strong> → choose how to restore (usually <strong>3</strong> = add to library and open, which keeps any batches already on that phone).</span>
           </div>
         </li>
         <li>
@@ -1523,6 +1523,7 @@ html[data-theme="dark"] .tour-card p{color:#e8ece9;}
 <aside class="side-panel" id="sidePanel" aria-label="Menu">
   <div class="side-panel-head">Tools</div>
   <button class="side-item" id="startHereReopenBtn" data-open-instructions title="Show the how-to-use guide and data-backup instructions again" style="font-weight:900;">Instructions</button>
+  <button class="side-item" id="filesBtn" title="Find your backups, Excel and Word files" style="font-weight:900;">📁 Where are my files?</button>
   <button class="side-item" id="tourBtn" title="A one-minute walk through the app" style="font-weight:900;">▶ Take the tour</button>
   <button class="side-item" id="desktopViewBtn" title="Keep a wider, desktop-style layout across refreshes">Desktop view: Off</button>
   <button class="side-item" id="darkModeBtn" title="Switch between light and dark appearance">Dark mode: Off</button>
@@ -2210,7 +2211,7 @@ const COMMON_COST_CATEGORIES = [
 ];
 
 const BroilerEngine = (function () {
-const APP_VERSION = "1.2.2";
+const APP_VERSION = "2.3.4";
 const FEED_PHASES = ["Pre-Starter", "Starter", "Grower", "Finisher"];
 const DAILY_ROWS = 90;
 const MED_ROWS = 100;
@@ -2648,7 +2649,7 @@ const LayerEngine = (function () {
    Vaccines use "age in weeks" (0 = day-old) as in the spreadsheet.
    ============================================================ */
 
-const APP_VERSION = "1.0.0";
+const APP_VERSION = "2.3.4";
 const DAY_ROWS = 525;          // 75 weeks x 7 days
 const WEEK_ROWS = 75;
 const VAX_ROWS = 80;
@@ -5570,8 +5571,8 @@ const BRLic = (function () {
         await appAlert(
           "File saved.\n\n" +
           (where ? ("Folder:\n" + where + "\n\n") : "") +
-          "File name:\n" + filename +
-          "\n\nIf you do not see the folder, allow storage / all-files access in phone Settings for B-records.",
+          "File name:\n" + filename + "\n\n" + filesSteps(filesWhere()) +
+          (filesWhere().root ? "" : "\n\nTo get a B-records folder on the main storage, open ☰ → Where are my files? and tap Allow it now."),
           "Export"
         );
         return;
@@ -5816,6 +5817,39 @@ const BRLic = (function () {
         window.BoonoAndroid.requestStorageAccess();
       }
     } catch (e) {}
+  }
+
+
+  // ---------------- Where are my files? ----------------
+  function filesWhere() {
+    let path = "";
+    try { if (window.BoonoAndroid && typeof window.BoonoAndroid.getExportFolder === "function") path = String(window.BoonoAndroid.getExportFolder() || ""); } catch (e) {}
+    const root = /^\/(storage\/emulated\/\d+|sdcard)\/B-records\/?$/.test(path);
+    const docs = /\/Documents\/B-records\/?$/.test(path);
+    const hidden = /\/Android\/(data|media)\//.test(path) || (path && !root && !docs);
+    return { path, root, docs, hidden, app: !!(window.BoonoAndroid && typeof window.BoonoAndroid.saveFile === "function") };
+  }
+  function filesSteps(w) {
+    if (w.root) return "To open it: open your phone's Files app → Internal storage → B-records.";
+    if (w.docs) return "To open it: open your phone's Files app → Internal storage → Documents → B-records.";
+    return "The Files app cannot show this folder.";
+  }
+  async function showFilesHelp() {
+    const w = filesWhere();
+    if (!w.app) {
+      await appAlert("You are using B-records in a web browser, so files are saved by your browser.\n\nOpen your phone's Files app → Downloads (or the Downloads list in your browser menu).\n\nBackups, Excel and Word files made with the Android app go to a B-records folder instead.", "Where are my files?");
+      return;
+    }
+    const inside = "Inside you will find:\n• Backups (.json) from ☰ → Download backup\n• Excel files (.xlsx) and Word files (.docx) from the menu\n• A README.txt\n\nKeep a copy of your backups somewhere else too (WhatsApp to yourself, Google Drive or a USB).";
+    if (w.root) {
+      await appAlert("Your files are saved in the folder B-records on your phone.\n\n" + filesSteps(w) + "\n\n" + (w.path ? "Full path: " + w.path + "\n\n" : "") + inside, "Where are my files?");
+      return;
+    }
+    const msg = (w.docs ? "Your files are in Documents → B-records, not on the main storage, because B-records does not have 'All files access' yet.\n\n" + filesSteps(w)
+      : "Your files cannot be shown in the Files app yet, because B-records does not have 'All files access'. They are saved in a hidden app folder" + (w.path ? ":\n" + w.path : ".")) +
+      "\n\nTo get the B-records folder on the main storage: tap 'Allow it now', then switch on 'Allow access to manage all files' for B-records, and come back.\n\n" + inside;
+    const go = await appConfirm(msg, "Where are my files?", { okLabel: "Allow it now", cancelLabel: "Close" });
+    if (go) { try { if (window.BoonoAndroid && typeof window.BoonoAndroid.requestStorageAccess === "function") window.BoonoAndroid.requestStorageAccess(); } catch (e) {} }
   }
 
   // ---------------- In-app dialogs (no system "file://" alerts) ----------------
@@ -6406,7 +6440,7 @@ const BRLic = (function () {
       S.push({ key: "costs", sel: ["#panel-costs .panel-head"], money: true, t: (L ? "5. " : "4. ") + "Costs and Sales", x: "Type wages, medicine, transport and other costs in <b>Costs</b>, and each sale in <b>Sales</b>. <b>Do not type feed</b>: it is already counted for you." });
       S.push({ key: "report", sel: ["#panel-report .panel-head", "#bnav .bn[data-g=report]"], money: true, t: (L ? "6. " : "5. ") + "Report", x: "Your profit, break-even price, deaths and feed use for the whole batch, ready to print or share." });
     }
-    S.push({ key: "today", sel: ["#menuToggle"], t: worker ? "Send your records" : "Back up your records", x: worker ? "When you finish, open this menu and choose <b>Send my records</b> to send your work to your manager." : "Your records stay only on this phone. Open this menu and choose <b>Download backup</b> every week or so, and keep the file safe. You can also take this tour again from here." });
+    S.push({ key: "today", sel: ["#menuToggle"], t: worker ? "Send your records" : "Back up your records", x: worker ? "When you finish, open this menu and choose <b>Send my records</b> to send your work to your manager." : "Your records stay only on this phone. Open this menu and choose <b>Download backup</b> every week or so, and keep the file safe. <b>Where are my files?</b> in the same menu shows where your backups and Excel files are. You can also take this tour again from here." });
     S.push({ t: "You are ready ✅", x: worker ? "Open <b>Today</b> and type your first day." : "Start with <b>Setup</b>, then use <b>Today</b> every day. To see this tour again, open the menu and choose <b>Take the tour</b>." });
     return S.filter((st) => !(st.money && hideMoney()) && !(st.key && !document.querySelector('#tabbar .tab[data-tab="' + st.key + '"]')));
   }
@@ -6471,6 +6505,18 @@ const BRLic = (function () {
     tourShow();
   }
 
+
+  // Numbers that can never be negative (birds, prices, kilograms...): a typed or pasted minus value is cleared
+  // before anything is calculated. The daily table and Today form already refuse and restore their own values.
+  document.addEventListener("input", (e) => {
+    const el = e.target;
+    if (!el || el.tagName !== "INPUT" || el.type !== "number") return;
+    if (el.closest("#dailyBody, #todayFormMain")) return;
+    if (el.min === "" || Number(el.min) < 0) return;
+    const v = parseFloat(el.value);
+    if (isFinite(v) && v < 0) { el.value = ""; try { entryToast("Numbers cannot be below zero. The box was cleared."); } catch (x) {} }
+  }, true);
+
   function initStartHere(fresh) {
     const screen = document.getElementById("startHere");
     const continueBtn = document.getElementById("startHereContinue");
@@ -6498,6 +6544,8 @@ const BRLic = (function () {
       if (guideType === "broiler" && vaxCheck) getModule("broiler").onGuideContinue(vaxCheck.checked);
       startTour(guideType || currentType);
     });
+    const filesMenuBtn = document.getElementById("filesBtn");
+    if (filesMenuBtn) filesMenuBtn.addEventListener("click", () => setTimeout(showFilesHelp, 50));
     const tourMenuBtn = document.getElementById("tourBtn");
     if (tourMenuBtn) tourMenuBtn.addEventListener("click", () => startTour(currentType));
     if (continueBtn) {
@@ -6508,7 +6556,10 @@ const BRLic = (function () {
         if (guideType === "broiler" && vaxCheck) {
           getModule("broiler").onGuideContinue(vaxCheck.checked);   // remembers the choice
         }
-        if (!toured) setTimeout(() => startTour(guideType || currentType), 350);   // first time: offer the walk-through
+        if (!toured) {   // first time: offer the walk-through, after any permission message has been answered
+          const t0 = Date.now(), tryTour = () => { if (document.querySelector(".app-dialog") && Date.now() - t0 < 30000) setTimeout(tryTour, 600); else startTour(guideType || currentType); };
+          setTimeout(tryTour, 350);
+        }
       });
     }
     // One shared handler for the side-panel link and the "Instructions" link at the bottom of every tab.
